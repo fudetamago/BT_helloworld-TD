@@ -1,0 +1,4450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='true' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.3.0' b:version='2' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+
+<head>
+  <!-- 文字化けを防ぐ -->
+  <meta charset='UTF-8'/>
+  <!-- モバイル表示の設定 -->
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+  <!-- Bloggerの設定読み込み -->
+  <b:include data='blog' name='all-head-content'/>
+
+  <!-- タブに表示されるテキスト -->
+  <b:if cond='data:blog.pageType == &quot;index&quot; '>
+    <!-- インデックスページの場合&#65288;個別記事&#12539;固定ページ以外&#65289; -->
+    <title><data:blog.pageTitle/></title>
+  <b:else/>
+    <!-- 個別記事&#12539;固定ページの場合 -->
+    <title><data:blog.pageName/>-<data:blog.title/></title>
+  </b:if>
+
+  <!-- OGP設定 -->
+  <b:if cond='data:blog.pageType == &quot;item&quot; or data:blog.pageType == &quot;static_page&quot;'>
+    <meta expr:content='data:blog.pageName' property='og:title'/>
+    <meta content='article' property='og:type'/>
+  <b:else/>
+    <meta expr:content='data:blog.title' property='og:title'/>
+    <meta content='website' property='og:type'/>
+  </b:if>
+  
+  <b:if cond='data:blog.metaDescription != &quot;&quot;'>
+    <meta expr:content='data:blog.metaDescription' property='og:description'/>
+  </b:if>
+  
+  <meta expr:content='data:blog.url' property='og:url'/>
+  <meta expr:content='data:blog.title' property='og:site_name'/>
+  <meta content='ja_JP' property='og:locale'/>
+  
+  <!-- og:image -->
+  <b:if cond='data:blog.pageType == &quot;item&quot; or data:blog.pageType == &quot;static_page&quot;'>
+    <meta expr:content='&quot;http://blogger-entry-image.appspot.com/?s=s900&amp;u=&quot; + data:blog.url' property='og:image'/>
+  <b:else/>
+  </b:if>
+
+  <!-- Twitterカード -->
+  <meta content='summary_large_image' name='twitter:card'/>
+  <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
+
+  <b:if cond='data:blog.pageType == &quot;item&quot;'>
+    <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
+    <meta expr:content='data:blog.pageName' name='twitter:title'/>
+    <meta expr:content='data:blog.postImageUrl' name='twitter:image:src'/>
+  <b:if cond='data:blog.pageType == &quot;index&quot;'>
+    <meta expr:content='data:blog.title' name='twitter:title'/>
+    <!-- 自分の画像URLに変更する -->
+    <meta content='https://1.bp.blogspot.com/-rkhmAb2Zph8/X0nJOvitpZI/AAAAAAAAb78/IAednQHMKRU1l-4o1mMtsSg-HnsOBEiagCLcBGAsYHQ/s1600/blogger.png'/>
+  <b:else/>
+    <meta expr:content='data:blog.homepageUrl' name='twitter:url'/>
+    <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+    <meta content='Image URL' name='twitter:image:src'/>
+  </b:if>
+  </b:if>
+
+  <b:if cond='data:blog.metaDescription'>
+    <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+  </b:if>
+
+  <!-- font-awesome CDN -->
+  <link href='https://use.fontawesome.com/releases/v5.6.1/css/all.css' rel='stylesheet'/>
+
+  <!-- CSS -->
+  <b:skin><![CDATA[
+    
+
+    /*-----------------------------------------------------------------------------
+    Name:      Hello world!
+    Version:   1.0
+    Author:    Blogger Labo
+    Copyright: Blogger Labo
+    Url:       https://blogger-learning-rab.blogspot.com/
+    Lisense:   カスタマイズ推奨.販売、再配布はダメゼッタイ
+    ----------------------------------------------------------------------------- */
+
+    /* ----------------------------------------------------------------------------
+    テーマデザイナー
+    ----------------
+
+    <Group description="ヘッダー">
+      <Variable name="header.background.color" description="ヘッダの背景色" type="color" default="#333333" value="#333333"/>
+      <Variable name="header.title.color" description="タイトルの色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="header.description.color" description="説明文の色" type="color" default="#fafafa" value="#fafafa"/>
+    </Group>
+
+    <Group description="ヘッダーナビ">
+      <Variable name="navi.background.color" description="ナビの背景色" type="color" default="#444444" value="#444444"/>
+      <Variable name="navi.font.color" description="リンクの文字色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="navi.link.background.color" description="リンクの背景色" type="color" default="#444444" value="#444444"/>
+      <Variable name="navi.hover.color" description="リンクの背景色（ホバー）" type="color" default="#555555" value="#555555"/>
+    </Group>
+
+    <Group description="ブログの背景色">
+      <Variable name="body.background.color" description="背景色" type="color" default="#eeeeee" value="#eeeeee"/>
+    </Group>
+    
+    <Group description="記事リスト">
+      <Variable name="article.title.color" description="タイトルの文字色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="article.title.background.color" description="タイトルの背景色" type="color" default="#333333" value="#333333"/>
+      <Variable name="article.background.color" description="リストの背景色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="article.info.color" description="日付・タグの背景色" type="color" default="#666666" value="#666666"/>
+      <Variable name="article.description.color" description="説明文の色" type="color" default="#444444" value="#444444"/>
+      <Variable name="article.button.font.color" description="もっと読むボタンの文字色" type="color" default="#666666" value="#666666"/>
+      <Variable name="article.button.background.color" description="もっと読むボタンの色" type="color" default="#fbfbfb" value="#fbfbfb"/>
+      <Variable name="article.button.hover.color" description="もっと読むボタンの色（ホバー）" type="color" default="#eeeeee" value="#eeeeee"/>
+    </Group>
+
+    <Group description="ページャ">
+      <Variable name="pager.font.color" description="ページャの文字色" type="color" default="#999999" value="#999999"/>
+      <Variable name="pager.background.color" description="ページャの背景色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="pager.border.color" description="ページャの枠線色" type="color" default="#333333" value="#333333"/>
+      <Variable name="pager.hover.font.color" description="ページャの文字色（ホバー）" type="color" default="#666666" value="#666666"/>
+      <Variable name="pager.hover.background.color" description="ページャの背景色（ホバー）" type="color" default="#dddddd" value="#dddddd"/>
+      <Variable name="pager.active.font.color" description="ページャの文字色（アクティブ）" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="pager.active.background.color" description="ページャの背景色（アクティブ）" type="color" default="#333333" value="#333333"/>
+    </Group>
+
+    <Group description="個別記事・固定ページ">
+      <Variable name="post.title.color" description="タイトルの文字色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="post.title.background.color" description="タイトルの背景色" type="color" default="#333333" value="#333333"/>
+      <Variable name="post.info.font.color" description="日付・タグの文字色" type="color" default="#888888" value="#888888"/>
+      <Variable name="post.info.background.color" description="日付・タグの背景色" type="color" default="#fbfbfb" value="#fbfbfb"/>
+      <Variable name="post.info.border.color" description="日付・タグの枠線色" type="color" default="#eeeeee" value="#eeeeee"/>
+      <Variable name="post.info.link.color" description="日付・タグのリンク色" type="color" default="#dfdfdf" value="#dfdfdf"/>
+      <Variable name="post.body.font.color" description="投稿の文字色" type="color" default="#333333" value="#333333"/>
+      <Variable name="post.body.background.color" description="投稿の背景色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="post.body.link.color" description="リンク色" type="color" default="#0000ee" value="#0000ee"/>
+      <Variable name="post.body.hover.link.color" description="リンク色（ホバー）" type="color" default="#fe0000" value="#fe0000"/>
+      <Variable name="post.body.visited.link.color" description="リンク色（訪問済）" type="color" default="#551b8c" value="#551b8c"/>
+    </Group>
+
+    <Group description="記事の見出し">
+      <Variable name="post.h2.font.color" description="大見出し（h2）の文字色" type="color" default="#333333" value="#333333"/>
+      <Variable name="post.h2.background.color" description="大見出し（h2）の背景色" type="color" default="#f5f5f5" value="#f5f5f5"/>
+      <Variable name="post.h2.border.color" description="大見出し（h2）の枠線色" type="color" default="#333333" value="#333333"/>
+      <Variable name="post.h3.font.color" description="中見出し（h3）の文字色" type="color" default="#333333" value="#333333"/>
+      <Variable name="post.h3.border.color" description="中見出し（h3）の枠線色" type="color" default="#333333" value="#333333"/>
+      <Variable name="post.h4.font.color" description="小見出し（h4）の文字色" type="color" default="#333333" value="#333333"/>
+      <Variable name="post.h4.border.color" description="小見出し（h4）の枠線色" type="color" default="#333333" value="#333333"/>
+    </Group>
+
+    <Group description="関連記事">
+      <Variable name="RP.title.color" description="関連記事見出しの文字色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="RP.title.background.color" description="関連記事見出しの背景色" type="color" default="#333333" value="#333333"/>
+      <Variable name="RP.background.color" description="関連記事全体の背景色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="RP.item.color" description="関連記事アイテムの文字色" type="color" default="#444444" value="#444444"/>
+      <Variable name="RP.item.hover.color" description="関連記事アイテムの背景色（ホバー）" type="color" default="transparent" value="transparent"/>
+    </Group>
+
+    <Group description="コメント全体">
+      <Variable name="comment.title.color" description="コメント見出しの文字色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="comment.title.background.color" description="コメント見出しの背景色" type="color" default="#333333" value="#333333"/>
+      <Variable name="comment.background.color" description="コメント全体の背景色" type="color" default="#ffffff" value="#ffffff"/>
+    </Group>
+
+    <Group description="コメント内容（埋め込み）">
+      <Variable name="comment.subtitle.color" description="コメント件数の色" type="color" default="#555555" value="#555555"/>
+      <Variable name="comment.user.color" description="コメントの投稿者名の色" type="color" default="#555555" value="#555555"/>
+      <Variable name="comment.date.color" description="コメントの投稿者日時の色" type="color" default="#666666" value="#666666"/>
+      <Variable name="comment.color" description="コメントの色" type="color" default="#333333" value="#333333"/>
+      <Variable name="comment.link.color" description="コメントのリンク色" type="color" default="#0000ff" value="#0000ff"/>
+      <Variable name="comment.reply.background.color" description="返信の背景色" type="color" default="#fafafa" value="#fafafa"/>
+    </Group>
+
+    <Group description="コメント内容（ポップアップ）">
+      <Variable name="comment.number.color" description="コメント件数の色" type="color" default="#666666" value="#666666"/>
+      <Variable name="comment.button.font.color" description="コメント表示ボタンの文字色" type="color" default="#333333" value="#333333"/>
+      <Variable name="comment.button.background.color" description="コメント表示ボタンの背景色" type="color" default="#eeeeee" value="#eeeeee"/>
+    </Group>
+
+    <Group description="目次">
+      <Variable name="toc.title.color" description="【目次】の文字色" type="color" default="#555555" value="#555555"/>
+      <Variable name="toc.background.color" description="目次の背景色" type="color" default="#f9f9f9" value="#f9f9f9"/>
+      <Variable name="toc.border.color" description="目次の枠線色" type="color" default="#bbbbbb" value="#bbbbbb"/>
+      <Variable name="toc.link.color" description="目次のリンク色" type="color" default="#666666" value="#666666"/>
+    </Group>
+
+    <Group description="パンくずリスト">
+      <Variable name="breadcrumbs.font.color" description="パンくずリストの文字色" type="color" default="#666666" value="#666666"/>
+      <Variable name="breadcrumbs.link.color" description="パンくずリストのリンク色" type="color" default="#999999" value="#999999"/>
+    </Group>
+
+    <Group description="サイドバー">
+      <Variable name="widget.title.color" description="タイトルの文字色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="widget.title.background.color" description="タイトル背景色" type="color" default="#333333" value="#333333"/>
+      <Variable name="widget.background.color" description="ガジェットの背景色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="widget.subtitle.color" description="ガジェットの見出色" type="color" default="#333333" value="#333333"/>
+      <Variable name="widget.description.color" description="ガジェットの文字色" type="color" default="#444444" value="#444444"/>
+    </Group>
+
+    <Group description="リストガジェット">
+      <Variable name="widget.list.color" description="リストの文字色" type="color" default="#444444" value="#444444"/>
+      <Variable name="widget.list.hover.color" description="リストの文字色（ホバー）" type="color" default="#dddddd" value="#dddddd"/>
+      <Variable name="widget.list.background.color" description="リストの背景色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="widget.list.background.color.even" description="リストの背景色（2）" type="color" default="#f9f9f9" value="#f9f9f9"/>
+    </Group>
+
+    <Group description="ガジェットその他">
+      <Variable name="widget.button.color" description="ボタンの文字色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="widget.button.background.color" description="ボタンの背景色" type="color" default="#3079ED" value="#3079ED"/>
+    </Group>
+
+    <Group description="ページトップボタン">
+      <Variable name="PTB.icon.color" description="ページトップボタンのアイコン色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="PTB.background.color" description="ページトップボタンの背景色" type="color" default="#444444" value="#444444"/>
+      <Variable name="PTB.icon.hover.color" description="ページトップボタンのアイコン色（ホバー）" type="color" default="#eeeeee" value="#eeeeee"/>
+      <Variable name="PTB.background.hover.color" description="ページトップボタンの色（ホバー）" type="color" default="#666666" value="#666666"/>
+    </Group>
+
+    <Group description="フッター">
+      <Variable name="footer.font.color" description="フッターの文字色" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="footer.background.color" description="フッターの背景色" type="color" default="#333333" value="#333333"/>
+      <Variable name="footer.link.color" description="フッターのリンク色" type="color" default="#dddddd" value="#dddddd"/>
+      <Variable name="footer.link.hover.color" description="フッターのリンク色（ホバー）" type="color" default="#555555" value="#555555"/>
+      <Variable name="copyRight.color" description="コピーライト" type="color" default="#999999" value="#999999"/>
+    </Group>
+    ---------------------------------------------------------------------------- */
+
+    /* ----------------------------------------------------------------------------
+    WEBフォント
+    ---------------------------------------------------------------------------- */
+
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
+    @import url('https://fonts.googleapis.com/css?family=Sawarabi+Gothic');
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+    /* ----------------------------------------------------------------------------
+    ページ全体
+    ---------------------------------------------------------------------------- */
+
+    body {
+      font-family: "Helvetica Neue", Arial,"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;
+      background: $(footer.background.color); /* フッターの背景色 */
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ----------------------------------------------------------------------------
+    ガジェットのデフォルト設定をリセット
+    ---------------------------------------------------------------------------- */
+
+    .section{margin:.0; padding:0;}
+    .widget{margin:.0; padding:0;}
+    .widget ul{margin:.0; padding:0;}
+    .widget ol{margin:.0; padding:0;}
+    .widget-content li{list-style-type: none;}
+
+    /* ----------------------------------------------------------------------------
+    ヘッダー
+    ---------------------------------------------------------------------------- */
+
+    /* ヘッダー全体 */
+    #Header1 {
+      text-align: center;
+      padding: 10px 0;
+      background: $(header.background.color);
+      width: 100%;
+    }
+
+    /* ブログタイトル */
+    #Header1 a {
+      color: $(header.title.color);
+      font-size: 40px;
+      padding: 5px 0;
+      margin: 3px auto;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* サブタイトル */
+    #Header1 p {
+      color: $(header.description.color);
+      font-family: 'メイリオ', sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 0.2em;
+      margin: 10px 0;
+    }
+    
+    /* ----------------------------------------------------------------------------
+    ヘッダーナビ
+    ---------------------------------------------------------------------------- */
+    
+    /* PC用ヘッダーナビ
+    ---------------------------------------------------------------------------- */
+
+    /* ガジェットのデフォルト設定を解除 */
+    body .navbar{
+      height: auto;
+    }
+
+    /* メニュー全体 */
+    .navbar ul {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      background: $(navi.background.color);
+      padding: 0 5%;
+    }
+    
+    /* リスト部分 */
+    .navbar li {
+      padding: 0;
+    }
+
+    /* リストリンク部分 */
+    .navbar li a {
+      display: inline-block;
+      color: $(navi.font.color);
+      background: $(navi.link.background.color);
+      padding: 10px 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .navbar li a:hover {
+      background: $(navi.hover.color);
+    }
+
+    /* PCではスマホ用のヘッダーナビを消す */
+    .navbar-res {
+      display: none;
+    }
+
+    /* スマホ用ヘッダーナビ
+    ---------------------------------------------------------------------------- */
+
+    /* チェックボックスを隠す */
+
+    .toggle-button {
+      position: absolute;
+      left: -50vw;
+    }
+
+    @media screen and (max-width: 560px) {
+        
+      /* スマホではPC用のヘッダーナビを消す */
+        .navbar {
+          display: none;
+        }
+
+      /* ヘッダーナビ */
+      .navbar-res {
+        display: flex;
+        justify-content: space-between;
+        background: #444;
+      }
+
+      /* ボタンデザイン */
+
+      .menu-button, .side-button {
+        display: block;
+        cursor: pointer;
+        user-select: none;
+        color: $(navi.font.color);
+        padding: 8px 10px;
+      }
+
+      .menu-button:hover, .side-button:hover {
+        background: $(navi.hover.color);
+      }
+
+      /* ボタンの文字 */
+
+      .button-text {
+        font-size: 20px;
+        font-family: 'Bebas Neue', sans-serif;
+      }
+
+      #menu-icon {
+        font-size: 18px;
+        font-weight: 600;
+        margin-right: 8px;
+      }
+
+      #side-icon {
+        font-size: 22px;
+        font-weight: 600;
+        margin-left: 8px;
+      }
+
+      /* リスト */
+
+      .navbar-res ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .nav-menu {
+        display: none;
+        position: absolute;
+        width: 100%;
+        list-style: none;
+        z-index: 99;
+      }
+      
+      .nav-menu li {
+        padding: 0;
+      }
+
+      /* リストリンクの設定 */
+      .nav-menu a {
+        display: block;
+        color: $(navi.font.color);
+        background: $(navi.link.background.color);
+        font-size: 15px;
+        opacity: 0.9;
+        text-decoration: none;
+        font-family: 'Archivo Black', 'M PLUS Rounded 1c', sans-serif;
+        font-weight: bold;
+        padding: 10px 15px;
+        margin: 0;
+      }
+
+      .nav-menu a:hover {
+        background: $(navi.hover.color);
+        opacity: 1;
+      }
+
+      /* MENUボタンアクション */
+
+      #menu-open:checked~.nav-menu {
+        display: block;
+      }
+
+      #menu-open:checked~.menu-back {
+        display: block;
+        position: fixed;
+        top: 0vw;
+        left: 0vw;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 10px;
+        overflow: hidden;
+        z-index: 99;
+      }
+
+      /* メニューアニメ */
+      
+      #menu-open:checked~.nav-menu {
+        animation-name: nav-menu;
+        animation-duration: 0.3s;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+      }
+      @keyframes nav-menu {
+        0% {
+          opacity: 0;
+          transform: translateY(-5px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+    }
+
+    /* ----------------------------------------------------------------------------
+    メイン
+    ---------------------------------------------------------------------------- */
+    
+    /* メインの背景色 */
+    .main-wrapper {
+      position: relative;
+      background: $(body.background.color);
+      padding: 40px 10%;
+      z-index: 1;
+    }
+    
+    /* コンテナ */
+    .container {
+      display: flex;
+    }
+
+    /* メイン */
+    main {
+      width: 75vw;
+      margin-right: 30px;
+    }
+
+    /* レスポンシブ（タブレット縦） */
+    @media screen and (max-width: 960px) {
+      .main-wrapper {
+        padding: 40px 5%;
+      }
+    }
+
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      .main-wrapper {
+        padding: 30px 5px;
+      }
+      .container {
+        flex-direction: column;
+        margin: 0 10px 10px;
+      }
+      main {
+      width: 100%;
+      margin-right: 0;
+      }
+    }
+
+    /* 記事リスト
+    ---------------------------------------------------------------------------- */
+
+    /* 記事リスト全体 */
+    .articles-area {
+      background: $(article.background.color);
+      margin-bottom: 20px;
+    }
+
+    /* 投稿タイトル */
+    .articles-area h2 {
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    .articles-area h2 a {
+      display: block;
+      text-decoration: none;
+      font-weight: bold;
+      background: $(article.title.background.color);
+      color: $(article.title.color);
+      padding: 6px 15px;
+    }
+
+    .articles-area a:hover {
+      opacity: 0.6;
+    }
+
+    .article-post-wrap {
+      display: flex;
+      position: relative;
+      height:200px;
+      padding: 10px;
+    }
+
+    /* サムネイル */
+    .article-thumbnail {
+      width: 70%;
+      margin-right: 15px;
+      overflow: hidden;
+    }
+
+    .article-thumbnail img {
+      width: 99%; /* 境界線を表示するため */
+      height: 99%;
+      border: solid 1px #ddd;
+      object-fit: cover;
+    }
+
+    /* サムネイル右のエリア */
+    .article-post-area {
+      width: 100%;
+      height:100%;
+    }
+
+    .article-info-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      font-size: 13px;
+      color: $(article.info.color);
+      height: 24px;
+      overflow: hidden; /* タグがはみ出ると消えるようにする */
+    }
+
+    .article-info-area a {
+      text-decoration: none;
+      color: $(article.info.color);
+    }
+
+    .article-post-date {
+      display: inline-block;
+      margin-right: 1em;
+      border-bottom: dashed 1px $(article.info.color);
+      margin-bottom: 2px;
+    }
+
+    .article-post-tag a {
+      display: inline-block;
+      border-bottom: dashed 1px $(article.info.color);
+      padding: 2px 0;
+      margin-right: 2px;
+    }
+
+    .article-post-tag a:hover {
+      opacity: 0.6;
+    }
+
+    .fa-calendar {
+      margin-right: 6px;
+    }
+
+    .fa-tag {
+      margin-right: 3px;
+    }
+
+    /* 要約文 */
+    .post-snippet {
+      font-size: 14px;
+      line-height: 1.7em;
+      color: $(article.description.color);
+      margin: 15px 0;
+      height: 108px;
+      overflow: hidden;
+    }
+
+    .read-more {
+      font-size: 14px;
+    }
+
+    .read-more a {
+      display: block;
+      text-decoration: none;
+      background: $(article.button.background.color);
+      color: $(article.button.font.color);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .read-more a:hover {
+      background: $(article.button.hover.color);
+    }
+
+    /* レスポンシブ（タブレット縦） */
+    @media screen and (max-width: 960px) {
+      .article-post-wrap {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+      }
+      .article-thumbnail {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 5px;
+        overflow: visible;
+      }
+      .article-thumbnail img {
+        width: 100%;
+        height: 300px;
+      }
+      .article-info-area {
+        height: auto;
+      }
+      .post-snippet {
+        height: auto;
+      }
+    }
+
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      .articles-area h2 {
+        font-size: 16px;
+      }
+      .article-thumbnail img {
+        height: 200px;
+      }
+      .article-info-area {
+        font-size: 12px;
+      }
+      .post-snippet {
+        font-size: 12px;
+      }
+    }
+
+    /* 記事リストのページャ
+    ---------------------------------------------------------------------------- */
+
+    .pager-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      margin-top: 30px;
+    }
+
+    #blog-pager {
+      padding: 0;
+      margin: 0;
+    }
+
+    .blog-pager a {
+      display: inline-block;
+      text-decoration: none;
+      background-color: $(pager.background.color);
+      color: $(pager.font.color);
+      padding: 6px 12px;
+      margin: 0 2px;
+    }
+
+    .blog-pager a:hover {
+      background-color: $(pager.hover.background.color);
+      color: $(pager.hover.font.color);
+    }
+
+    /* 前の投稿 */
+    .blog-pager-older-link {
+      font-size: 0;
+    }
+
+    .blog-pager-older-link::before {
+      font-family: "Font Awesome 5 Free";
+      content: "\f105";
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    /* ホーム */
+    .home-link {
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    /* 新しい投稿 */
+    .blog-pager-newer-link {
+      font-size: 0;
+    }
+
+    .blog-pager-newer-link::before {
+      font-family: "Font Awesome 5 Free";
+      content: "\f104";
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    /* 記事リストの番号付きページャ
+    ---------------------------------------------------------------------------- */
+
+    #blog-pager {overflow: visible}
+
+    /* Page * of * の表示 */
+    .showpageOf {
+      visibility:hidden;
+      font-size: 0;
+      padding: 0;
+      maegin: 0;
+      }
+
+    /* アクティブ番号 */
+    span.showpagePoint {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 6px 12px;
+      margin: 0 2px;
+      background-color: $(pager.active.background.color);
+      color: $(pager.active.font.color);
+      pointer-events: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* 番号リスト */
+    span.showpageNum, span.showpage {
+        margin: 0 2px;
+    }
+
+    .showpageNum a, .showpage a {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 6px 12px;
+      color: $(pager.font.color);
+      text-decoration: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* ----------------------------------------------------------------------------
+    コンテンツ共通部分
+    ---------------------------------------------------------------------------- */
+
+    /* 記事全体 */
+    .post-area {
+      background: $(post.body.background.color);
+      padding-bottom: 20px;
+      max-width: 800px;
+    }
+
+    /* 記事の画像
+    ---------------------------------------------------------------------------- */
+
+    .post-area img {
+      border: solid 1px #ddd;
+      object-fit: cover;
+    }
+
+    /* デフォルトの余白を削除 */
+    .separator a {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* 記事のタイトル・見出し・コンテンツ
+    ---------------------------------------------------------------------------- */
+
+    /* 記事タイトル */
+    .post-area h1 {
+      background: $(post.title.background.color);
+      color: $(post.title.color);
+      font-size: 24px;
+      letter-spacing: 2px;
+      padding: 15px 20px;
+      margin: 0;
+    }
+
+    /* 大見出し（h2） */
+    .post-area h2 {
+      border-left: solid 4px $(post.h2.border.color);
+      background: $(post.h2.background.color);
+      color: $(post.h2.font.color);
+      font-size: 20px;
+      padding: 10px;
+      margin: 0;
+    }
+
+    /* 中見出し（h3） */
+    .post-area h3 {
+      border-left: solid 4px $(post.h3.border.color);
+      border-bottom: solid 1px $(post.h3.border.color);
+      font-size: 18px;
+      color: $(post.h3.font.color);
+      padding: 6px 10px;
+      margin:0;
+    }
+
+    /* 小見出し（h4） */
+    .post-area h4 {
+      border-left: solid 4px $(post.h4.border.color);
+      font-size: 16px;
+      color: $(post.h4.font.color);
+      padding: 3px 10px;
+      margin: 0;
+    }
+
+    /* 見出し（h5） */
+    .post-area h5 {
+      color: #333;
+      margin: 0;
+    }
+
+    /* 見出し（h6） */
+    .post-area h6 {
+      color: #333;
+      margin: 0;
+    }
+
+    /* コンテンツ（本文の内容） */
+    .post-content {
+      font-size: 14px;
+      font-weight: 500;
+      color: $(post.body.font.color);
+      letter-spacing: 2px;
+      line-height: 1.8em;
+      padding: 10px 20px;
+      overflow: hidden;
+    }
+
+    /* 段落設定 */
+    .post-content p {
+      padding: 0 15px;
+    }
+
+    /* リンク設定 */
+    .post-content a {
+      color: $(post.body.link.color);
+      text-decoration: none;
+      padding: 2px;
+    }
+
+    .post-content a:hover {
+      color: $(post.body.hover.link.color);
+      opacity: 0.6;
+    }
+
+    .post-content a:visited {
+      color: $(post.body.visited.link.color);
+    }
+
+    /* 引用文 */
+    blockquote {
+      position: relative;
+      background: #fafafa;
+      padding: 30px;
+      margin: 10px 15px;
+    }
+
+    blockquote::before {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f10d";
+      font-size: 18px;
+      color: #ddd;
+    }
+
+    blockquote::after {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f10e";
+      font-size: 18px;
+      color: #ddd;
+    }
+
+    blockquote p {
+      padding: 0;
+      margin: 0;
+    }
+
+    /* リスト */
+    .post-area ul li {
+      margin-left: 30px;
+    }
+
+    .post-area ul {
+      padding-left: 0;
+      margin-left: 1.5em;
+    }
+
+    /* 番号付きリスト */
+    .post-area ol li {
+      margin-left: 30px;
+      padding: 0;
+    }
+
+    .post-area ol {
+      padding-left: 0;
+      margin-left: 1.8em;
+    }
+
+    /* テーブル（画像の説明に影響するためコメントアウト）
+    ----------------------------------------------------------------------------
+
+    .post-content table {
+      margin: 0 auto;
+    }
+
+    .post-content table, .post-content th, .post-content td {
+      border: solid 1px #999;
+    }
+
+    .post-content th, .post-content td {
+      padding: 5px;
+    }
+
+    .post-content th {
+      background: #fafafa;
+    }
+
+    ---------------------------------------------------------------------------- */
+    
+    /* レスポンシブ（タブレット縦） */
+    @media screen and (max-width: 960px) {
+      .post-content {
+        padding: 30px 15px 0;
+      }
+      .post-area img {
+        height: auto;
+        max-width: 95%;
+      }
+      .separator {
+        height: auto;
+        max-width: 95%;
+      }
+    }
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      .post-area h1 {
+        font-size: 18px;
+        padding: 10px 15px;
+      }
+      .post-area h2 {
+        font-size: 16px;
+      }
+      .post-area h3 {
+        font-size: 15px;
+      }
+      .post-area h4 {
+        font-size: 14px;
+      }
+      .post-content {
+        font-size: 13px;
+      }
+      .post-area ul li {
+        margin-left: 15px;
+      }
+      .post-area ol li {
+        margin-left: 15px;
+      }
+      blockquote {
+        padding: 15px 25px;
+        margin: 10px 0;
+      }
+      blockquote::before, blockquote::after {
+        font-size: 14px;
+      }
+    }
+
+    /* ----------------------------------------------------------------------------
+    個別記事ページ
+    ---------------------------------------------------------------------------- */
+
+    /* 公開日・最終更新日・タグ */
+    .single-info-area {
+      display: flex;
+      flex-wrap: wrap;
+      background: $(post.info.background.color);
+      border-bottom: dashed 1px $(post.info.border.color);
+      color: $(post.info.font.color);
+      font-size: 12px;
+      padding: 10px 20px 8px 20px;
+      margin-bottom: 15px;
+    }
+
+    /* 公開日 */
+    .single-release-date {
+      margin-right: 15px;
+      padding: 2px 0 4px 0;
+    }
+
+    /* 最終更新日 */
+
+    .single-modified-date {
+      padding: 2px 0 4px 0;
+    }
+
+    .last-modified {
+      margin-right: 15px;
+    }
+
+    /* タグ */
+
+    .single-post-tag {
+      padding: 2px 0 4px 0;
+    }
+
+    .single-post-tag a {
+      text-decoration: none;
+      color: $(post.info.font.color);
+      padding: 2px;
+    }
+
+    .single-post-tag a:hover {
+      background: $(post.info.link.color);
+      opacity: 0.6;
+    }
+
+    /* アイコン */
+    .post-icon {
+      margin-right: 5px;
+    }
+
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+    .single-info-area {
+        padding: 10px 10px 8px 10px;
+        margin-bottom: 0;
+      }
+    }
+
+    /* SNSボタン
+    ---------------------------------------------------------------------------- */
+
+    .share-area {
+      padding-top: 20px;
+      margin: 0 25px;
+    }
+
+    .share-area ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .share-area li {
+      height: 50px;
+      line-height: 50px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .share-area a {
+      display: block;
+      text-decoration: none;
+      font-size: 20px;
+      color: white;
+    }
+
+    .share-area ul li {
+      margin-left: 0;
+    }
+
+    .share-area ul li a:hover {
+      opacity: 0.6;
+    }
+
+    .facebook a {
+      background-color: #35629a;
+    }
+
+    .twitter a {
+      background-color: #55acee;
+    }
+
+    .hatena a {
+      font-family: Verdana;
+      font-weight: bold;
+      background: #2c6ebd;
+    }
+
+    .pocket a {
+      background: #ee4056;
+    }
+
+    .line a {
+      background: #00B900;
+    }
+
+    /* 個別記事ページャ
+    ---------------------------------------------------------------------------- */
+    
+    .single-pager {
+      display: flex;
+      font-family: Meiryo, sans-serif;
+      margin: 10px 0;
+    }
+
+    .single-pager ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .single-pager li {
+      margin-right: 10px;
+      width: 50%;
+    }
+
+    .single-pager li:last-child {
+      margin: 0;
+    }
+
+    .single-pager ul li a {
+      display: block;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 900;
+      background: $(pager.background.color);
+      color: $(pager.font.color);
+      padding: 10px;
+    }
+
+    .single-pager ul li a:hover {
+      opacity: 0.6;
+    }
+
+    /* 前の記事 */
+    .prev-post-link  a {
+      text-align: left;
+    }
+
+    /* 次の記事 */
+    .next-post-link a {
+      text-align: right;
+    }
+
+    /* ----------------------------------------------------------------------------
+    関連記事
+    ---------------------------------------------------------------------------- */
+    
+    /* 関連記事全体 */
+    #related-posts {
+      background: $(RP.background.color);
+    }
+
+    /* 見出し */
+    .related-text {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: $(RP.title.background.color);
+      color: $(RP.title.color);
+      padding: 6px 15px;
+      margin: 0;
+    }
+
+    /* 関連記事表示部分 */
+    .p-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px 10px 10px;
+    }
+
+    /* 関連記事のリンク設定 */
+
+    #related-posts a {
+      display: block;
+      width: 24%;
+      color: $(RP.item.color);
+      margin: 0 1% 2em 0;
+    }
+
+    #related-posts a:hover {
+      background: $(RP.item.hover.color);
+      opacity: 0.6;
+    }
+
+    /* 関連記事の画像設定 */
+    .related-img {
+      width: 100%;
+      height: 110px;
+      border: solid 1px #ddd;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* 関連記事の記事タイトル設定 */
+    .related-title {
+      font-size: 90%;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    /* 関連記事のレスポンシブ設定 */
+
+    @media screen and (max-width: 560px) {
+      .p-container {
+        flex-direction: column;
+        padding: 10px;
+      }
+      #related-posts a {
+        display: flex;
+        align-items: top;
+        width: 94%;
+        color: $(RP.item.color);
+        padding: 0.8em;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+      }
+      .related-img {
+        width: 100px;
+        height: 100px;
+        margin-right: 15px;
+      }
+      .related-title {
+        font-size: 14px;
+        margin-top: 0;
+      }
+    }
+    
+    /* ----------------------------------------------------------------------------
+    コメント
+    ---------------------------------------------------------------------------- */
+
+    .comment-wrap {
+      margin-top:20px;
+    }
+
+    .comment-wrap h3 {
+      font-size: 18px;
+      letter-spacing: 2px;
+      background: $(comment.title.background.color);
+      color: $(comment.title.color);
+      padding: 6px 15px;
+      margin: 0;
+    }
+
+    .comment-area {
+      background: $(comment.background.color);
+      padding:10px 20px;
+    }
+
+    .comment-area a {
+      font-size: 13px;
+      text-decoration: none;
+      color: $(comment.link.color);
+      padding: 2px;
+    }
+
+    .comment-area a:hover {
+      opacity: 0.6;
+    }
+
+    .comment-area h4 {
+      display: inline;
+      font-size: 15px;
+      color: $(comment.subtitle.color);
+      padding: 2px 0;
+      margin-left: 8px;
+      border-bottom: dashed 1px #555;
+    }
+
+    .comment-area p {
+      font-size: 13px;
+    }
+
+    /* 埋め込み時
+    ---------------------------------------------------------------------------- */
+
+    /* １コメントあたりの範囲 */
+
+    .comments .comment-block {
+      margin-left: 42px;
+    }
+
+    /* コメントの投稿者名 */
+
+    .comments .comments-content .user {
+      font-size: 14px;
+      color: $(comment.user.color);
+    }
+
+   .comments .comments-content .user a {
+      font-size: 14px;
+    }
+
+    /* コメントの投稿日時 */
+    .datetime a {
+      color: $(comment.date.color);
+    }
+
+    /* コメントの内容 */
+    .comments .comments-content {
+      color: $(comment.color);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    /* 返信の背景 */
+
+    .comment-replies {
+      background-color: $(comment.reply.background.color);
+    }
+
+    .comment-content {
+      padding-right:5%;
+     }
+
+    /* ポップアップ時
+    ---------------------------------------------------------------------------- */
+
+    .comment-author {
+    font-size: 13px;
+    color: $(comment.number.color);
+    font-weight: normal;
+    }
+
+    .comment-footer {
+      margin: 10px;
+    }
+
+    .comment-footer a {
+    display: block;
+    color: $(comment.button.font.color);
+    background: $(comment.button.background.color);
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+    }
+
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      .comment-area {
+        padding: 10px;
+      }
+      .comment-area h4 {
+        font-size: 13px;
+        margin-left: 0;
+      }
+    }
+
+    /* ----------------------------------------------------------------------------
+    目次
+    ---------------------------------------------------------------------------- */
+
+    /* 目次タイトル */
+    #toc:before {
+      display: block;
+      text-align: center;
+      content: "\3010\76EE\a0\6B21\3011";
+      font-weight: bold;
+      font-size: 15px;
+      color: $(toc.title.color);
+      letter-spacing: 2px;
+      padding-bottom: 20px;
+    }
+
+    /* 目次全体 */
+    #toc {
+      display: block;
+      width: 60%;
+      background: $(toc.background.color);
+      padding: 10px 10px 20px;
+      font-size: 14px;
+      margin: 0 auto 30px;
+      border: 1px solid $(toc.border.color);
+    }
+
+    #toc ol li {
+      margin-left: 8%;
+    }
+
+    #toc ol {
+      margin: 2px 0 2px 15px;
+      counter-reset: section;
+      list-style-type: none;
+    }
+
+    #toc li {
+      color: $(toc.link.color);
+      font-size: 13px;
+    }
+
+    #toc li:before {
+      color: $(toc.link.color);
+      counter-increment: section;
+      content: counters(section, ".") ".";
+    }
+
+    #toc a {
+      color: $(toc.link.color);
+    }
+
+    #toc a:hover {
+      opacity:0.6;
+    }
+
+     /* レスポンシブ（タブレット縦） */
+    @media screen and (max-width: 960px) {
+      #toc {
+        width: 80%;
+      }
+    }
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      #toc {
+        width: 90%;
+        margin: 0 auto 20px;
+      }
+      #toc ol li {
+        margin-left: 0;
+      }
+    }
+
+    /* ----------------------------------------------------------------------------
+    アドセンス
+    ---------------------------------------------------------------------------- */
+    
+    /* 記事中アドセンス */
+    .ad1{}
+
+    /* 記事下アドセンス（個別記事ページ・固定ページ共用） */
+    .ad2{}
+
+    /* ----------------------------------------------------------------------------
+    パンくずリスト
+    ---------------------------------------------------------------------------- */
+
+    .breadcrumbs {
+      position: absolute;
+      top: -30px;
+      z-index: 2;
+      width: 100%;
+      max-width: 75vw;
+      font-size: 13px;
+      font-weight: bold;
+      color: $(breadcrumbs.font.color);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .breadcrumbs a {
+      color: $(breadcrumbs.link.color);
+      text-decoration: none;
+      padding: 2px;
+    }
+
+    .breadcrumbs a:hover {
+      opacity: 0.6;
+    }
+
+    .article-breadcrumbs {
+      visibility: hidden;
+    }
+
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      .breadcrumbs {
+        top: -23px;
+        max-width: 100vw;
+        overflow-x: auto;
+        overflow-y: hidden;
+        text-overflow: unset;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    /* ----------------------------------------------------------------------------
+    404
+    ---------------------------------------------------------------------------- */
+
+    .error-panel {
+      display: block;
+      user-select: none;
+      font-size: 8vmax;
+      font-weight: bold;
+      font-family: 'Arial Black',sans-serif;
+      text-align: center;
+      color: #bbb;
+      background: #eee;
+      padding: 9vmax 2vmax;
+      margin: 15px 6vmax 30px;
+    }
+
+    .error-url {
+      font-size: 15px;
+      font-style: italic;
+      font-weight: bold;
+      color: #666;
+      text-align: center;
+    }
+
+    .error-message {
+      text-align: center;
+    }
+
+    /* レスポンシブ（タブレット縦） */
+    @media screen and (max-width: 960px) {
+      .error-panel {
+        padding: 13vmax 2vmax;
+        margin: -15px auto 10px; 
+      }
+    }
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      .error-url {
+        font-size: 12px;
+      }
+    }
+
+    /* ----------------------------------------------------------------------------
+    サイドバー
+    ---------------------------------------------------------------------------- */
+
+    .sidebar {
+      height: 100%;
+      width: 25vw;
+    }
+    
+    .sidebar a {
+      text-decoration: none;
+    }
+
+    .sidebar a:hover {
+      opacity: 0.6;
+    }
+
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      .sidebar {
+        height: auto;
+        width: 100%;
+        margin-top: 30px;
+      }
+    }
+
+    /* ----------------------------------------------------------------------------
+    ガジェット（ウィジェット）
+    ---------------------------------------------------------------------------- */
+
+    /* ガジェットタイトル */
+    .sidebar h3 {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: $(widget.title.background.color);
+      color: $(widget.title.color);
+      padding: 6px 15px;
+      margin: 0;
+    }
+
+    /* ガジェット全体 */
+    .sidebar .widget {
+      color: $(widget.description.color);
+      background: $(widget.background.color);
+      margin-bottom: 20px;
+    }
+
+    /* ガジェットの中身 */
+    .sidebar .widget-content {
+      padding: 15px 10px;
+    }
+
+    /* 検索フォーム
+    ---------------------------------------------------------------------------- */
+
+    .BlogSearch form {
+      display: flex;
+      justify-content: center;
+    }
+
+    .BlogSearch input {
+      width: 18vw;
+      height: 24px;
+      margin-right: 3px;
+    }
+
+    .BlogSearch .search-action {
+      width: 50px;
+      height: 30px;
+      font-size: 13px;
+      font-weight: bold;
+      color: $(widget.button.color);
+      letter-spacing: 2px;
+      background: $(widget.button.background.color);
+      border-radius: 2px;
+      border: none;
+    }
+
+    .BlogSearch .search-action:hover {
+      opacity: 0.6;
+    }
+
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
+      .BlogSearch input {
+        width: 65vw;
+      }
+    }
+
+    /* プロフィール
+    ---------------------------------------------------------------------------- */
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* プロフィール画像 */
+    .profile-img {
+      float: none;
+      display: block;
+      border-radius: 50%;
+    }
+
+    .Profile img{
+      margin: 0 auto;
+    }
+
+    /* 著者 */
+    .profile-data {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .profile-data a {
+      font-size: 14px;
+      color: $(widget.subtitle.color);
+    }
+
+    /* 説明 */
+    .profile-textblock {
+      font-size: 13px;
+      padding: 0 10px;
+    }
+
+    /* 詳細プロフィールリンク */
+    .profile-link {
+      font-size: 12px;
+      color: $(widget.button.background.color);
+      text-align: center;
+    }
+
+    /* 注目の投稿
+    ---------------------------------------------------------------------------- */
+
+    .FeaturedPost .post-content {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
+    .FeaturedPost .post-content h3 {
+      background: $(widget.background.color);
+      padding: 2px 0;
+      order:1;
+    }
+
+    .FeaturedPost .post-content h3 a {
+      display: block;
+      font-size: 15px;
+      text-align: center;
+      color: $(widget.subtitle.color);
+      border-top: dashed 1px $(widget.subtitle.color);
+      border-bottom: dashed 1px $(widget.subtitle.color);
+    }
+
+    .FeaturedPost .snippet-container {
+      font-size: 13px;
+      padding: 0 10px;
+      margin: 0;
+      order:3;
+    }
+
+    .FeaturedPost .item-thumbnail {
+      width: 100%;
+      text-align: center;
+      margin: 10px 0;
+      order:2;
+    }
+
+    .FeaturedPost .item-thumbnail img {
+      width: 40%;
+      border-radius: 50%;
+      border: solid 1px #ddd;
+      object-fit: cover;
+      order:2;
+    }
+
+    .FeaturedPost .item-thumbnail a {
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* ラベルリスト（サイドバー）
+    ---------------------------------------------------------------------------- */
+
+    .widget-content.list-label-widget-content {
+      padding: 0;
+    }
+
+    .list-label-widget-content ul li {
+      padding: 0;
+    }
+
+    .list-label-widget-content li a {
+      display: block;
+      font-size: 14px;
+      color: $(widget.list.color);
+      background: $(widget.list.background.color);
+      padding: 6px;
+      margin: 0;
+    }
+
+    .list-label-widget-content li:nth-child(even) a {
+      display: block;
+      font-size: 14px;
+      color: $(widget.list.color);
+      background: $(widget.list.background.color.even);
+      padding: 6px;
+      margin: 0;
+    }
+
+    .list-label-widget-content li a::before {
+      font-family: "Font Awesome 5 Free";
+      content: "\f0da";
+      font-size: 15px;
+      font-weight: 900;
+      margin-left: 2px;
+      margin-right: 8px;
+    }
+
+    .list-label-widget-content li a:hover {
+      opacity: 1;
+      background: $(widget.list.hover.color);
+    }
+
+    /* カウント部分 */
+
+     .label-count::before {
+        font-size: 14px;
+        content: "(";
+        margin-left: 5px;
+     }
+
+     .label-count::after {
+        font-size: 14px;
+        content: ")";
+     }
+
+
+    /* ラベルクラウド（サイドバー）
+    ---------------------------------------------------------------------------- */
+    
+    .label-size,.label-size-1,.label-size-2,.label-size-3,.label-size-4,.label-size-5 {
+      font-size: 14px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .cloud-label-widget-content {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .cloud-label-widget-content span a {
+      display: inline-block;
+      color: $(widget.list.color);
+      background: $(widget.list.background.color);
+      margin-right: 5px;
+      margin-bottom: 5px;
+      padding: 3px 5px;
+      border:solid 1px $(widget.list.color);
+    }
+
+    .cloud-label-widget-content span:nth-child(even) a {
+      display: inline-block;
+      color: $(widget.list.color);
+      background: $(widget.list.background.color.even);
+      margin-right: 5px;
+      margin-bottom: 5px;
+      padding: 3px 5px;
+      border:solid 1px $(widget.list.color);
+    }
+
+    .cloud-label-widget-content span a:hover {
+      opacity: 1;
+      background: $(widget.list.hover.color);
+    }
+    
+    /* リンクリスト（サイドバー）
+    ---------------------------------------------------------------------------- */
+    
+    .LinkList .widget-content {
+      padding: 0;
+    }
+
+    .LinkList .widget-content ul li {
+      padding: 0;
+    }
+
+    .LinkList .widget-content li a {
+      display: block;
+      font-size: 14px;
+      color: $(widget.list.color);
+      background: $(widget.list.background.color);
+      padding: 6px;
+      margin: 0;
+    }
+
+    .LinkList .widget-content li:nth-child(even) a {
+      display: block;
+      font-size: 14px;
+      color: $(widget.list.color);
+      background: $(widget.list.background.color.even);
+      padding: 6px;
+      margin: 0;
+    }
+
+    .LinkList .widget-content li a::before {
+      font-family: "Font Awesome 5 Free";
+      content: "\f0da";
+      font-size: 15px;
+      font-weight: 900;
+      margin-left: 2px;
+      margin-right: 8px;
+    }
+
+    .LinkList .widget-content li a:hover {
+      opacity: 1;
+      background: $(widget.list.hover.color);
+    }
+    
+    /* リスト（サイドバー）
+    ---------------------------------------------------------------------------- */
+    
+    .TextList .widget-content {
+      padding: 0;
+    }
+
+    .TextList .widget-content li {
+      display: block;
+      font-size: 14px;
+      color: $(widget.list.color);
+      background: $(widget.list.background.color);
+      padding: 6px;
+      margin: 0;
+    }
+
+    .TextList .widget-content li:nth-child(even) {
+      display: block;
+      font-size: 14px;
+      color: $(widget.list.color);
+      background: $(widget.list.background.color.even);
+      padding: 6px;
+      margin: 0;
+    }
+
+    .TextList .widget-content li::before {
+      content: "\25A0";
+      font-size: 3px;
+      font-weight: 900;
+      margin-left: 1px;
+      margin-right: 6px;
+    }
+    
+    /* テキスト
+    ---------------------------------------------------------------------------- */
+
+    .Text .widget-content {
+      font-size: 14px;
+    }
+
+    /* イメージ
+    ---------------------------------------------------------------------------- */
+
+    .Image .widget-content img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* wikipedia
+    ---------------------------------------------------------------------------- */
+
+    .wikipedia-searchtable {
+      position: unset;
+    }
+
+    .wikipedia-search-main-container {
+      padding: 10px;
+      margin: 10px auto -10px;
+    }
+
+    .wikipedia-search-input {
+      width: 65%;
+    }
+
+    /* アーカイブ
+    ---------------------------------------------------------------------------- */
+
+    /* デフォルトアーカイブ（階層）を使う場合はカスタムアーカイブのCSSを消してコメントを解除
+    ----------------------------------------------------------------------------
+    
+    .BlogArchive .widget-content {
+      padding-bottom: -10px;
+      margin-left: 10px;
+    }
+
+    .BlogArchive #ArchiveList ul li {
+      margin: 0;
+    }
+
+    .BlogArchive .widget-content li {
+      padding: 2px 0 2px 15px;
+    }
+
+    .BlogArchive .widget-content a {
+      font-size: 14px;
+      color: $(widget.description.color);
+    }
+
+    .BlogArchive .widget-content a::before {
+      content: "\25A0";
+      font-size: 3px;
+      vertical-align: middle;
+      font-weight: 900;
+      margin-left: 1px;
+      margin-right: 6px;
+    }
+
+     .post-count::before {
+        content: "(";
+        margin-left: 3px;
+     }
+
+     .post-count::after {
+        content: ")";
+     }
+    
+    ---------------------------------------------------------------------------- */
+    /* アーカイブ（カスタム）
+    ---------------------------------------------------------------------------- */
+
+    .BlogArchive .widget-content {
+      padding-bottom: -10px;
+      margin-left: 10px;
+    }
+
+    .BlogArchive #ArchiveList ul li {
+      margin: 0;
+    }
+
+    .BlogArchive .widget-content li {
+      padding: 2px 0 2px 15px;
+    }
+
+    .BlogArchive .widget-content a {
+      font-size: 14px;
+      color: $(widget.description.color);
+    }
+
+    .BlogArchive .hierarchy ul li:nth-child(n+2) a::before {
+      content: "\25A0";
+      font-size: 3px;
+      vertical-align: middle;
+      font-weight: 900;
+      margin-left: 1px;
+      margin-right: 6px;
+    }
+
+    .archivedate .expanded li a::before {
+      content: "\25A0";
+      font-size: 3px;
+      vertical-align: middle;
+      font-weight: 900;
+      margin-left: 1px;
+      margin-right: 6px;
+    }
+
+    span.post-count {
+      font-size: 14px;
+    }
+
+    .widget .archive-list .hierarchy:nth-child(n+1) ul li{
+      margin-left: 15px;
+    }
+
+    /* カウント部分 */
+
+     #ArchiveList .post-count::before {
+        content: "(";
+        margin-left: 3px;
+     }
+
+     #ArchiveList .post-count::after {
+        content: ")";
+     }
+
+     /* フラット */
+
+     .flat-archive-list a::before {
+      content: "\25A0";
+      font-size: 3px;
+      vertical-align: middle;
+      font-weight: 900;
+      margin-left: 1px;
+      margin-right: 6px;
+     }
+
+     /* プルダウン（セレクトボックス） */
+
+     .select-archive-list {
+       width:95%;
+       height: 25px;
+     }
+
+    /* 連絡フォーム
+    ---------------------------------------------------------------------------- */
+
+    .ContactForm {
+      font-size: 13px;
+    }
+
+    .contact-form-widget {
+      padding-top: 5px;
+      padding-bottom: 15px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .contact-form-name, .contact-form-email, .contact-form-email-message {
+      max-width: 300px;
+    }
+
+    /* 人気の投稿
+    ---------------------------------------------------------------------------- */
+
+    .PopularPosts .post-content {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
+    .PopularPosts .widget-content h3 {
+      letter-spacing: 1px;
+      background: $(widget.background.color);
+      padding: 2px 0;
+      order:1;
+    }
+
+    .PopularPosts .widget-content h3 a {
+      display: block;
+      font-size: 15px;
+      text-align: center;
+      color: $(widget.subtitle.color);
+      border-top: dashed 1px $(widget.subtitle.color);
+      border-bottom: dashed 1px $(widget.subtitle.color);
+    }
+
+    .PopularPosts .snippet-container {
+      font-size: 13px;
+      line-height: 1.5em;
+      color: $(widget.description.color);
+      padding: 0 10px;
+      margin: 10px 0 20px;
+      max-height: 80px;
+      order:3;
+    }
+
+    .PopularPosts .item-thumbnail {
+      width: 100%;
+      text-align: center;
+      margin: 15px 0 0;
+      order:2;
+    }
+
+    .PopularPosts .item-thumbnail img {
+      width: 40%;
+      border-radius: 50%;
+      border: solid 1px #ddd;
+      object-fit: cover;
+      order:2;
+    }
+
+    .PopularPosts .item-thumbnail a {
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .PopularPosts img {
+      padding: 0;
+    }
+
+    /* 人気の投稿（カスタム）
+    ---------------------------------------------------------------------------- */
+
+    /* タイトルのみ */
+
+    .pp-title-only {
+      font-size: 14px;
+    }
+
+    .pp-title-only::before {
+      font-family: "Font Awesome 5 Free";
+      content: "\f521";
+      font-size: 14px;
+      font-weight: 900;
+      margin-left: 2px;
+      margin-right: 8px;
+    }
+
+    /* 共通 */
+
+    .custom-pp li {
+      border-bottom: solid 1px #ddd;
+    }
+
+    .custom-pp li:last-child {
+      border: none;
+    }
+
+    .custom-pp a {
+      display: block;
+      color: $(widget.subtitle.color);
+    }
+
+    .pp-title {
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .pp-snippet {
+      font-size: 13px;
+      line-height: 1.5em;
+      color: $(widget.description.color);
+      margin-top:10px;
+    }
+
+    .pp-items {
+      display: flex;
+    }
+
+    .pp-thumb img {
+      width: 100px;
+      height: 100px;
+      border: solid 1px #ddd;
+      margin-right:10px;
+      object-fit: cover;
+    }
+
+   /* レスポンシブ（タブレット縦） */
+   @media screen and (max-width: 960px) {
+     .pp-items {
+        flex-direction: column;
+      }
+      .pp-thumb img {
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+      .pp-title {
+        text-align: center;
+      }
+    }
+
+    /* レスポンシブ（タブレット縦） */
+    @media screen and (max-width: 560px) {
+      .pp-items {
+        flex-direction: row;
+      }
+      .pp-thumb img {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+        margin-bottom: 0;
+      }
+      .pp-title {
+        text-align: left;
+      }
+    }
+
+    /* 最新記事（カスタム）
+    ---------------------------------------------------------------------------- */
+
+    .latest-articles li {
+      display: flex;
+      padding: 0.7em 0;
+      border-bottom: solid 1px #ddd;
+    }
+
+    .latest-articles li:last-child {
+      border: none;
+    }
+
+    .latest-articles a {
+      display: block;
+    }
+
+    .latest-articles h3 {
+      font-size: 15px;
+      letter-spacing: 1px;
+      background: $(widget.background.color);
+      padding: 0;
+    }
+
+    .latest-articles h3 a {
+      color: $(widget.subtitle.color);
+    }
+
+    .latest-articles .snippet {
+      font-size: 13px;
+      line-height: 1.5em;
+      color: $(widget.description.color);
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    .latest-articles .thumbnail {
+      margin-right: 10px;
+    }
+
+    .latest-articles img {
+      width: 100px;
+      height: 100px;
+      border: solid 1px #ddd;
+      object-fit: cover;
+    }
+
+    /* レスポンシブ（タブレット縦） */
+    @media screen and (max-width: 960px) {
+      .latest-articles li {
+        flex-direction: column;
+      }
+      .latest-articles .thumbnail {
+        margin-right: 0;
+      }
+      .latest-articles img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+      .latest-articles h3 {
+        text-align: center;
+      }
+    }
+
+  /* レスポンシブ（スマホ縦） */
+  @media screen and (max-width: 560px) {
+    .latest-articles li {
+      flex-direction: row;
+    }
+    .latest-articles .thumbnail {
+      margin-right: 10px;
+    }
+    .latest-articles img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 0;
+    }
+    .latest-articles h3 {
+      text-align: left;
+    }
+  }
+
+    /* ----------------------------------------------------------------------------
+    フッター
+    ---------------------------------------------------------------------------- */
+
+    /* フッター全体 */
+    footer {
+      color: $(footer.font.color);
+      background: $(footer.background.color);
+      padding: 10px 10%;
+      overflow: hidden;
+    }
+    
+    footer a {
+      color: $(footer.link.color);
+      text-decoration: none;
+      padding: 2px;
+    }
+
+    footer a:hover {
+      background: $(footer.link.hover.color);
+    }
+
+    /* フッターガジェットを横並びにする */
+    .footer-area {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* フッターガジェット */
+    .page-footer {
+      display: block;
+      font-size: 13px;
+      width: 35vw;
+      padding: 10px;
+      margin-right: 5px;
+    }
+
+    /* フッターガジェットのタイトル */
+    .page-footer h3 {
+      font-size: 15px;
+      padding: 2px;
+      margin-bottom: 8px;
+      border-bottom: solid 1px $(footer.font.color);
+    }
+
+    /* フッターのアイテム */
+    .page-footer .widget{
+      line-height: 1.8em;
+      margin-bottom: 15px;
+    }
+
+    /* コピーライト */
+    .copy-right {
+      color: $(copyRight.color);
+      text-align: center;
+      font-size: 13px;
+      padding: 10px;
+      margin: 0;
+    }
+
+    .designed-by {
+      color: $(copyRight.color);
+      text-align: center;
+      font-size: 12px;
+      padding: 0;
+      margin-top: -8px;
+    }
+
+    /* スマホ用 */
+    @media screen and (max-width: 560px) {
+      footer {
+        padding: 10px 0;
+      }
+      .footer-area {
+        flex-direction: column;
+      }
+      .page-footer {
+        width:95%;
+        margin-right: 0;
+      }
+    }
+
+    /* ラベルリスト（フッター）
+    ---------------------------------------------------------------------------- */
+
+    .page-footer .list-label-widget-content li a {
+      display: inline-block;
+      color: $(footer.font.color);
+      background: none;
+    }
+
+    .page-footer .list-label-widget-content li:nth-child(even) a {
+      display: inline-block;
+      color: $(footer.font.color);
+      background: none;
+    }
+
+    .page-footer .list-label-widget-content li a::before {
+      color: $(footer.font.color);
+    }
+
+    .page-footer .list-label-widget-content li a:hover {
+      opacity: 0.5;
+    }
+
+    .page-footer .label-count::before {
+      color: $(footer.font.color);
+    }
+
+    .page-footer .label-count::after {
+      color: $(footer.font.color);
+    }
+
+    /* ラベルクラウド（フッター）
+    ---------------------------------------------------------------------------- */
+    
+    .page-footer .cloud-label-widget-content span a {
+      color: $(footer.font.color);
+      background: none;
+      border:solid 1px $(footer.font.color);
+    }
+
+    .page-footer .cloud-label-widget-content span:nth-child(even) a {
+      color: $(footer.font.color);
+      background: none;
+      border:solid 1px $(footer.font.color);
+    }
+
+    .page-footer .cloud-label-widget-content span a:hover {
+      opacity: 0.5;
+    }
+    
+    /* リンクリスト（フッター）
+    ---------------------------------------------------------------------------- */
+    
+    .page-footer .LinkList .widget-content li a {
+      display: inline-block;
+      color: $(footer.font.color);
+      background: none;
+    }
+
+    .page-footer .LinkList .widget-content li:nth-child(even) a {
+      display: inline-block;
+      color: $(footer.font.color);
+      background: none;
+    }
+
+    .page-footer .LinkList .widget-content li a::before {
+      color: $(footer.font.color);
+    }
+
+    .page-footer .LinkList .widget-content li a:hover {
+      opacity: 0.5;
+    }
+    
+    /* リスト（フッター）
+    ---------------------------------------------------------------------------- */
+    
+    .page-footer .TextList .widget-content li {
+      color: $(footer.font.color);
+      background: none;
+    }
+
+    .page-footer .TextList .widget-content li:nth-child(even) {
+      color: $(footer.font.color);
+      background: none;
+    }
+
+    .page-footer .TextList .widget-content li::before {
+      color: $(footer.font.color);
+    }
+
+    /* ------------------------------------------------------------------------------------------------------
+    ページトップボタン
+    ------------------------------------------------------------------------------------------------------ */
+
+    .page-top-button {
+      display: block;
+      position: fixed;
+      bottom: 45px;
+      right: 4%;
+      z-index: 99;
+    }
+
+    .page-top-button a {
+      font-size: 25px;
+      font-weight: 900;
+      color: $(PTB.icon.color);
+      background: $(PTB.background.color);
+      padding: 5px 15px;
+      opacity: 0.8;
+    }
+
+    .page-top-button a:hover {
+      color: $(PTB.icon.hover.color);
+      background: $(PTB.background.hover.color);
+    }
+
+    /* レスポンシブ設定 */
+
+    @media screen and (max-width: 560px) {
+      .page-top-button {
+        top: 60%;
+        right: -8px;
+      }
+      .page-top-button a {
+        font-size: 20px;
+        padding: 6px 12px;
+        border-radius: 50% 0 0 50%;
+        color: #333;
+        background: #ccc;
+        opacity: 0.5;
+        z-index: 99;
+      }
+    }
+
+    /* ------------------------------------------------------------------------------------------------------
+    オマケ
+    ------------------------------------------------------------------------------------------------------ */
+
+    /* 画像リスト
+    ---------------------------------------------------------------------------- */
+
+    .image-list {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 10px auto;
+    }
+
+    /* サイズ 100✕100 */
+    .image-size100 img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-top: 10px;
+    }
+
+    /* サイズ 150✕150 */
+    .image-size150 img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-top: 10px;
+    }
+
+    /* サイズ 3:2 */
+    .image-size3-2 img {
+      width: 10vw;
+      height: 7vw;
+      object-fit: cover;
+      margin-top: 10px;
+    }
+
+    /* ビデオ
+    ---------------------------------------------------------------------------- */
+
+    /* ビデオ（幅300px） */
+    .video-small {
+      text-align: center;
+    }
+    .video-small iframe {
+      width: 20vw;
+      height: 13vw;
+    }
+
+    /* ビデオ（幅450px） */
+    .video-medium {
+      text-align: center;
+    }
+    .video-medium iframe {
+      width: 35vw;
+      height: 23vw;
+    }
+
+    /* ビデオ（幅600px） */
+    .video-large {
+      text-align: center;
+    }
+    .video-large iframe {
+      width: 50vw;
+      height: 33vw;
+      max-width: 100%;
+    }
+
+    /* ビデオレスポンシブ */
+    @media only screen and (max-width:560px) {
+      .video-small iframe, .video-medium iframe, .video-large iframe {
+        width: 95%;
+        height: auto;
+      }
+    }
+
+    /* ShareHtml
+    ---------------------------------------------------------------------------- */
+
+    .link-box {
+      border: 1px solid #e1e1e1;
+      padding: 10px;
+      display: flex;
+      margin: 30px
+    }
+
+    .link-box:hover {
+      background-color: #f3f3f3;
+      -webkit-transition: background-color .35s;
+      transition: background-color .35s
+    }
+
+    .img-box {
+      width: 40%;
+      float: left
+    }
+
+    .img-box div {
+      min-height: 150px;
+      background-size: cover;
+      background-position: center center
+    }
+
+    .text-box {
+      width: 60%;
+      float: left;
+      padding-left: 20px;
+      line-height: 1.7;
+      margin: 0
+    }
+
+    .text-box .title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #428bca;
+      padding: 0;
+      margin: 0
+    }
+
+    .text-box .title a {
+      color: #428bca;
+    }
+
+    .text-box .description {
+      font-size: 12px;
+      color: #333;
+      padding: 5px 0 0;
+    }
+
+    .text-box .description a {
+      color: #333;
+    }
+
+    @media only screen and (max-width:560px) {
+      .link-box {
+        margin: 10px;
+      }
+      .img-box {
+        width: 25%;
+      }
+      .img-box div {
+        min-height: 80px;
+      }
+      .text-box {
+        width: 75%;
+        padding-left: 10px;
+        line-height: 1.5
+      }
+      .text-box .title {
+        font-size: 11px;
+        margin: 0
+      }
+      .text-box .description {
+        display: none;
+      }
+    }
+
+    
+  ]]></b:skin>
+
+  <!-- 関連記事を表示させるコードはじめ -->
+  <b:if cond='data:blog.pageType == &quot;item&quot;'>
+    <script type='text/javascript'>
+    //<![CDATA[
+
+    // 「https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png」を自分の画像URLに変更する
+    
+    imgr=new Array();imgr[0]="https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png";showRandomImg=true;aBold=true;summaryPost=400;summaryTitle=20;numposts1=12;numposts2=4;function removeHtmlTag(strx,chop){var s=strx.split("<");for(var i=0;i<s.length;i++){if(s[i].indexOf(">")!=-1){s[i]=s[i].substring(s[i].indexOf(">")+1,s[i].length)}}s=s.join("");s=s.substring(0,chop-1);return s}
+      function showrecentposts1(json){j=(showRandomImg)?Math.floor((imgr.length+1)*Math.random()):0;img=new Array();if(numposts2<=json.feed.entry.length){maxpost=numposts2}else{maxpost=json.feed.entry.length}for(var i=0;i<maxpost;i++){var entry=json.feed.entry[i];var posttitle=entry.title.$t;var pcm;var posturl;if(i==json.feed.entry.length)break;for(var k=0;k<entry.link.length;k++){if(entry.link[k].rel=='alternate'){posturl=entry.link[k].href;break}}for(var k=0;k<entry.link.length;k++){if(entry.link[k].rel=='replies'&&entry.link[k].type=='text/html'){pcm=entry.link[k].title.split(" ")[0];break}}if("content"in entry){var postcontent=entry.content.$t}else if("summary"in entry){var postcontent=entry.summary.$t}else var postcontent="";postdate=entry.published.$t;if(j>imgr.length-1)j=0;img[i]=imgr[j];s=postcontent;a=s.indexOf("<img");b=s.indexOf("src=\"",a);c=s.indexOf("\"",b+5);d=s.substr(b+5,c-b-5);if((a!=-1)&&(b!=-1)&&(c!=-1)&&(d!=""))img[i]=d;var month=[1,2,3,4,5,6,7,8,9,10,11,12];var month2=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];var day=postdate.split("-")[2].substring(0,2);var m=postdate.split("-")[1];var y=postdate.split("-")[0];for(var u2=0;u2<month.length;u2++){if(parseInt(m)==month[u2]){m=month2[u2];break}}var daystr=day+' '+m+' '+y;pcm='<a href="'+posturl+'">'+pcm+' comments</a>';var trtd='<div class="col_maskolis"><h2 class="posttitle"><a href="'+posturl+'">'+posttitle+'</a></h2><a href="'+posturl+'"><img class="related-img" src="'+img[i]+'"/></a><div class="clear"></div></div>';document.write(trtd);j++}}var relatedTitles=new Array();var relatedTitlesNum=0;var relatedUrls=new Array();var thumburl=new Array();function related_results_labels_thumbs(json){for(var i=0;i<json.feed.entry.length;i++){var entry=json.feed.entry[i];relatedTitles[relatedTitlesNum]=entry.title.$t;try{thumburl[relatedTitlesNum]=entry.gform_foot.url}catch(error){s=entry.content.$t;a=s.indexOf("<img");b=s.indexOf("src=\"",a);c=s.indexOf("\"",b+5);d=s.substr(b+5,c-b-5);if((a!=-1)&&(b!=-1)&&(c!=-1)&&(d!="")){thumburl[relatedTitlesNum]=d}else thumburl[relatedTitlesNum]='https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png'}if(relatedTitles[relatedTitlesNum].length>35)relatedTitles[relatedTitlesNum]=relatedTitles[relatedTitlesNum].substring(0,35)+"...";for(var k=0;k<entry.link.length;k++){if(entry.link[k].rel=='alternate'){relatedUrls[relatedTitlesNum]=entry.link[k].href;relatedTitlesNum++}}}}function removeRelatedDuplicates_thumbs(){var tmp=new Array(0);var tmp2=new Array(0);var tmp3=new Array(0);for(var i=0;i<relatedUrls.length;i++){if(!contains_thumbs(tmp,relatedUrls[i])){tmp.length+=1;tmp[tmp.length-1]=relatedUrls[i];tmp2.length+=1;tmp3.length+=1;tmp2[tmp2.length-1]=relatedTitles[i];tmp3[tmp3.length-1]=thumburl[i]}}relatedTitles=tmp2;relatedUrls=tmp;thumburl=tmp3}function contains_thumbs(a,e){for(var j=0;j<a.length;j++)if(a[j]==e)return true;return false}function printRelatedLabels_thumbs(){for(var i=0;i<relatedUrls.length;i++){if((relatedUrls[i]==currentposturl)||(!(relatedTitles[i]))){relatedUrls.splice(i,1);relatedTitles.splice(i,1);thumburl.splice(i,1);i--}}var r=Math.floor((relatedTitles.length-1)*Math.random());var i=0;if(relatedTitles.length>0)document.write('<div class="related-text">'+relatedpoststitle+'</div>');document.write('<div class="p-container"/>');while(i<relatedTitles.length&&i<20&&i<maxresults){document.write('<a style="text-decoration:none;');if(i!=0)document.write('"');else document.write('"');document.write(' href="'+relatedUrls[r]+'"><div class="related-img" style="background-image: url('+thumburl[r]+');"></div><div class="related-title">'+relatedTitles[r]+'</div></a>');if(r<relatedTitles.length-1){r++}else{r=0}i++}document.write('</div>');relatedUrls.splice(0,relatedUrls.length);thumburl.splice(0,thumburl.length);relatedTitles.splice(0,relatedTitles.length)}
+    //]]>
+    </script>
+  </b:if>
+  <!-- 関連記事を表示させるコードおわり -->
+
+  <!-- Googleアナリティクス -->
+  <b:include data='blog' name='google-analytics'/>
+
+</head>
+
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+
+    <!-- ヘッダーガジェット -->
+    <b:section class='page-header' id='ヘッダー'>
+      <b:widget id='Header1' locked='false' title='Hello, world! (Header)' type='Header' version='2' visible='true'>
+        <b:widget-settings>
+          <b:widget-setting name='displayUrl'/>
+          <b:widget-setting name='displayHeight'>0</b:widget-setting>
+          <b:widget-setting name='sectionWidth'>-1</b:widget-setting>
+          <b:widget-setting name='useImage'>false</b:widget-setting>
+          <b:widget-setting name='shrinkToFit'>false</b:widget-setting>
+          <b:widget-setting name='imagePlacement'>BEHIND</b:widget-setting>
+          <b:widget-setting name='displayWidth'>0</b:widget-setting>
+        </b:widget-settings>
+        <b:includable id='main' var='this'>
+          <div class='header-widget'>
+            <b:include cond='data:imagePlacement in {&quot;REPLACE&quot;, &quot;BEFORE_DESCRIPTION&quot;}' name='image'/>
+            <b:include cond='data:imagePlacement not in {&quot;REPLACE&quot;, &quot;BEFORE_DESCRIPTION&quot;}' name='title'/>
+            <b:include cond='data:imagePlacement != &quot;REPLACE&quot;' name='description'/>
+          </div>
+          <b:include cond='data:imagePlacement == &quot;BEHIND&quot;' name='behindImageStyle'/>
+        </b:includable>
+        <b:includable id='behindImageStyle'>
+          <b:if cond='data:sourceUrl'>
+            <b:include cond='data:this.image' data='{image: data:this.image,               selector: &quot;.header-widget&quot;}' name='responsiveImageStyle'/>
+            <style type='text/css'>
+              .header-widget {
+                background-position: <data:blog.locale.languageAlignment/>;
+                background-repeat: no-repeat;
+                background-size: cover;
+              }
+            </style>
+          </b:if>
+        </b:includable>
+        <b:includable id='description'>
+          <p>
+            <data:this.description/>
+          </p>
+        </b:includable>
+        <b:includable id='image'>
+          <a class='header-image-wrapper' expr:href='data:blog.homepageUrl'>
+            <b:include data='{image: data:image,                 altText: data:blog.title.escaped,                 originalWidth: data:width,                 originalHeight: data:height}' name='responsiveImage'/>
+          </a>
+        </b:includable>
+        <b:includable id='title'>
+          <h1>
+            <a expr:href='data:blog.homepageUrl'>
+              <data:title/>
+            </a>
+          </h1>
+        </b:includable>
+      </b:widget>
+    </b:section>
+
+    <!-- ヘッダーナビ -->
+    <nav>
+
+      <b:section class='menu' id='ヘッダーナビ' showaddelement='no'>
+        <b:widget id='PageList1' locked='true' title='メニュー' type='PageList' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='pageListJson'><![CDATA[{'home': {'href': 'https://blogger-rab-demo3.blogspot.com/', 'title': 'ホーム', 'position': 0}, '186845084161374376': {'href': 'https://blogger-rab-demo3.blogspot.com/p/blog-page.html', 'title': '固定ページ', 'position': 1}, '7025602724594745140': {'href': 'https://blogger-rab-demo3.blogspot.com/p/blog-page_23.html', 'title': 'コメント可能', 'position': 2}}]]></b:widget-setting>
+            <b:widget-setting name='homeTitle'>ホーム</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+
+            <!-- PC用ヘッダーナビ  -->
+            <div class='navbar'>
+              <ul>
+                <b:loop values='data:links' var='link'>
+                  <li>
+                    <a expr:href='data:link.href'>
+                      <data:link.title/>
+                    </a>
+                  </li>
+                </b:loop>
+              </ul>
+            </div>
+
+            <!-- スマホ用ヘッダーナビ -->
+            <div class='navbar-res'>
+              <div class='menu-area'>
+                <input class='toggle-button' id='menu-open' type='checkbox'/>
+                <label class='menu-button' for='menu-open'>
+                  <div class='button-text'><i class='fas fa-bars' id='menu-icon'/>MENU</div>
+                </label>
+                <label class='menu-back' for='menu-open'/>
+                <div class='nav-menu'>
+                  <ul>
+                    <b:loop values='data:links' var='link'>
+                      <li>
+                        <a expr:href='data:link.href'>
+                          <data:link.title/>
+                        </a>
+                      </li>
+                    </b:loop>
+                  </ul>
+                </div>
+              </div>
+              <div class='side-area'>
+                <input class='toggle-button' id='side-jump' onclick='location.href=&apos;#aside&apos;' type='button'/>
+                <label class='side-button' for='side-jump'>
+                  <div class='button-text'>SIDE<i class='fa fa-angle-double-down' id='side-icon'/></div>
+                </label>
+              </div>
+            </div>
+
+          </b:includable>
+          <b:includable id='content'>
+  <div class='widget-content'>
+    <b:include name='pageList'/>
+  </div>
+</b:includable>
+          <b:includable id='overflowButton'>
+  <b:include name='verticalMoreIcon'/>
+</b:includable>
+          <b:includable id='overflowablePageList'>
+  <div class='overflowable-container'>
+    <div class='overflowable-contents'>
+      <div class='container'>
+        <b:with value='true' var='overflow'>
+        <b:with value='&quot;tabs&quot;' var='pageListClass'>
+          <b:include name='pageList'/>
+        </b:with>
+        </b:with>
+      </div>
+    </div>
+    <div class='overflow-button hidden'>
+      <b:include name='overflowButton'/>
+    </div>
+  </div>
+</b:includable>
+          <b:includable id='pageLink'>
+  <li>
+    <b:class cond='data:overflow' name='overflowable-item'/>
+    <b:class cond='data:link.isCurrentPage' name='selected'/>
+
+    <a expr:href='data:link.href'><data:link.title/></a>
+  </li>
+</b:includable>
+          <b:includable id='pageList'>
+  <ul>
+    <b:class cond='data:pageListClass' expr:name='data:pageListClass'/>
+    <b:loop values='data:links' var='link'>
+      <b:include name='pageLink'/>
+    </b:loop>
+  </ul>
+</b:includable>
+        </b:widget>
+      </b:section>
+
+    </nav>
+
+  </header>
+
+  <!-- ラッパー -->
+  <div class='main-wrapper'>
+
+    <!-- コンテナ -->
+    <div class='container'>
+
+      <!-- メインコンテンツ -->
+      <main>
+        <b:section class='main' id='メイン'>
+          <b:widget id='Blog1' locked='true' title='ブログの投稿' type='Blog' version='1'>
+            <b:widget-settings>
+              <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+              <b:widget-setting name='style.textcolor'>#444444</b:widget-setting>
+              <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+              <b:widget-setting name='authorLabel'>By</b:widget-setting>
+              <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+              <b:widget-setting name='style.urlcolor'>#555555</b:widget-setting>
+              <b:widget-setting name='showAuthor'>false</b:widget-setting>
+              <b:widget-setting name='disableGooglePlusShare'>true</b:widget-setting>
+              <b:widget-setting name='style.linkcolor'>#333333</b:widget-setting>
+              <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+              <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='timestampLabel'>-</b:widget-setting>
+              <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+              <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+              <b:widget-setting name='showLabels'>false</b:widget-setting>
+              <b:widget-setting name='showLocation'>false</b:widget-setting>
+              <b:widget-setting name='showTimestamp'>false</b:widget-setting>
+              <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+              <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+              <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+              <b:widget-setting name='showReactions'>false</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+
+              <!-- パンくずリストの読み込み -->
+              <b:include data='posts' name='breadcrumb'/>
+
+              <!-- ページタイプの条件分岐 -->
+              <b:switch var='data:blog.pageType'>
+                <!-- 個別記事の時 -->
+                <b:case value='item'/>
+                <b:loop values='data:posts' var='post'>
+                  <b:include name='single-post'/>
+                </b:loop>
+                <!-- 固定ページの時 -->
+                <b:case value='static_page'/>
+                <b:loop values='data:posts' var='post'>
+                  <b:include name='static'/>
+                </b:loop>
+                <!-- 404ページの時 -->
+                <b:case value='error_page'/>
+                 <b:include name='404'/>
+                <!-- それ以外 -->
+                <b:default/>
+                  <b:loop values='data:posts' var='post'>
+                    <b:include name='articles'/>
+                  </b:loop>
+                  <b:include name='articles-pager'/>
+              </b:switch>
+            </b:includable>
+            <b:includable id='404'>
+              <div class='post-area'>
+                <h1>404 Not Found&#65288;ページが見つかりませんでした&#65289;</h1>
+                <div class='post-content'>
+                  <div class='error-panel'>404</div>
+                  <p class='error-url'><data:blog.url/></p>
+                  <p class='error-message'>こちらのURLのページは存在しないか&#12289;移動した可能性があります&#12290;</p>
+                  <p class='error-message'>5秒後にTOPページへ移動します&#12290;</p>
+                  <script>
+                    //<![CDATA[
+                    BSPNF_redirect = setTimeout(function () {
+                      location.pathname = "/"
+                    }, 5000);
+                    //]]>
+                  </script>
+                </div>
+              </div>
+            </b:includable>
+            <b:includable id='articles'>
+              <div class='articles-area'>
+                <h2>
+                  <a expr:href='data:post.url'>
+                    <data:post.title/></a>
+                </h2>
+                <div class='article-post-wrap'>
+                  <!-- サムネイル -->
+                  <div class='article-thumbnail'>
+                    <!-- 記事に画像がある場合 -->
+                    <b:if cond='data:post.firstImageUrl'>
+                      <a expr:href='data:post.url'><img expr:src='data:post.firstImageUrl'/></a>
+                      <!-- 記事に画像が無い場合 -->
+                      <b:else/>
+                      <a expr:href='data:post.url'>
+                      <!-- 自分の画像URLに変更する -->
+                      <img src='https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png'/></a>
+                    </b:if>
+                  </div>
+                  <div class='article-post-area'>
+                    <div class='article-info-area'>
+                      <i aria-hidden='true' class='fa fa-calendar fa-fw'/>
+                      <div class='article-post-date'>
+                        <data:post.date/>
+                      </div>
+                      <div class='article-post-tag'>
+                        <!-- タグがあるがどうか -->
+                        <b:if cond='data:post.labels'>
+                          <i aria-hidden='true' class='fa fa-tag fa-fw'/>
+                          <b:loop values='data:post.labels' var='label'>
+                            <a expr:href='data:label.url + &quot;?&amp;max-results=10&quot;' property='v:title' rel='v:url'>
+                              <data:label.name/></a>
+                          </b:loop>
+                          <!-- タグが無い場合は非表示 -->
+                          <b:else/>
+                        </b:if>
+                      </div>
+                    </div>
+                    <!-- 記事の要約 -->
+                    <div class='post-snippet'>
+                      <b:eval expr='data:post.snippet snippet {length: 110, links: false, linebreaks: false, ellipsis: true}'/>
+                    </div>
+                    <div class='read-more'>
+                      <a expr:href='data:post.url'>続きを読む</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </b:includable>
+            <b:includable id='articles-pager'>
+              <div class='pager-wrap'>
+                <div class='blog-pager' id='blog-pager'>
+                  <b:include name='nextprev'/>
+                </div>
+              </div>
+            </b:includable>
+            <b:includable id='backlinkDeleteIcon' var='backlink'/>
+            <b:includable id='backlinks' var='post'/>
+            <b:includable id='breadcrumb' var='posts'>
+              <!-- 固定ページのパンくずリスト -->
+              <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
+                <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'><span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                    <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>
+                    <data:blog.pageName/></span></div>
+                <b:else/>
+                <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                  <!-- 個別記事ページのパンくずリスト -->
+                  <b:loop values='data:posts' var='post'>
+                    <b:if cond='data:post.labels'>
+                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
+                        <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                          <meta content='1' itemprop='position'/></span>
+                        <b:loop values='data:post.labels' var='label'>
+                          <i class='fa fa-chevron-right pause-icon'/> <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:label.url' itemprop='item'>
+                              <span itemprop='name'>
+                                <data:label.name/></span></a>
+                            <meta content='2' itemprop='position'/></span>
+                        </b:loop>
+                        <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>
+                          <data:post.title/></span>
+                      </div>
+                      <b:else/>
+                      <!-- タグがない場合のパンくずリスト -->
+                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'><span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                          <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/>
+                        <span itemprop='name'>未分類</span> <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>
+                          <data:post.title/></span></div>
+                    </b:if>
+                  </b:loop>
+                  <b:else/>
+                  <b:if cond='data:blog.pageType == &quot;archive&quot;'>
+                    <!-- アーカイブページのパンくずリスト -->
+                    <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
+                      <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                        <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/> アーカイブ: <span itemprop='name'>
+                        <data:blog.pageName/></span>
+                    </div>
+                    <b:else/>
+                    <!-- インデックスページ&#65288;ホーム&#12539;ラベル&#12539;検索&#65289;のパンくずリスト -->
+                    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
+                        <!-- 記事リストページのパンくずリスト -->
+                        <b:if cond='data:blog.pageName == &quot;&quot;'>
+                          <div class='article-breadcrumbs'>
+                            <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                              <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>投稿一覧</span>
+                          </div>
+                          <b:else/>
+                          <!-- その他場合のパンくずリスト -->
+                          <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                            <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>
+                            <data:blog.pageName/></span>
+                        </b:if>
+                      </div>
+                    </b:if>
+                  </b:if>
+                </b:if>
+              </b:if>
+            </b:includable>
+            <b:includable id='comment-form' var='post'>
+                <div class='comment-form'>
+                  <a name='comment-form'/>
+                  <b:if cond='data:mobile'>
+                    <h4 id='comment-post-message'>
+                      <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'>
+                        <data:postCommentMsg/>
+                      </a>
+                    </h4>
+                    <p>
+                      <data:blogCommentMessage/>
+                    </p>
+                    <data:blogTeamBlogMessage/>
+                    <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+                    <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' frameborder='0' height='410' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+                    <b:else/>
+                    <h4 id='comment-post-message'>
+                      <data:postCommentMsg/>
+                    </h4>
+                    <p>
+                      <data:blogCommentMessage/>
+                    </p>
+                    <data:blogTeamBlogMessage/>
+                    <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+                    <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' frameborder='0' height='410' id='comment-editor' name='comment-editor' src='' width='100%'/>
+                  </b:if>
+                  <data:post.friendConnectJs/>
+                  <data:post.cmtfpIframe/>
+                  <script type='text/javascript'>
+                    BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+                  </script>
+                </div>
+              </b:includable>
+            <b:includable id='commentDeleteIcon' var='comment'>
+              </b:includable>
+            <b:includable id='comment_count_picker' var='post'>
+                <b:if cond='data:post.commentSource == 1'>
+                  <span class='cmt_count_iframe_holder' expr:data-count='data:post.numComments' expr:data-onclick='data:post.addCommentOnclick' expr:data-post-url='data:post.url' expr:data-url='data:post.canonicalUrl'>
+                  </span>
+                  <b:else/>
+                  <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>
+                    <data:post.commentLabelFull/>
+                    :
+                  </a>
+                </b:if>
+              </b:includable>
+            <b:includable id='comment_picker' var='post'>
+                <b:if cond='data:post.commentSource == 1'>
+                  <b:include data='post' name='iframe_comments'/>
+                  <b:else/>
+                  <b:if cond='data:post.showThreadedComments'>
+                    <b:include data='post' name='threaded_comments'/>
+                    <b:else/>
+                    <b:include data='post' name='comments'/>
+                  </b:if>
+                </b:if>
+              </b:includable>
+            <b:includable id='comments' var='post'>
+                <div class='comments' id='comments'>
+                  <a name='comments'/>
+                  <b:if cond='data:post.allowComments'>
+                    <h4>
+                      <data:post.commentLabelFull/>
+                      :
+                    </h4>
+                    <b:if cond='data:post.commentPagingRequired'>
+                      <span class='paging-control-container'>
+                        <b:if cond='data:post.hasOlderLinks'>
+                          <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+                            <data:post.oldestLinkText/>
+                          </a>
+                          &#160;
+                          <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+                            <data:post.olderLinkText/>
+                          </a>
+                          &#160;
+                        </b:if>
+                        <data:post.commentRangeText/>
+                        <b:if cond='data:post.hasNewerLinks'>
+                          &#160;
+                          <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+                            <data:post.newerLinkText/>
+                          </a>
+                          &#160;
+                          <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+                            <data:post.newestLinkText/>
+                          </a>
+                        </b:if>
+                      </span>
+                    </b:if>
+                    <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+                      <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
+                        <b:loop values='data:post.comments' var='comment'>
+                          <dt expr:class='&quot;comment-author &quot; + data:comment.authorClass' expr:id='data:comment.anchorName'>
+                            <b:if cond='data:comment.favicon'>
+                              <img expr:src='data:comment.favicon' height='16px' style='margin-bottom:-2px;' width='16px'/>
+                            </b:if>
+                            <b:if cond='data:blog.enabledCommentProfileImages'>
+                              <data:comment.authorAvatarImage/>
+                            </b:if>
+                            <data:comment.author/>
+                            <data:commentPostedByMsg/>
+                          </dt>
+                        </b:loop>
+                      </dl>
+                    </div>
+                    <b:if cond='data:post.commentPagingRequired'>
+                      <span class='paging-control-container'>
+                        <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+                          <data:post.oldestLinkText/>
+                        </a>
+                        <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+                          <data:post.olderLinkText/>
+                        </a>
+                        &#160;
+                        <data:post.commentRangeText/>
+                        &#160;
+                        <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+                          <data:post.newerLinkText/>
+                        </a>
+                        <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+                          <data:post.newestLinkText/>
+                        </a>
+                      </span>
+                    </b:if>
+                    <p class='comment-footer'>
+                      <b:if cond='data:post.embedCommentForm'>
+                        <b:if cond='data:post.allowNewComments'>
+                          <b:include data='post' name='comment-form'/>
+                          <b:else/>
+                          <data:post.noNewCommentsText/>
+                        </b:if>
+                        <b:else/>
+                        <b:if cond='data:post.allowComments'>
+                          <a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>
+                            <data:postCommentMsg/>
+                          </a>
+                        </b:if>
+                      </b:if>
+                    </p>
+                  </b:if>
+                  <b:if cond='data:showCmtPopup'>
+                    <div id='comment-popup'>
+                    </div>
+                  </b:if>
+                  <div id='backlinks-container'>
+                    <div expr:id='data:widget.instanceId + &quot;_backlinks-container&quot;'>
+                      <b:if cond='data:post.showBacklinks'>
+                        <b:include data='post' name='backlinks'/>
+                      </b:if>
+                    </div>
+                  </div>
+                </div>
+              </b:includable>
+            <b:includable id='feedLinks'>
+  <b:if cond='data:blog.pageType != &quot;item&quot;'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:include cond='data:post.allowComments and data:post.feedLinks' data='post.feedLinks' name='feedLinksBody'/>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:feedLinksMsg/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+            <b:includable id='iframe_comments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='mobile-index-post' var='post'>
+  <div class='mobile-date-outer date-outer'>
+    <b:if cond='data:post.dateHeader'>
+      <div class='date-header'>
+        <span><data:post.dateHeader/></span>
+      </div>
+    </b:if>
+
+    <div class='mobile-post-outer'>
+      <a expr:href='data:post.url'>
+        <h3 class='mobile-index-title entry-title' itemprop='name'>
+          <data:post.title/>
+        </h3>
+
+        <div class='mobile-index-arrow'>&amp;rsaquo;</div>
+
+        <div class='mobile-index-contents'>
+          <b:if cond='data:post.thumbnailUrl'>
+            <div class='mobile-index-thumbnail'>
+              <div class='Image'>
+                <img expr:src='data:post.thumbnailUrl'/>
+              </div>
+            </div>
+          </b:if>
+
+          <div class='post-body'>
+            <b:if cond='data:post.snippet'><data:post.snippet/></b:if>
+          </div>
+        </div>
+
+        <div style='clear: both;'/>
+      </a>
+
+      <div class='mobile-index-comment'>
+        <b:include cond='data:blog.pageType != &quot;static_page&quot;                          and data:post.allowComments                          and data:post.numComments != 0' data='post' name='comment_count_picker'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='mobile-main' var='top'>
+    <!-- posts -->
+    <div class='blog-posts hfeed'>
+
+      <b:include data='top' name='status-message'/>
+
+      <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <b:loop values='data:posts' var='post'>
+          <b:include data='post' name='mobile-index-post'/>
+        </b:loop>
+      <b:else/>
+        <b:loop values='data:posts' var='post'>
+          <b:include data='post' name='mobile-post'/>
+        </b:loop>
+      </b:if>
+    </div>
+
+   <b:include name='mobile-nextprev'/>
+</b:includable>
+            <b:includable id='mobile-nextprev'>
+  <div class='blog-pager' id='blog-pager'>
+    <b:if cond='data:newerPageUrl'>
+      <div class='mobile-link-button' id='blog-pager-newer-link'>
+      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'>&amp;lsaquo;</a>
+      </div>
+    </b:if>
+
+    <b:if cond='data:olderPageUrl'>
+      <div class='mobile-link-button' id='blog-pager-older-link'>
+      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'>&amp;rsaquo;</a>
+      </div>
+    </b:if>
+
+    <div class='mobile-link-button' id='blog-pager-home-link'>
+    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
+    </div>
+
+    <div class='mobile-desktop-link'>
+      <a class='home-link' expr:href='data:desktopLinkUrl'><data:desktopLinkMsg/></a>
+    </div>
+
+  </div>
+  <div class='clear'/>
+</b:includable>
+            <b:includable id='mobile-post' var='post'>
+  <div class='date-outer'>
+    <b:if cond='data:post.dateHeader'>
+      <h2 class='date-header'><span><data:post.dateHeader/></span></h2>
+    </b:if>
+    <div class='date-posts'>
+      <div class='post-outer'>
+
+        <div class='post hentry uncustomized-post-template' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+          <b:if cond='data:post.thumbnailUrl'>
+            <meta expr:content='data:post.thumbnailUrl' itemprop='image_url'/>
+          </b:if>
+          <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+          <meta expr:content='data:post.id' itemprop='postId'/>
+
+          <a expr:name='data:post.id'/>
+          <b:if cond='data:post.title'>
+            <h3 class='post-title entry-title' itemprop='name'>
+              <b:if cond='data:post.link'>
+                <a expr:href='data:post.link'><data:post.title/></a>
+              <b:elseif cond='data:post.url and data:blog.url != data:post.url'/>
+                <a expr:href='data:post.url'><data:post.title/></a>
+              <b:else/>
+                <data:post.title/>
+              </b:if>
+            </h3>
+          </b:if>
+
+          <div class='post-header'>
+            <div class='post-header-line-1'/>
+          </div>
+
+          <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
+            <data:post.body/>
+            <div style='clear: both;'/> <!-- clear for photos floats -->
+          </div>
+
+          <div class='post-footer'>
+            <div class='post-footer-line post-footer-line-1'>
+              <span class='post-author vcard'>
+                <b:if cond='data:top.showAuthor'>
+                  <b:if cond='data:post.authorProfileUrl'>
+                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                      <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
+                      <a expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
+                        <span itemprop='name'><data:post.author/></span>
+                      </a>
+                    </span>
+                  <b:else/>
+                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                      <span itemprop='name'><data:post.author/></span>
+                    </span>
+                  </b:if>
+                </b:if>
+              </span>
+
+              <span class='post-timestamp'>
+                <b:if cond='data:top.showTimestamp'>
+                  <data:top.timestampLabel/>
+                  <b:if cond='data:post.url'>
+                    <meta expr:content='data:post.url.canonical' itemprop='url'/>
+                    <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
+                  </b:if>
+                </b:if>
+              </span>
+
+              <span class='post-comment-link'>
+                <b:include cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;}                                  and data:post.allowComments' data='post' name='comment_count_picker'/>
+              </span>
+            </div>
+
+            <div class='post-footer-line post-footer-line-2'>
+              <b:if cond='data:top.showMobileShare'>
+                <div class='mobile-link-button goog-inline-block' id='mobile-share-button'>
+                  <a href='javascript:void(0);'><data:shareMsg/></a>
+                </div>
+              </b:if>
+              <b:if cond='data:top.showDummy'>
+                <div class='goog-inline-block dummy-container'><data:post.dummyTag/></div>
+              </b:if>
+            </div>
+
+          </div>
+        </div>
+
+        <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='nextprev'>
+  <div class='blog-pager' id='blog-pager'>
+    <b:if cond='data:newerPageUrl'>
+      <span id='blog-pager-newer-link'>
+      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'><data:newerPageTitle/></a>
+      </span>
+    </b:if>
+
+    <b:if cond='data:olderPageUrl'>
+      <span id='blog-pager-older-link'>
+      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'><data:olderPageTitle/></a>
+      </span>
+    </b:if>
+
+    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
+
+    <b:if cond='data:mobileLinkUrl'>
+      <div class='blog-mobile-link'>
+        <a expr:href='data:mobileLinkUrl'><data:mobileLinkMsg/></a>
+      </div>
+    </b:if>
+
+  </div>
+  <div class='clear'/>
+</b:includable>
+            <b:includable id='post' var='post'>
+  <div class='post hentry uncustomized-post-template' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+    <b:if cond='data:post.firstImageUrl'>
+      <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
+    </b:if>
+    <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+    <meta expr:content='data:post.id' itemprop='postId'/>
+
+    <a expr:name='data:post.id'/>
+    <b:if cond='data:post.title'>
+      <h3 class='post-title entry-title' itemprop='name'>
+      <b:if cond='data:post.link or (data:post.url and data:blog.url != data:post.url)'>
+        <a expr:href='data:post.link ? data:post.link : data:post.url'><data:post.title/></a>
+      <b:else/>
+        <data:post.title/>
+      </b:if>
+      </h3>
+    </b:if>
+
+    <div class='post-header'>
+    <div class='post-header-line-1'/>
+    </div>
+
+    <!-- Then use the post body as the schema.org description, for good G+/FB snippeting. -->
+    <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' expr:itemprop='(data:blog.metaDescription ? &quot;&quot; : &quot;description &quot;) + &quot;articleBody&quot;'>
+      <data:post.body/>
+      <div style='clear: both;'/> <!-- clear for photos floats -->
+    </div>
+
+    <b:if cond='data:post.hasJumpLink'>
+      <div class='jump-link'>
+        <a expr:href='data:post.url + &quot;#more&quot;' expr:title='data:post.title'><data:post.jumpText/></a>
+      </div>
+    </b:if>
+
+    <div class='post-footer'>
+    <div class='post-footer-line post-footer-line-1'>
+      <span class='post-author vcard'>
+        <b:if cond='data:top.showAuthor'>
+          <data:top.authorLabel/>
+            <b:if cond='data:post.authorProfileUrl'>
+              <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
+                <a class='g-profile' expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
+                  <span itemprop='name'><data:post.author/></span>
+                </a>
+              </span>
+            <b:else/>
+              <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                <span itemprop='name'><data:post.author/></span>
+              </span>
+            </b:if>
+        </b:if>
+      </span>
+
+      <span class='post-timestamp'>
+        <b:if cond='data:top.showTimestamp'>
+          <data:top.timestampLabel/>
+          <b:if cond='data:post.url'>
+            <meta expr:content='data:post.url.canonical' itemprop='url'/>
+            <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
+          </b:if>
+        </b:if>
+      </span>
+
+      <span class='reaction-buttons'>
+        <b:if cond='data:top.showReactions'>
+          <table border='0' cellpadding='0' cellspacing='0' width='100%'><tr>
+            <td class='reactions-label-cell' nowrap='nowrap' valign='top' width='1%'>
+              <span class='reactions-label'>
+              <data:top.reactionsLabel/></span>&#160;</td>
+            <td><iframe allowtransparency='true' class='reactions-iframe' expr:src='data:post.reactionsUrl' frameborder='0' name='reactions' scrolling='no'/></td>
+           </tr></table>
+        </b:if>
+      </span>
+
+      <span class='post-comment-link'>
+        <b:include cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;}                          and data:post.allowComments' data='post' name='comment_count_picker'/>
+      </span>
+
+      <span class='post-icons'>
+        <!-- email post links -->
+        <b:if cond='data:post.emailPostUrl'>
+          <span class='item-action'>
+          <a expr:href='data:post.emailPostUrl' expr:title='data:top.emailPostMsg'>
+            <img alt='' class='icon-action' height='13' src='https://resources.blogblog.com/img/icon18_email.gif' width='18'/>
+          </a>
+          </span>
+        </b:if>
+
+        <!-- quickedit pencil -->
+        <b:include data='post' name='postQuickEdit'/>
+      </span>
+
+      <!-- share buttons -->
+      <div class='post-share-buttons goog-inline-block'>
+        <b:include cond='data:post.sharePostUrl' data='post' name='shareButtons'/>
+      </div>
+
+      </div>
+
+      <div class='post-footer-line post-footer-line-2'>
+      <span class='post-labels'>
+        <b:if cond='data:top.showPostLabels and data:post.labels'>
+          <data:postLabelsLabel/>
+          <b:loop values='data:post.labels' var='label'>
+            <a expr:href='data:label.url' rel='tag'><data:label.name/></a><b:if cond='not data:label.isLast'>,</b:if>
+          </b:loop>
+        </b:if>
+      </span>
+      </div>
+
+      <div class='post-footer-line post-footer-line-3'>
+      <span class='post-location'>
+        <b:if cond='data:top.showLocation and data:post.location'>
+          <data:postLocationLabel/>
+          <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
+        </b:if>
+      </span>
+      </div>
+      <b:if cond='data:post.authorAboutMe'>
+        <div class='author-profile' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+          <b:if cond='data:post.authorPhoto.url'>
+            <img expr:src='data:post.authorPhoto.url' itemprop='image' width='50px'/>
+          </b:if>
+          <div>
+            <a class='g-profile' expr:href='data:post.authorProfileUrl' itemprop='url' rel='author' title='author profile'>
+              <span itemprop='name'><data:post.author/></span>
+            </a>
+          </div>
+          <span itemprop='description'><data:post.authorAboutMe/></span>
+        </div>
+      </b:if>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='post-comments'>
+              <b:if cond='data:post.allowComments'>
+                <div class='comment-wrap'>
+                  <h3>コメント</h3>
+                  <div class='comment-area'>
+                    <b:include data='post' name='comment_picker'/>
+                  </div>
+                </div>
+               </b:if>
+            </b:includable>
+            <b:includable id='postQuickEdit' var='post'>
+  <b:if cond='data:post.editUrl'>
+    <span expr:class='&quot;item-control &quot; + data:post.adminClass'>
+      <a expr:href='data:post.editUrl' expr:title='data:top.editPostMsg'>
+        <img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+      </a>
+    </span>
+  </b:if>
+</b:includable>
+            <b:includable id='shareButtons' var='post'>
+  <b:if cond='data:top.showEmailButton'><a class='goog-inline-block share-button sb-email' expr:href='data:post.sharePostUrl + &quot;&amp;target=email&quot;' expr:title='data:top.emailThisMsg' target='_blank'><span class='share-button-link-text'><data:top.emailThisMsg/></span></a></b:if><b:if cond='data:top.showBlogThisButton'><a class='goog-inline-block share-button sb-blog' expr:href='data:post.sharePostUrl + &quot;&amp;target=blog&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' expr:title='data:top.blogThisMsg' target='_blank'><span class='share-button-link-text'><data:top.blogThisMsg/></span></a></b:if><b:if cond='data:top.showTwitterButton'><a class='goog-inline-block share-button sb-twitter' expr:href='data:post.sharePostUrl + &quot;&amp;target=twitter&quot;' expr:title='data:top.shareToTwitterMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToTwitterMsg/></span></a></b:if><b:if cond='data:top.showFacebookButton'><a class='goog-inline-block share-button sb-facebook' expr:href='data:post.sharePostUrl + &quot;&amp;target=facebook&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' expr:title='data:top.shareToFacebookMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToFacebookMsg/></span></a></b:if><b:if cond='data:top.showPinterestButton'><a class='goog-inline-block share-button sb-pinterest' expr:href='data:post.sharePostUrl + &quot;&amp;target=pinterest&quot;' expr:title='data:top.shareToPinterestMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToPinterestMsg/></span></a></b:if><b:if cond='data:top.showPlusOne'><div class='goog-inline-block google-plus-share-container'><data:post.googlePlusShareTag/></div></b:if>
+</b:includable>
+            <b:includable id='single-pager'>
+            <div class='single-pager'>
+              <ul>
+                <li class='prev-post-link'>
+                  <a expr:href='data:olderPageUrl'><i aria-hidden='true' class='fa fa-angle-double-left'/> PREV</a>
+                </li>
+                <li class='next-post-link'>
+                  <a expr:href='data:newerPageUrl'>NEXT <i aria-hidden='true' class='fa fa-angle-double-right'/></a>
+                </li>
+              </ul>
+            </div>
+            </b:includable>
+            <b:includable id='single-post'>
+              <div class='post-area'>
+                <h1>
+                  <data:post.title/>
+                </h1>
+                <div class='single-info-area'>
+                  <div class='single-release-date'>
+                    <i class='fa fa-edit fa-fw post-icon'/>
+                    <data:post.date/>
+                  </div>
+                  <div class='updated single-modified-date' expr:title='&quot;Post was updated on &quot; + data:post.lastUpdatedISO8601' id='last-modified' itemprop='dateModified'>
+                    <data:post.lastupdatedISO8601/>
+                  </div>
+                  <script type='text/javascript'>
+                    // 投稿日
+                    var published = new Date(&quot;<data:post.timestampISO8601/>&quot;);
+                    // 最終更新日  
+                    var updated = new Date(&quot;<data:post.lastUpdatedISO8601/>&quot;);
+                  </script>
+                  <script type='text/javascript'>
+                    /* <![CDATA[ */
+                    // 投稿日
+                    var pp_Y = "" + published.getFullYear();
+                    var pp_M = ("0" + (published.getMonth() + 1)).slice(-2);
+                    var pp_D = ("0" + published.getDate()).slice(-2);
+                    // 最終更新日 
+                    var dd_Y = "" + updated.getFullYear();
+                    var dd_M = ("0" + (updated.getMonth() + 1)).slice(-2);
+                    var dd_D = ("0" + updated.getDate()).slice(-2);
+                    //日付が同じときは出力しない
+                    if (dd_Y == pp_Y && dd_M == pp_M && dd_D == pp_D) {
+                    } else {
+                      var updated_dd = '<div class="last-modified"><i aria-hidden="true" class="fas fa-sync-alt fa-fw post-icon"></i>' + dd_Y + "/" + dd_M + "/" + dd_D + '</div>';
+                      document.getElementById("last-modified").innerHTML = updated_dd;
+                    }
+                    /* ]]> */
+                  </script>
+                  <div class='single-post-tag'>
+                    <b:if cond='data:post.labels'>
+                      <i aria-hidden='true' class='fa fa-tag'/>
+                      <b:loop values='data:post.labels' var='label'>
+                        <a expr:href='data:label.url + &quot;?&amp;max-results=10&quot;' property='v:title' rel='v:url'>
+                          <data:label.name/></a>
+                      </b:loop>
+                      <b:else/>
+                    </b:if>
+                  </div>
+                </div>
+                <div class='post-content'>
+                  <data:post.body/>
+                    <!-- 目次 -->
+                    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                      <div id='Table-of-Content'>
+                        <div id='toc'/>
+                      </div>
+                    </b:if>
+                  <!-- 記事中アドセンス -->
+                  <div class='ad1' id='ad1'>
+                  </div>
+                </div>
+                <!-- SNSボタンを読み込む -->
+                <b:include name='sns'/>
+                  <!-- 記事下アドセンス -->
+                  <div class='ad2'>
+                  </div>
+              </div>
+              <!-- ページャを読み込む -->
+              <b:include name='single-pager'/>
+              <!-- 関連記事を読み込む -->
+                <b:if cond='data:post.labels'> <!-- タグがあるがどうか -->
+                  <b:include name='single-related-posts'/>
+                <b:else/>
+                  <!-- タグがなければ非表示 -->
+                </b:if>
+              <!-- コメントを読み込む -->
+              <b:include name='post-comments'/>
+            </b:includable>
+            <b:includable id='single-related-posts'>
+              <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                <div id='related-posts'>
+                  <b:loop values='data:post.labels' var='label'>
+                    <b:if cond='data:label.isLast != &quot;true&quot;'>
+                    </b:if>
+                    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                      <script expr:src='&quot;/feeds/posts/default/-/&quot; + data:label.name + &quot;?alt=json-in-script&amp;callback=related_results_labels_thumbs&amp;max-results=8&quot;' type='text/javascript'/>
+                    </b:if>
+                  </b:loop>
+                  <script type='text/javascript'>
+                    var currentposturl=&quot;<data:post.url/>&quot;;
+                    var maxresults=8; // 最大表示件数
+                    var relatedpoststitle=&quot;関連記事&quot;; // 見出しに表示される文字列
+                    removeRelatedDuplicates_thumbs();
+                    printRelatedLabels_thumbs();
+                  </script>
+                </div>
+              </b:if>
+            </b:includable>
+            <b:includable id='sns'>
+              <div class='share-area'>
+                <ul>
+                  <!-- Facebook -->
+                  <li class='facebook'>
+                    <a expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' expr:title='data:top.shareToFacebookMsg' rel='nofollow' target='_blank'><i class='fab fa-facebook-f'/></a>
+                  </li>
+                  <!-- Twitter -->
+                  <li class='twitter'>
+                    <a expr:href='&quot;http://twitter.com/share?url=&quot; + data:post.url' expr:title='data:top.shareToTwitterMsg' rel='nofollow' target='_blank'><i class='fab fa-twitter'/></a>
+                  </li>
+                  <!-- はてな -->
+                  <li class='hatena'>
+                    <a expr:href='&quot;https://b.hatena.ne.jp/add?mode=confirm&amp;url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' rel='nofollow' target='_blank' title='Hatena で共有する'>B!</a>
+                  </li>
+                  <!-- Pocket -->
+                  <li class='pocket'>
+                    <a expr:href='&quot;https://getpocket.com/edit?url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' rel='nofollow' target='blank' title='Pocket で共有する'><i class='fab fa-get-pocket'/></a>
+                  </li>
+                  <!-- LINE -->
+                  <li class='line'>
+                    <a expr:href='&quot;http://line.me/R/msg/text/?&quot; + data:post.url' rel='nofollow' target='_blank' title='LINE で共有する'><i class='fa fa-comment'/></a>
+                  </li>
+                </ul>
+              </div>
+            </b:includable>
+            <b:includable id='static'>
+              <div class='post-area'>
+                <h1>
+                  <data:post.title/>
+                </h1>
+                <div class='post-content'>
+                  <data:post.body/>
+                  <!-- 記事下アドセンス -->
+                  <div class='ad2'>
+                  </div>
+                </div>
+              </div>
+              <!-- コメントを読み込む -->
+              <b:include name='post-comments'/>
+            </b:includable>
+            <b:includable id='status-message'>
+  <b:if cond='data:navMessage'>
+  <div class='status-msg-wrap'>
+    <div class='status-msg-body'>
+      <data:navMessage/>
+    </div>
+    <div class='status-msg-border'>
+      <div class='status-msg-bg'>
+        <div class='status-msg-hidden'><data:navMessage/></div>
+      </div>
+    </div>
+  </div>
+  <div style='clear: both;'/>
+  </b:if>
+</b:includable>
+            <b:includable id='threaded-comment-form' var='post'>
+                <div class='comment-form'>
+                  <a name='comment-form'/>
+                  <b:if cond='data:mobile'>
+                    <p>
+                      <data:blogCommentMessage/>
+                    </p>
+                    <data:blogTeamBlogMessage/>
+                    <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+                    <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' frameborder='0' height='410' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+                    <b:else/>
+                    <p>
+                      <data:blogCommentMessage/>
+                    </p>
+                    <data:blogTeamBlogMessage/>
+                    <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+                    <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' frameborder='0' height='410' id='comment-editor' name='comment-editor' src='' width='100%'/>
+                  </b:if>
+                  <data:post.friendConnectJs/>
+                  <data:post.cmtfpIframe/>
+                  <script type='text/javascript'>
+                    BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+                  </script>
+                </div>
+              </b:includable>
+            <b:includable id='threaded_comment_js' var='post'>
+                <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+                <script type='text/javascript'>
+                  (function() {
+                    var items = <data:post.commentJso/>;
+                    var msgs = <data:post.commentMsgs/>;
+                    var config = <data:post.commentConfig/>;
+                    // <![CDATA[
+                    var cursor = null;
+                    if (items && items.length > 0) {
+                      cursor = parseInt(items[items.length - 1].timestamp) + 1;
+                    }
+                    var bodyFromEntry = function(entry) {
+                      if (entry.gd$extendedProperty) {
+                        for (var k in entry.gd$extendedProperty) {
+                          if (entry.gd$extendedProperty[k].name == 'blogger.contentRemoved') {
+                            return '<span class="deleted-comment">' + entry.content.$t + '</span>';
+                          }
+                        }
+                      }
+                      return entry.content.$t;
+                    }
+                    var parse = function(data) {
+                      cursor = null;
+                      var comments = [];
+                      if (data && data.feed && data.feed.entry) {
+                        for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
+                          var comment = {};
+                          // comment ID, parsed out of the original id format
+                          var id = /blog-(\d+).post-(\d+)/.exec(entry.id.$t);
+                          comment.id = id ? id[2] : null;
+                          comment.body = bodyFromEntry(entry);
+                          comment.timestamp = Date.parse(entry.published.$t) + '';
+                          if (entry.author && entry.author.constructor === Array) {
+                            var auth = entry.author[0];
+                            if (auth) {
+                              comment.author = {
+                                name: (auth.name ? auth.name.$t : undefined),
+                                profileUrl: (auth.uri ? auth.uri.$t : undefined),
+                                avatarUrl: (auth.gd$image ? auth.gd$image.src : undefined)
+                              };
+                            }
+                          }
+                          if (entry.link) {
+                            if (entry.link[2]) {
+                              comment.link = comment.permalink = entry.link[2].href;
+                            }
+                            if (entry.link[3]) {
+                              var pid = /.*comments\/default\/(\d+)\?.*/.exec(entry.link[3].href);
+                              if (pid && pid[1]) {
+                                comment.parentId = pid[1];
+                              }
+                            }
+                          }
+                          comment.deleteclass = 'item-control blog-admin';
+                          if (entry.gd$extendedProperty) {
+                            for (var k in entry.gd$extendedProperty) {
+                              if (entry.gd$extendedProperty[k].name == 'blogger.itemClass') {
+                                comment.deleteclass += ' ' + entry.gd$extendedProperty[k].value;
+                              } else if (entry.gd$extendedProperty[k].name == 'blogger.displayTime') {
+                                comment.displayTime = entry.gd$extendedProperty[k].value;
+                              }
+                            }
+                          }
+                          comments.push(comment);
+                        }
+                      }
+                      return comments;
+                    };
+                    var paginator = function(callback) {
+                      if (hasMore()) {
+                        var url = config.feed + '?alt=json&v=2&orderby=published&reverse=false&max-results=50';
+                        if (cursor) {
+                          url += '&published-min=' + new Date(cursor).toISOString();
+                        }
+                        window.bloggercomments = function(data) {
+                          var parsed = parse(data);
+                          cursor = parsed.length < 50 ? null
+                          : parseInt(parsed[parsed.length - 1].timestamp) + 1
+                          callback(parsed);
+                          window.bloggercomments = null;
+                        }
+                        url += '&callback=bloggercomments';
+                        var script = document.createElement('script');
+                        script.type = 'text/javascript';
+                        script.src = url;
+                        document.getElementsByTagName('head')[0].appendChild(script);
+                      }
+                    };
+                    var hasMore = function() {
+                      return !!cursor;
+                    };
+                    var getMeta = function(key, comment) {
+                      if ('iswriter' == key) {
+                        var matches = !!comment.author
+                        && comment.author.name == config.authorName
+                        && comment.author.profileUrl == config.authorUrl;
+                        return matches ? 'true' : '';
+                      } else if ('deletelink' == key) {
+                        return config.baseUri + '/delete-comment.g?blogID='
+                        + config.blogId + '&postID=' + comment.id;
+                      } else if ('deleteclass' == key) {
+                        return comment.deleteclass;
+                      }
+                      return '';
+                    };
+                    var replybox = null;
+                    var replyUrlParts = null;
+                    var replyParent = undefined;
+                    var onReply = function(commentId, domId) {
+                      if (replybox == null) {
+                        // lazily cache replybox, and adjust to suit this style:
+                        replybox = document.getElementById('comment-editor');
+                        if (replybox != null) {
+                          replybox.height = '250px';
+                          replybox.style.display = 'block';
+                          replyUrlParts = replybox.src.split('#');
+                        }
+                      }
+                      if (replybox && (commentId !== replyParent)) {
+                        document.getElementById(domId).insertBefore(replybox, null);
+                        replybox.src = replyUrlParts[0]
+                        + (commentId ? '&parentID=' + commentId : '')
+                        + '#' + replyUrlParts[1];
+                        replyParent = commentId;
+                      }
+                    };
+                    var hash = (window.location.hash || '#').substring(1);
+                    var startThread, targetComment;
+                    if (/^comment-form_/.test(hash)) {
+                      startThread = hash.substring('comment-form_'.length);
+                    } else if (/^c[0-9]+$/.test(hash)) {
+                      targetComment = hash.substring(1);
+                    }
+                    // Configure commenting API:
+                    var configJso = {
+                      'maxDepth': config.maxThreadDepth
+                    };
+                    var provider = {
+                      'id': config.postId,
+                      'data': items,
+                      'loadNext': paginator,
+                      'hasMore': hasMore,
+                      'getMeta': getMeta,
+                      'onReply': onReply,
+                      'rendered': true,
+                      'initComment': targetComment,
+                      'initReplyThread': startThread,
+                      'config': configJso,
+                      'messages': msgs
+                    };
+                    var render = function() {
+                      if (window.goog && window.goog.comments) {
+                        var holder = document.getElementById('comment-holder');
+                        window.goog.comments.render(holder, provider);
+                      }
+                    };
+                    // render now, or queue to render when library loads:
+                    if (window.goog && window.goog.comments) {
+                      render();
+                    } else {
+                      window.goog = window.goog || {};
+                      window.goog.comments = window.goog.comments || {};
+                      window.goog.comments.loadQueue = window.goog.comments.loadQueue || [];
+                      window.goog.comments.loadQueue.push(render);
+                    }
+                  })();
+                  // ]]>
+                </script>
+              </b:includable>
+            <b:includable id='threaded_comments' var='post'>
+                <div class='comments' id='comments'>
+                  <a name='comments'/>
+                  <h4>
+                    <data:post.commentLabelFull/>
+                    :
+                  </h4>
+                  <div class='comments-content'>
+                    <b:if cond='data:post.embedCommentForm'>
+                      <b:include data='post' name='threaded_comment_js'/>
+                    </b:if>
+                    <div id='comment-holder'>
+                      <data:post.commentHtml/>
+                    </div>
+                  </div>
+                  <p class='comment-footer'>
+                    <b:if cond='data:post.allowNewComments'>
+                      <b:include data='post' name='threaded-comment-form'/>
+                      <b:else/>
+                      <data:post.noNewCommentsText/>
+                    </b:if>
+                  </p>
+                  <b:if cond='data:showCmtPopup'>
+                    <div id='comment-popup'>
+                      <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+                      </iframe>
+                    </div>
+                  </b:if>
+                  <div id='backlinks-container'>
+                    <div expr:id='data:widget.instanceId + &quot;_backlinks-container&quot;'>
+                      <b:if cond='data:post.showBacklinks'>
+                        <b:include data='post' name='backlinks'/>
+                      </b:if>
+                    </div>
+                  </div>
+                </div>
+              </b:includable>
+          </b:widget>
+        </b:section>
+      </main>
+
+      <!-- サイドバー -->
+      <aside id='aside'>
+        <b:section class='sidebar' id='サイドバー'>
+          <b:widget id='BlogSearch1' locked='false' title='検索' type='BlogSearch' visible='true'>
+            <b:includable id='main'>
+  <b:include name='widget-title'/>
+  <b:include name='content'/>
+</b:includable>
+            <b:includable id='content'>
+  <div class='widget-content' role='search'>
+    <b:include name='searchForm'/>
+  </div>
+</b:includable>
+            <b:includable id='searchForm'>
+  <form expr:action='data:blog.searchUrl'>
+    <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
+    <b:include name='urlParamsAsFormInput'/>
+    <div class='search-input'>
+      <input autocomplete='off' expr:aria-label='data:messages.searchThisBlog' expr:placeholder='data:messages.searchThisBlog' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q'/>
+    </div>
+    <b:include name='searchSubmit'/>
+  </form>
+</b:includable>
+            <b:includable id='searchSubmit'>
+  <input class='search-action' expr:value='data:messages.search.escaped' type='submit'/>
+</b:includable>
+          </b:widget>
+          <b:widget id='HTML1' locked='false' title='最新記事' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'/>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <b:if cond='data:title'>
+                <h3>
+                  <data:title/>
+                </h3>
+              </b:if>
+              <div class='widget-content latest-articles'>
+                <script type='text/javascript'>
+                  //<![CDATA[
+                    /*
+                    Blogger Random - Recent - Specific Label Posts Widget - All in One Post Feed Widget
+                    Link: http://www.sneeit.com/2014/05/all-in-one-post-feed-widget-for-blogger.html
+                    Author: Tien Nguyen
+                    Version: 1.5
+                    */
+                    // サムネイルを表示
+                    var bcd140526_show_thumbnail = true;
+                    // ラベルを表示
+                    var bcd140526_show_label = false;
+                    // コメント数を表示
+                    var bcd140526_show_comment_numbers = false;
+                    // 日付を表示
+                    var bcd140526_show_date = true;
+                    // 著者名を表示
+                    var bcd140526_show_author_name = false;
+                    // もっと読むを表示
+                    var bcd140526_show_readmore = false;
+                    // 要約文を表示
+                    var bcd140526_show_snippet = true;
+                    // コピーライトを隠す
+                    var bcd140526_hide_copyright = true;
+                    // 要約文の文字数
+                    var bcd140526_snippet_length = 45;
+                    // 表示する記事数
+                    var bcd140526_post_count = 5;
+                    // サムネイルのサイズ
+                    var bcd140526_thumbnail_size = null;
+                    // 記事の並び（latest＝最新 or random＝ランダム）
+                    var bcd140526_sort_by = 'latest';
+                    // インデックスラベル
+                    var bcd140526_index_label = '';
+                    // スタイル（list＝リスト or column＝カラム）
+                    var bcd140526_design_style = 'column';
+                    // 日付フォーマット
+                    var bcd140526_date_format = 'mm/dd/yyyy';
+                    // 「もっと読む」の文字列
+                    var lang_readmore = 'Readmore';
+                    // ホスト
+                    var HOST = '';
+
+                    _s7IgU = ['<script type="text/javascript" src="','"><\/script>','-','dd','mm','yyyy','','\u003cimg ','src\u003d\"','\"','','data-thumbnail-src\u003d\"','\"','','\u003ciframe ','src\u003d\"','\"','http://www.youtube.com/watch?v=','','http://www.youtube.com/embed/','','?rel=0','','http://img.youtube.com/vi/','/mqdefault.jpg','blog-','.comments','','category','','title','','subtitle','Anonymous','','http://img1.blogblog.com/img/anon36.png','name','uri','gd$image','http://img1.blogblog.com/img/blank.gif','entry','post-','','published','category','','title','','content','','summary','','','','','comments','link','alternate','replies','Anonymous','','http://img1.blogblog.com/img/anon36.png','name','uri','gd$image','http://img1.blogblog.com/img/blank.gif','','media$thumbnail','thr$total',' ','','','','','thr$in-reply-to','thr$in-reply-to','thr$in-reply-to','/default/','/summary/','?alt=json-in-script','','gd$extendedProperty','blogger.itemClass','pid-','','undefined','undefined','script','src','https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js','type','text/javascript','head','link[href*="font-awesome.css"]','link','href','https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css','rel','stylesheet','head','<div></div>','','<div class="bcd140526_post_feed ',' ','no-thumb','"><ul>','<li class="item item-','">','column','/s72-c/','/s72-c/','/s1600/','youtube.com','/default.','/default.','/mqdefault.','/s72-c/','/s72-c/','/s','-c/','youtube.com','/default.','/default.','/mqdefault.','<a class="thumbnail" style="width:','px;height:','px;" href="','"><img src="','"/></a>','<div class="item-body">','undefined','<a class="cate" href="','/search/label/','">','</a>','<h3 class="title"><a href="','">','</a></h3>','<div class="meta">','<span class="meta-item author-name"><i class="fa fa-user"></i> ','</span>','<span class="meta-item comment-number"><i class="fa fa-comment"></i> ','</span>','<span class="meta-item date-time"><i class="fa fa-clock-o"></i> ','</span>','</div>','...',' <a href="','#more">','</a>','<p class="snippet">','</p>','</div>','</li>','</ul>','<a target="_blank" class="copyright" href="http://www.sneeit.com/2014/05/blogger-random-recent-specific-label-posts-widget-all-in-one-post-feed-widget">BloggerWidget</a>','</div>','<p><em>Have no posts</em></p>','random','/feeds/posts/default','/-/','?alt=json-in-script&max-result=','&start-index=','&callback=_fYbP','/feeds/posts/default','/-/','?alt=json-in-script','random','&max-results=0','&max-results=','&callback=_fHfQ'];function _fIoT(url){document.write(_s7IgU[0]+url+_s7IgU[1]);}function _fAuD(pub_date,format){pub_date=pub_date.split(_s7IgU[2]);date=new Date(pub_date[0],pub_date[1]-1,pub_date[2].substring(0,2));dd=date.getDate();mm=date.getMonth()+1;yyyy=date.getFullYear();format=format.replace(_s7IgU[3],dd);format=format.replace(_s7IgU[4],mm);format=format.replace(_s7IgU[5],yyyy);return format;}function _fCdP(content){var _vOmB=_s7IgU[6];var _vAcZ=_s7IgU[7];var _vOwP=_s7IgU[8];var _vGwA=_s7IgU[9];index0=content.indexOf(_vAcZ);if(index0!=-1){index1=content.indexOf(_vOwP,index0);if(index0!=-1){index2=content.indexOf(_vGwA,index1+_vOwP.length);if(index0!=-1){_vOmB=content.substring(index1+_vOwP.length,index2);}}}if(_vOmB==_s7IgU[10]){_vAcZ=_s7IgU[11];_vOwP=_s7IgU[12];index0=content.indexOf(_vAcZ);if(index0!=-1){index1=content.indexOf(_vOwP,index0+_vAcZ.length);if(index0!=-1){_vOmB=content.substring(index0+_vAcZ.length,index1);}}}if(_vOmB==_s7IgU[13]){_vAcZ=_s7IgU[14];_vOwP=_s7IgU[15];_vGwA=_s7IgU[16];index0=content.indexOf(_vAcZ);if(index0!=-1){index1=content.indexOf(_vOwP,index0);if(index0!=-1){index2=content.indexOf(_vGwA,index1+_vOwP.length);if(index0!=-1){_vOmB=content.substring(index1+_vOwP.length,index2);_vOmB=_vOmB.replace(_s7IgU[17],_s7IgU[18]);_vOmB=_vOmB.replace(_s7IgU[19],_s7IgU[20]);_vOmB=_vOmB.replace(_s7IgU[21],_s7IgU[22]);_vOmB=_s7IgU[23]+_vOmB+_s7IgU[24];}}}}return _vOmB;}function _fHzF(json){var _vPuB=new Object();var _vUkF=/<\S[^>]*>/g;_vPuB.id=json.feed.id.$t;key=_s7IgU[25];index=_vPuB.id.indexOf(key);_vPuB.id=_vPuB.id.substring(index+key.length);_vPuB.id=_vPuB.id.replace(_s7IgU[26],_s7IgU[27]);_vPuB.cate=new Array();if(_s7IgU[28] in json.feed){for(_vSwE=0;_vSwE<json.feed.category.length;_vSwE++){_vPuB.cate[_vSwE]=json.feed.category[_vSwE].term;}}_vPuB.title=_s7IgU[29];if(_s7IgU[30] in json.feed){_vPuB.title=json.feed.title.$t;}_vPuB.subtitle=_s7IgU[31];if(_s7IgU[32] in json.feed){_vPuB.subtitle=json.feed.subtitle.$t;}_vPuB.admin=new Object();_vPuB.admin.name=_s7IgU[33];_vPuB.admin.uri=_s7IgU[34];_vPuB.admin.avatar=_s7IgU[35];if(_s7IgU[36] in json.feed.author[0]){_vPuB.admin.name=json.feed.author[0].name.$t;}if(_s7IgU[37] in json.feed.author[0]){_vPuB.admin.uri=json.feed.author[0].uri.$t;}if(_s7IgU[38] in json.feed.author[0]){if(json.feed.author[0].gd$image.src!=_s7IgU[39]){_vPuB.admin.avatar=json.feed.author[0].gd$image.src;}}_vPuB.total_entry=Number(json.feed.openSearch$totalResults.$t);_vPuB.start_index=Number(json.feed.openSearch$startIndex.$t);_vPuB.item_per_page=Number(json.feed.openSearch$itemsPerPage.$t);_vPuB.entry_number=0;if(_s7IgU[40] in json.feed){_vPuB.entry_number=json.feed.entry.length;}_vPuB.entry=new Array();for(_vSwE=0;_vSwE<_vPuB.entry_number;_vSwE++){_vPuB.entry[_vSwE]=new Object();temp=new Object();entry=json.feed.entry[_vSwE];temp.id=entry.id.$t;key=_s7IgU[41];index=temp.id.indexOf(key);temp.id=temp.id.substring(index+key.length);temp.published=_s7IgU[42];if(_s7IgU[43] in entry){temp.published=entry.published.$t;}temp.cate=new Array();if(_s7IgU[44] in entry){for(j=0;j<entry.category.length;j++){temp.cate[j]=entry.category[j].term;}}temp.title=_s7IgU[45];if(_s7IgU[46] in entry){temp.title=entry.title.$t;}temp.content=_s7IgU[47];if(_s7IgU[48] in entry){temp.content=entry.content.$t;}temp.summary=_s7IgU[49];if(_s7IgU[50] in entry){temp.summary=entry.summary.$t;}if(temp.summary==_s7IgU[51]){temp.summary=temp.content.replace(_vUkF,_s7IgU[52]);}if(temp.content==_s7IgU[53]){temp.content=temp.summary;}temp.link=_s7IgU[54];temp.reply_label=_s7IgU[55];if(_s7IgU[56] in entry){for(j=0;j<entry.link.length;j++){if(entry.link[j].rel==_s7IgU[57]){temp.link=entry.link[j].href;}if(entry.link[j].rel==_s7IgU[58]){temp.reply_label=entry.link[j].title;}}}temp.author=new Object();temp.author.name=_s7IgU[59];temp.author.uri=_s7IgU[60];temp.author.avatar=_s7IgU[61];a0=entry.author[0];if(_s7IgU[62] in a0){temp.author.name=a0.name.$t;}if(_s7IgU[63] in a0){temp.author.uri=a0.uri.$t;}if(_s7IgU[64] in a0){if(a0.gd$image.src!=_s7IgU[65]){temp.author.avatar=a0.gd$image.src;}}temp.thumbnail=_s7IgU[66];if(_s7IgU[67] in entry){temp.thumbnail=entry.media$thumbnail.url;}temp.reply_number=0;if(_s7IgU[68] in entry){temp.reply_number=Number(entry.thr$total.$t);}temp.reply_label=temp.reply_label.replace(temp.reply_number+_s7IgU[69],_s7IgU[70]);temp.reply_to=_s7IgU[71];temp.reply_json=_s7IgU[72];temp.reply_title=_s7IgU[73];if(_s7IgU[74] in entry){temp.reply_to=entry[_s7IgU[75]].href;temp.reply_json=entry[_s7IgU[76]].source;temp.reply_json=temp.reply_json.replace(_s7IgU[77],_s7IgU[78]);temp.reply_json=temp.reply_json+_s7IgU[79];}temp.pid=_s7IgU[80];if(_s7IgU[81] in entry){for(j=0;j<entry.gd$extendedProperty.length;j++){if(entry.gd$extendedProperty[j].name==_s7IgU[82]){temp.pid=entry.gd$extendedProperty[j].value;}}}temp.pid=temp.pid.replace(_s7IgU[83],_s7IgU[84]);_vPuB.entry[_vSwE]=temp;}return _vPuB;}if(typeof(jquery_included)==_s7IgU[85]){jquery_included=false;}function _fCyA(){if(typeof(jQuery)==_s7IgU[86]){if(!jquery_included){jquery_included=true;var _vMbM=document.createElement(_s7IgU[87]);_vMbM.setAttribute(_s7IgU[88],_s7IgU[89]);_vMbM.setAttribute(_s7IgU[90],_s7IgU[91]);document.getElementsByTagName(_s7IgU[92])[0].appendChild(_vMbM);}setTimeout(function(){_fCyA();},50);}else{if(!($(_s7IgU[93]).length)){_vMbM=document.createElement(_s7IgU[94]);_vMbM.setAttribute(_s7IgU[95],_s7IgU[96]);_vMbM.setAttribute(_s7IgU[97],_s7IgU[98]);document.getElementsByTagName(_s7IgU[99])[0].appendChild(_vMbM);}}}_fCyA();function _fRaG(str){document.write(str);}function _fYbP(json){var _vUqE=_s7IgU[100];var _vWbL=_fHzF(json);var _vApD=_s7IgU[101];if(_vWbL.total_entry){_vApD+=(_s7IgU[102]+bcd140526_design_style+_s7IgU[103]+((bcd140526_show_thumbnail)?'thumb':_s7IgU[104])+_s7IgU[105]);for(var _vSwE=0;_vSwE<_vWbL.total_entry&&_vSwE<bcd140526_post_count;_vSwE++){p=_vWbL.entry[_vSwE];_vApD+=(_s7IgU[106]+_vSwE+_s7IgU[107]);if(!p.thumbnail){p.thumbnail=_fCdP(p.content);}if(bcd140526_show_thumbnail&&p.thumbnail){if(bcd140526_design_style===_s7IgU[108]){var _vOmB=p.thumbnail;if(_vOmB.indexOf(_s7IgU[109])!=-1){_vOmB=_vOmB.replace(_s7IgU[110],_s7IgU[111]);}else if(_vOmB.indexOf(_s7IgU[112])!=-1){if(_vOmB.indexOf(_s7IgU[113])!=-1){_vOmB=_vOmB.replace(_s7IgU[114],_s7IgU[115]);}}p.thumbnail=_vOmB;}else{var _vOmB=p.thumbnail;if(_vOmB.indexOf(_s7IgU[116])!=-1){_vOmB=_vOmB.replace(_s7IgU[117],_s7IgU[118]+bcd140526_thumbnail_size+_s7IgU[119]);}else if(_vOmB.indexOf(_s7IgU[120])!=-1){if(_vOmB.indexOf(_s7IgU[121])!=-1){_vOmB=_vOmB.replace(_s7IgU[122],_s7IgU[123]);}}p.thumbnail=_vOmB;}_vApD+=(_s7IgU[124]+bcd140526_thumbnail_size+_s7IgU[125]+bcd140526_thumbnail_size+_s7IgU[126]+p.link+_s7IgU[127]+p.thumbnail+_s7IgU[128]);}_vApD+=(_s7IgU[129]);if(bcd140526_show_label&&(typeof(p.cate[0])!=_s7IgU[130])){_vApD+=(_s7IgU[131]+HOST+_s7IgU[132]+p.cate[0]+_s7IgU[133]+p.cate[0]+_s7IgU[134]);}_vApD+=(_s7IgU[135]+p.link+_s7IgU[136]+p.title+_s7IgU[137]);if(bcd140526_show_author_name||bcd140526_show_comment_numbers||bcd140526_show_date){_vApD+=(_s7IgU[138]);if(bcd140526_show_author_name){_vApD+=(_s7IgU[139]+p.author.name+_s7IgU[140]);}if(bcd140526_show_comment_numbers){_vApD+=(_s7IgU[141]+p.reply_number+_s7IgU[142]);}if(bcd140526_show_comment_numbers){_vApD+=(_s7IgU[143]+_fAuD(p.published,bcd140526_date_format)+_s7IgU[144]);}_vApD+=(_vUqE+_s7IgU[145]+_vUqE);}if(bcd140526_show_snippet){if(p.summary.length>bcd140526_snippet_length){p.summary=p.summary.substring(0,bcd140526_snippet_length)+_s7IgU[146];}if(bcd140526_show_readmore){p.summary+=_s7IgU[147]+p.link+_s7IgU[148]+lang_readmore+_s7IgU[149];}_vApD+=(_s7IgU[150]+p.summary+_s7IgU[151]);}_vApD+=(_vUqE+_s7IgU[152]+_vUqE);_vApD+=(_s7IgU[153]);}_vApD+=(_s7IgU[154]);if(!bcd140526_hide_copyright){_vApD+=(_vUqE);_vApD+=(_s7IgU[155]);}_vApD+=(_s7IgU[156]+_vUqE);}else{_vApD+=(_s7IgU[157]);}_fRaG(_vApD);}function _fHfQ(json){if(bcd140526_sort_by==_s7IgU[158]){var _vRiO=_fHzF(json);rand=Math.floor((Math.random()*_vRiO.total_entry)+1);if(rand+bcd140526_post_count>_vRiO.total_entry){rand=_vRiO.total_entry-bcd140526_post_count+1;}if(rand<1){rand=1;}var _vXsM=HOST+_s7IgU[159];if(bcd140526_index_label){_vXsM+=_s7IgU[160]+encodeURIComponent(bcd140526_index_label);}_vXsM+=_s7IgU[161]+bcd140526_post_count+_s7IgU[162]+rand+_s7IgU[163];_fIoT(_vXsM);}else{_fYbP(json);}}var _vXsM=HOST+_s7IgU[164];if(bcd140526_index_label){_vXsM+=_s7IgU[165]+encodeURIComponent(bcd140526_index_label);}_vXsM+=_s7IgU[166];if(bcd140526_sort_by==_s7IgU[167]){_vXsM+=_s7IgU[168];}else{_vXsM+=_s7IgU[169]+bcd140526_post_count;}_vXsM+=_s7IgU[170];_fIoT(_vXsM);
+                  //]]>
+                </script>
+              </div>
+            </b:includable>
+          </b:widget>
+          <b:widget id='PopularPosts1' locked='false' title='カスタム人気記事' type='PopularPosts' version='1'>
+            <b:widget-settings>
+              <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
+              <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+              <b:widget-setting name='showSnippets'>true</b:widget-setting>
+              <b:widget-setting name='timeRange'>LAST_YEAR</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <b:if cond='data:title'>
+                <h3>
+                  <data:title/>
+                </h3>
+              </b:if>
+              <div class='popular-post widget-content custom-pp'>
+                <ul>
+                  <b:loop values='data:posts' var='post'>
+                    <li>
+                      <b:if cond='data:showThumbnails == &quot;false&quot;'>
+                        <b:if cond='data:showSnippets == &quot;false&quot;'>
+                          <!-- タイトルのみ -->
+                          <a expr:href='data:post.href'>
+                              <div class='pp-items-title'>
+                                <div class='pp-title-only'>
+                                  <data:post.title/>
+                                </div>
+                              </div>
+                            </a>
+                          <b:else/>
+                          <!-- タイトル&#65291;抜粋 -->
+                          <a expr:href='data:post.href'>
+                              <div class='pp-items'>
+                                <div class='pp-info'>
+                                  <div class='pp-title'>
+                                    <data:post.title/>
+                                  </div>
+                                  <div class='pp-snippet'>
+                                    <b:eval expr='data:post.snippet snippet {length: 60, links: false, linebreaks: false, ellipsis: true}'/>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                        </b:if>
+                        <b:else/>
+                        <b:if cond='data:showSnippets == &quot;false&quot;'>
+                          <!-- タイトル&#65291;サムネイル -->
+                          <a expr:href='data:post.href'>
+                              <div class='pp-items'>
+                                <div class='pp-thumb'>
+                                <!-- サムネイル有 -->
+                                  <b:if cond='data:post.thumbnail'>
+                                    <img expr:src='resizeImage(data:post.thumbnail,320)'/>
+                                <!-- サムネイル無 -->
+                                  <b:else/>
+                                    <img src='https://1.bp.blogspot.com/-g0cXjfIKSlQ/Xzz86y6RL8I/AAAAAAAAbwg/KGBW30hjNS4tAI1BOFfYtSwGoydYpXXjACLcBGAsYHQ/s320/noimage_bk.png'/>
+                                  </b:if>
+                                </div>
+                                <div class='pp-info'>
+                                  <div class='pp-title'>
+                                    <data:post.title/>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                          <b:else/>
+                          <!-- タイトル&#65291;サムネイル&#65291;抜粋 -->
+                          <a expr:href='data:post.href'>
+                              <div class='pp-items'>
+                                <div class='pp-thumb'>
+                                <!-- サムネイル有 -->
+                                  <b:if cond='data:post.thumbnail'>
+                                    <img expr:src='resizeImage(data:post.thumbnail,320)'/>
+                                <!-- サムネイル無 -->
+                                  <b:else/>
+                                    <!-- 自分の画像URLに変更する -->
+                                    <img src='https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png'/>
+                                  </b:if>
+                                </div>
+                                <div class='pp-info'>
+                                  <div class='pp-title'>
+                                    <data:post.title/>
+                                  </div>
+                                  <div class='pp-snippet'>
+                                    <b:eval expr='data:post.snippet snippet {length: 60, links: false, linebreaks: false, ellipsis: true}'/>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                        </b:if>
+                      </b:if>
+                    </li>
+                  </b:loop>
+                </ul>
+              </div>
+            </b:includable>
+          </b:widget>
+          <b:widget id='BlogArchive1' locked='false' title='カスタムアーカイブ' type='BlogArchive' version='1'>
+            <b:widget-settings>
+              <b:widget-setting name='showStyle'>HIERARCHY</b:widget-setting>
+              <b:widget-setting name='yearPattern'>yyyy</b:widget-setting>
+              <b:widget-setting name='showWeekEnd'>true</b:widget-setting>
+              <b:widget-setting name='monthPattern'>MMMM</b:widget-setting>
+              <b:widget-setting name='dayPattern'>MMM dd</b:widget-setting>
+              <b:widget-setting name='weekPattern'>MM/dd</b:widget-setting>
+              <b:widget-setting name='chronological'>false</b:widget-setting>
+              <b:widget-setting name='showPosts'>true</b:widget-setting>
+              <b:widget-setting name='frequency'>MONTHLY</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <b:if cond='data:title != &quot;&quot;'>
+                <h3>
+                  <data:title/>
+                </h3>
+              </b:if>
+              <div class='widget-content'>
+                <div class='archive-list' id='ArchiveList'>
+                  <div expr:id='data:widget.instanceId + &quot;_ArchiveList&quot;'>
+                    <!-- 条件分岐&#65306;階層 -->
+                    <b:include cond='data:style == &quot;HIERARCHY&quot;' data='data' name='interval'/>
+                    <!-- 条件分岐&#65306;フラット -->
+                    <b:include cond='data:style == &quot;FLAT&quot;' data='data' name='flat'/>
+                    <!-- 条件分岐&#65306;プルダウン -->
+                    <b:include cond='data:style == &quot;MENU&quot;' data='data' name='menu'/>
+                  </div>
+                </div>
+              </div>
+            </b:includable>
+            <b:includable id='flat' var='data'>
+              <ul class='flat'>
+                <b:loop values='data:data' var='i'>
+                  <li class='archivedate flat-archive-list'>
+                    <a expr:href='data:i.url'>
+                      <data:i.name/></a>
+                      <span class='post-count' dir='ltr'><data:i.post-count/></span>
+                  </li>
+                </b:loop>
+              </ul>
+            </b:includable>
+            <b:includable id='interval' var='intervalData'>
+              <b:loop values='data:intervalData' var='interval'>
+                <ul class='hierarchy'>
+                  <li expr:class='&quot;archivedate &quot; + &quot;collapsed&quot;'>
+                    <b:include cond='data:interval.toggleId' data='interval' name='toggle'/>
+                    <a class='post-count-link' expr:href='data:interval.url'>
+                      <data:interval.name/>
+                    </a>
+                    <span class='post-count' dir='ltr'><data:interval.post-count/></span>
+                    <b:include cond='data:interval.data' data='interval.data' name='interval'/>
+                    <b:include cond='data:interval.posts' data='interval.posts' name='posts'/>
+                  </li>
+                </ul>
+              </b:loop>
+            </b:includable>
+            <b:includable id='menu' var='data'>
+              <select class='select-archive-list' expr:id='data:widget.instanceId + &quot;_ArchiveMenu&quot;'>
+                <option value=''>
+                  <data:title/>
+                </option>
+                <b:loop values='data:data' var='i'>
+                  <option expr:value='data:i.url'>
+                    <data:i.name/>(<data:i.post-count/>)</option>
+                </b:loop>
+              </select>
+            </b:includable>
+            <b:includable id='posts' var='posts'>
+              <ul class='posts'>
+                <b:loop values='data:posts' var='post'>
+                  <li><a expr:href='data:post.url'>
+                      <data:post.title/></a></li>
+                </b:loop>
+              </ul>
+            </b:includable>
+            <b:includable id='toggle' var='interval'>
+              <a class='toggle' href='javascript:void(0)'>
+                <span expr:class='&quot;zippy&quot; + (data:interval.expclass == &quot;expanded&quot; ? &quot; toggle-open&quot; : &quot;&quot;)'>
+                  <b:if cond='data:interval.expclass == &quot;expanded&quot;'>
+                    <!-- &#9660; -->
+                    &#9658;
+                    <b:elseif cond='data:blog.languageDirection == &quot;rtl&quot;'/>
+                    &#9668;
+                    <b:else/>
+                    &#9658;
+                  </b:if>
+                </span>
+              </a>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </aside>
+
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <footer>
+
+    <!-- フッターガジェット -->
+    <div class='footer-area'>
+      <b:section class='page-footer' id='フッター1'/>
+      <b:section class='page-footer' id='フッター2'/>
+      <b:section class='page-footer' id='フッター3'/>
+    </div>
+
+    <!-- コピーライト -->
+    <p class='copy-right'>
+      &#169;
+      <data:blog.title/> All Rights Reserved.
+    </p>
+
+    <p class='designed-by'>
+      designed by <a class='designed-by' href='https://blogger-learning-rab.blogspot.com/' target='_blank'>Blogger Labo</a>
+    </p>
+
+  </footer>
+
+  <!-- ページトップボタン -->
+  <div class='page-top-button'>
+    <a href='#'><i class='fa fa-angle-double-up'/></a>
+  </div>
+
+<!-- ===========================================================================
+JavaScript&#65288;jQuery&#65289;
+=========================================================================== -->
+
+<!-- jQuery CDN -->
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'/>
+
+<script>
+  //<![CDATA[
+    // ページトップアイコンを隠す
+    $('.page-top-button').hide();
+
+    // ページトップボタン
+    $(window).scroll(function() {
+      var now = $(window).scrollTop();
+      // トップから200px以下になるとページトップアイコンを表示
+      if (now > 200) {
+        $('.page-top-button').fadeIn('slow');
+      } 
+      // 上記以外の場合は消す
+      else {
+        $('.page-top-button').fadeOut('slow');
+      }
+    });
+
+    // ページ内のスムーススクロール設定
+    $('a[href^="#"]').click(function() {
+        // スクロールの速度
+        var speed = 200; // ミリ秒
+        // アンカーの値取得
+        var href= $(this).attr("href");
+        // 移動先を取得
+        var target = $(href == "#" || href == "" ? 'html' : href);
+        // 移動先を数値で取得
+        var position = target.offset().top;
+        // スムーススクロール
+        $('body,html').animate({scrollTop:position}, speed, 'swing');
+        return false;
+      });
+    //]]>
+</script>
+
+<!-- 記事中に目次&#12539;アドセンスを配置する -->
+<b:if cond='data:blog.pageType == &quot;item&quot;'>
+  <script>
+    //<![CDATA[
+      var parent = document.getElementsByClassName('post-content')[0];
+      var ad = document.getElementById('ad1');
+      var more = document.getElementsByName('more')[0];
+      var toc = document.getElementById('Table-of-Content');
+      var h2 = document.getElementsByTagName('h2')[0];
+      // 目次の読み込み（h2とmoreがあるときのみ）
+      if (typeof h2 !== 'undefined' && typeof more !== 'undefined') {
+      parent.insertBefore(toc, more);
+      } else {
+      toc.hidden = true;
+      }
+      // アドセンスの読み込み
+      parent.insertBefore(ad, more);
+    //]]>
+  </script>
+</b:if>
+
+<!-- 目次を表示させるコード -->
+<script>
+  //<![CDATA[
+  $(function () {
+    var idcount = 1;
+    var toc = '';
+    var currentlevel = 0;
+    $(".post-content h2,.post-content h3,.post-content h4", this).each(function () {
+      this.id = "chapter-" + idcount;
+      idcount++;
+      var level = 0;
+        if (this.nodeName.toLowerCase() == "h2") {
+        level = 1;
+      } else if (this.nodeName.toLowerCase() == "h3") {
+        level = 2;
+      } else if (this.nodeName.toLowerCase() == "h4") {
+        level = 3;
+      }
+      while (currentlevel < level) { toc += '<ol class="chapter">'; currentlevel++; } while (currentlevel > level) {
+        toc += "</ol>";
+        currentlevel--;
+      }
+      toc += '<li><a href="#' + this.id + '">' + $(this).html() + "</a></li>\n";
+    });
+    while (currentlevel > 0) {
+      toc += "</ol>";
+      currentlevel--;
+    }
+    if ($(".post-content h2")[0]) {
+      $("#toc").html(toc);
+    }
+    else {
+      $('#toc').attr('class', 'no-toc');
+    }
+  });
+  //]]>
+</script>
+
+<!-- ページャを番号付きにするコードはじめ -->
+<b:if cond='data:blog.pageType != &quot;item&quot;'> <!-- 個別記事ぺージでない -->
+  <b:if cond='data:blog.pageType != &quot;static_page&quot;'> <!-- 固定ページではない -->
+    <script type='text/javascript'>
+      /*<![CDATA[*/
+      var postperpage = 7; // 1ページあたりに表示する記事数
+      var numshowpage = 2; // 番号表示ページ
+      var upPageWord = '<i class="fa fa-angle-left" aria-hidden="true"></i>'; // < 前の投稿
+      var downPageWord = '<i class="fa fa-angle-right" aria-hidden="true"></i>'; // 次の投稿 >
+      var urlactivepage = location.href;
+      var home_page = "/";
+    /*]]>*/
+    </script>
+    <script type='text/javascript'>
+      /*<![CDATA[*/
+      var nopage; var jenis; var nomerhal; var lblname1; halamanblogger(); function loophalaman(banyakdata) { var html = ''; nomerkiri = parseInt(numshowpage / 2); if (nomerkiri == numshowpage - nomerkiri) { numshowpage = nomerkiri * 2 + 1 } mulai = nomerhal - nomerkiri; if (mulai < 1) mulai = 1; maksimal = parseInt(banyakdata / postperpage) + 1; if (maksimal - 1 == banyakdata / postperpage) maksimal = maksimal - 1; akhir = mulai + numshowpage - 1; if (akhir > maksimal) akhir = maksimal; html += "<span class='showpageOf'>Page " + nomerhal + ' of ' + maksimal + "</span>"; var prevnomer = parseInt(nomerhal) - 1; if (nomerhal > 1) { if (nomerhal == 2) { if (jenis == "page") { html += '<span class="showpage"><a href="' + home_page + '">' + upPageWord + '</a></span>' } else { html += '<span class="showpageNum"><a href="/search/label/' + lblname1 + '?&max-results=' + postperpage + '">' + upPageWord + '</a></span>' } } else { if (jenis == "page") { html += '<span class="showpageNum"><a href="#" onclick="redirectpage(' + prevnomer + ');return false">' + upPageWord + '</a></span>' } else { html += '<span class="showpageNum"><a href="#" onclick="redirectlabel(' + prevnomer + ');return false">' + upPageWord + '</a></span>' } } } if (mulai > 1) { if (jenis == "page") { html += '<span class="showpageNum"><a href="' + home_page + '">1</a></span>' } else { html += '<span class="showpageNum"><a href="/search/label/' + lblname1 + '?&max-results=' + postperpage + '">1</a></span>' } } if (mulai > 2) { html += ' ... ' } for (var jj = mulai; jj <= akhir; jj++) { if (nomerhal == jj) { html += '<span class="showpagePoint">' + jj + '</span>' } else if (jj == 1) { if (jenis == "page") { html += '<span class="showpageNum"><a href="' + home_page + '">1</a></span>' } else { html += '<span class="showpageNum"><a href="/search/label/' + lblname1 + '?&max-results=' + postperpage + '">1</a></span>' } } else { if (jenis == "page") { html += '<span class="showpageNum"><a href="#" onclick="redirectpage(' + jj + ');return false">' + jj + '</a></span>' } else { html += '<span class="showpageNum"><a href="#" onclick="redirectlabel(' + jj + ');return false">' + jj + '</a></span>' } } } if (akhir < maksimal - 1) { html += '...' } if (akhir < maksimal) { if (jenis == "page") { html += '<span class="showpageNum"><a href="#" onclick="redirectpage(' + maksimal + ');return false">' + maksimal + '</a></span>' } else { html += '<span class="showpageNum"><a href="#" onclick="redirectlabel(' + maksimal + ');return false">' + maksimal + '</a></span>' } } var nextnomer = parseInt(nomerhal) + 1; if (nomerhal < maksimal) { if (jenis == "page") { html += '<span class="showpageNum"><a href="#" onclick="redirectpage(' + nextnomer + ');return false">' + downPageWord + '</a></span>' } else { html += '<span class="showpageNum"><a href="#" onclick="redirectlabel(' + nextnomer + ');return false">' + downPageWord + '</a></span>' } } var pageArea = document.getElementsByName("pageArea"); var blogPager = document.getElementById("blog-pager"); for (var p = 0; p < pageArea.length; p++) { pageArea[p].innerHTML = html } if (pageArea && pageArea.length > 0) { html = '' } if (blogPager) { blogPager.innerHTML = html } } function hitungtotaldata(root) { var feed = root.feed; var totaldata = parseInt(feed.openSearch$totalResults.$t, 10); loophalaman(totaldata) } function halamanblogger() { var thisUrl = urlactivepage; if (thisUrl.indexOf("/search/label/") != -1) { if (thisUrl.indexOf("?updated-max") != -1) { lblname1 = thisUrl.substring(thisUrl.indexOf("/search/label/") + 14, thisUrl.indexOf("?updated-max")) } else { lblname1 = thisUrl.substring(thisUrl.indexOf("/search/label/") + 14, thisUrl.indexOf("?&max")) } } if (thisUrl.indexOf("?q=") == -1 && thisUrl.indexOf(".html") == -1) { if (thisUrl.indexOf("/search/label/") == -1) { jenis = "page"; if (urlactivepage.indexOf("#PageNo=") != -1) { nomerhal = urlactivepage.substring(urlactivepage.indexOf("#PageNo=") + 8, urlactivepage.length) } else { nomerhal = 1 } document.write("<script src=\"" + home_page + "feeds/posts/summary?max-results=1&alt=json-in-script&callback=hitungtotaldata\"><\/script>") } else { jenis = "label"; if (thisUrl.indexOf("&max-results=") == -1) { postperpage = 20 } if (urlactivepage.indexOf("#PageNo=") != -1) { nomerhal = urlactivepage.substring(urlactivepage.indexOf("#PageNo=") + 8, urlactivepage.length) } else { nomerhal = 1 } document.write('<script src="' + home_page + 'feeds/posts/summary/-/' + lblname1 + '?alt=json-in-script&callback=hitungtotaldata&max-results=1" ><\/script>') } } } function redirectpage(numberpage) { jsonstart = (numberpage - 1) * postperpage; nopage = numberpage; var nBody = document.getElementsByTagName('head')[0]; var newInclude = document.createElement('script'); newInclude.type = 'text/javascript'; newInclude.setAttribute("src", home_page + "feeds/posts/summary?start-index=" + jsonstart + "&max-results=1&alt=json-in-script&callback=finddatepost"); nBody.appendChild(newInclude) } function redirectlabel(numberpage) { jsonstart = (numberpage - 1) * postperpage; nopage = numberpage; var nBody = document.getElementsByTagName('head')[0]; var newInclude = document.createElement('script'); newInclude.type = 'text/javascript'; newInclude.setAttribute("src", home_page + "feeds/posts/summary/-/" + lblname1 + "?start-index=" + jsonstart + "&max-results=1&alt=json-in-script&callback=finddatepost"); nBody.appendChild(newInclude) } function finddatepost(root) { post = root.feed.entry[0]; var timestamp1 = post.published.$t.substring(0, 19) + post.published.$t.substring(23, 29); var timestamp = encodeURIComponent(timestamp1); if (jenis == "page") { var alamat = "/search?updated-max=" + timestamp + "&max-results=" + postperpage + "#PageNo=" + nopage } else { var alamat = "/search/label/" + lblname1 + "?updated-max=" + timestamp + "&max-results=" + postperpage + "#PageNo=" + nopage } location.href = alamat }
+      /*]]>*/
+    </script>
+  </b:if>
+</b:if>
+<!-- ページャを番号付きにするコードおわり -->
+
+</body>
+
+</html>
