@@ -2227,7 +2227,7 @@
       }
     }
 
-    /* レスポンシブ（タブレット縦） */
+    /* レスポンシブ（スマホ縦） */
     @media screen and (max-width: 560px) {
       .pp-items {
         flex-direction: row;
