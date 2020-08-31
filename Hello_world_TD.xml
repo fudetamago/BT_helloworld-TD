@@ -794,7 +794,6 @@
     .post-area {
       background: $(post.body.background.color);
       padding-bottom: 20px;
-      max-width: 800px;
     }
 
     /* 記事の画像
