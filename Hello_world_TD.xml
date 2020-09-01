@@ -2722,6 +2722,16 @@
 
 <body>
 
+  <!-- schema -->
+  <b:if cond='data:blog.pageType == &quot;index&quot;'>
+    <div itemscope='itemscope' itemtype='http://schema.org/Blog' style='display: none;'>
+      <meta expr:content='data:blog.title' itemprop='name'/>
+      <b:if cond='data:blog.metaDescription'>
+        <meta expr:content='data:blog.metaDescription' itemprop='description'/>
+      </b:if>
+    </div>
+  </b:if>
+
   <!-- ヘッダー -->
   <header>
 
@@ -2958,8 +2968,14 @@
               </div>
             </b:includable>
             <b:includable id='articles'>
-              <div class='articles-area'>
-                <h2>
+              <!-- schema -->
+              <div class='articles-area' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+                <b:if cond='data:post.thumbnailUrl'>
+                  <meta expr:content='data:post.thumbnailUrl' itemprop='image_url'/>
+                </b:if>
+                <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+                <meta expr:content='data:post.id' itemprop='postId'/>
+                <h2 itemprop='name'>
                   <a expr:href='data:post.url'>
                     <data:post.title/></a>
                 </h2>
@@ -3626,8 +3642,14 @@
             </div>
             </b:includable>
             <b:includable id='single-post'>
-              <div class='post-area'>
-                <h1>
+              <!-- schema -->
+              <div class='post-area' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+                <b:if cond='data:post.firstImageUrl'>
+                  <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
+                </b:if>
+                <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+                <meta expr:content='data:post.id' itemprop='postId'/>
+                <h1 itemprop='name'>
                   <data:post.title/>
                 </h1>
                 <div class='single-info-area'>
