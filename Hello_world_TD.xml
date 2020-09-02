@@ -813,6 +813,10 @@
       object-fit: cover;
     }
 
+    .separator {
+      margin: 0 auto;
+    }
+
     /* デフォルトの余白を削除 */
     .separator a {
       padding: 0 !important;
