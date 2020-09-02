@@ -1627,6 +1627,7 @@
     /* ガジェットの中身 */
     .sidebar .widget-content {
       padding: 15px 10px;
+      overflow: hidden;
     }
 
     /* レスポンシブ（タブレット小縦） */
