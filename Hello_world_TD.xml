@@ -1,77 +1,65 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='true' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.3.0' b:version='2' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html b:templateVersion='1.3.0' b:layoutsVersion='3' b:defaultwidgetversion='2' b:version='2' b:css='true' b:js='true'
+  b:responsive='true' expr:lang='data:blog.locale' expr:dir='data:blog.languageDirection'
+  xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b'
+  xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 
 <head>
   <!-- 文字化けを防ぐ -->
-  <meta charset='UTF-8'/>
+  <meta charset='UTF-8' />
   <!-- モバイル表示の設定 -->
-  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <meta content='width=device-width, initial-scale=1' name='viewport' />
 
   <!-- Bloggerの設定読み込み -->
-  <b:include data='blog' name='all-head-content'/>
+  <b:include data='blog' name='all-head-content' />
 
   <!-- タブに表示されるテキスト -->
   <b:if cond='data:blog.pageType == &quot;index&quot; '>
-    <!-- インデックスページの場合&#65288;個別記事&#12539;固定ページ以外&#65289; -->
+    <!-- インデックスページの場合（個別記事・固定ページ以外） -->
     <title><data:blog.pageTitle/></title>
   <b:else/>
-    <!-- 個別記事&#12539;固定ページの場合 -->
+    <!-- 個別記事・固定ページの場合 -->
     <title><data:blog.pageName/>-<data:blog.title/></title>
   </b:if>
 
   <!-- OGP設定 -->
   <b:if cond='data:blog.pageType == &quot;item&quot; or data:blog.pageType == &quot;static_page&quot;'>
-    <meta expr:content='data:blog.pageName' property='og:title'/>
-    <meta content='article' property='og:type'/>
+    <meta property='og:title' expr:content='data:blog.pageName'/>
+    <meta property='og:type' content='article'/>
   <b:else/>
-    <meta expr:content='data:blog.title' property='og:title'/>
-    <meta content='website' property='og:type'/>
+    <meta property='og:title' expr:content='data:blog.title'/>
+    <meta property='og:type' content='website'/>
   </b:if>
   
   <b:if cond='data:blog.metaDescription != &quot;&quot;'>
-    <meta expr:content='data:blog.metaDescription' property='og:description'/>
+    <meta property='og:description' expr:content='data:blog.metaDescription'/>
   </b:if>
   
-  <meta expr:content='data:blog.url' property='og:url'/>
-  <meta expr:content='data:blog.title' property='og:site_name'/>
-  <meta content='ja_JP' property='og:locale'/>
+  <meta property='og:url' expr:content='data:blog.url'/>
+  <meta property='og:site_name' expr:content='data:blog.title'/>
+  <meta property='og:locale' content='ja_JP'/>
   
   <!-- og:image -->
   <b:if cond='data:blog.pageType == &quot;item&quot; or data:blog.pageType == &quot;static_page&quot;'>
-    <meta expr:content='&quot;http://blogger-entry-image.appspot.com/?s=s900&amp;u=&quot; + data:blog.url' property='og:image'/>
+    <meta property='og:image' expr:content='&quot;http://blogger-entry-image.appspot.com/?s=s900&amp;u=&quot; + data:blog.url'/>
   <b:else/>
   </b:if>
 
   <!-- Twitterカード -->
   <meta content='summary_large_image' name='twitter:card'/>
-  <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
 
-  <b:if cond='data:blog.pageType == &quot;item&quot;'>
-    <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
-    <meta expr:content='data:blog.pageName' name='twitter:title'/>
-    <meta expr:content='data:blog.postImageUrl' name='twitter:image:src'/>
   <b:if cond='data:blog.pageType == &quot;index&quot;'>
-    <meta expr:content='data:blog.title' name='twitter:title'/>
     <!-- 自分の画像URLに変更する -->
-    <meta content='https://1.bp.blogspot.com/-rkhmAb2Zph8/X0nJOvitpZI/AAAAAAAAb78/IAednQHMKRU1l-4o1mMtsSg-HnsOBEiagCLcBGAsYHQ/s1600/blogger.png'/>
-  <b:else/>
-    <meta expr:content='data:blog.homepageUrl' name='twitter:url'/>
-    <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-    <meta content='Image URL' name='twitter:image:src'/>
-  </b:if>
-  </b:if>
-
-  <b:if cond='data:blog.metaDescription'>
-    <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+    <meta property="og:image" content='https://1.bp.blogspot.com/-rkhmAb2Zph8/X0nJOvitpZI/AAAAAAAAb78/IAednQHMKRU1l-4o1mMtsSg-HnsOBEiagCLcBGAsYHQ/s1600/blogger.png' name='twitter:image:src'/>
   </b:if>
 
   <!-- font-awesome CDN -->
-  <link href='https://use.fontawesome.com/releases/v5.6.1/css/all.css' rel='stylesheet'/>
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet" />
 
   <!-- CSS -->
-  <b:skin><![CDATA[
-    
+  <b:skin>
+    <![CDATA[
 
     /*-----------------------------------------------------------------------------
     Name:      Hello world!
@@ -345,7 +333,7 @@
       left: -50vw;
     }
 
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
         
       /* スマホではPC用のヘッダーナビを消す */
         .navbar {
@@ -495,7 +483,7 @@
     }
 
     /* レスポンシブ（タブレット大縦） */
-    @media screen and (max-width: 1024px) {
+    @media (max-width: 1024px) {
       main {
         max-width: 650px;
       }
@@ -505,7 +493,7 @@
     }
 
     /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       .main-wrapper {
         padding: 30px 5px;
       }
@@ -645,7 +633,7 @@
     }
 
     /* レスポンシブ（タブレット小縦） */
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       .article-post-wrap {
         height: auto;
       }
@@ -665,7 +653,7 @@
     }
 
     /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       .article-post-wrap {
         flex-direction: column;
         height: auto;
@@ -987,7 +975,7 @@
     ---------------------------------------------------------------------------- */
     
     /* レスポンシブ（タブレット大縦） */
-    @media screen and (max-width: 1024px) {
+    @media (max-width: 1024px) {
       .post-content {
         padding: 10px 15px 0;
       }
@@ -1001,7 +989,7 @@
       }
     }
     /* レスポンシブ（タブレット小縦） */
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       .post-area h1 {
         font-size: 18px;
         padding: 10px 15px;
@@ -1088,7 +1076,7 @@
     }
 
     /* レスポンシブ（タブレット小縦） */
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
     .single-info-area {
         padding: 10px 10px 8px 10px;
         margin-bottom: 0;
@@ -1264,7 +1252,7 @@
 
     /* 関連記事のレスポンシブ設定 */
 
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       .p-container {
         flex-direction: column;
         padding: 10px;
@@ -1401,7 +1389,7 @@
     }
 
     /* レスポンシブ（タブレット小縦） */
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       .comment-area {
         padding: 10px;
       }
@@ -1459,13 +1447,13 @@
     }
 
      /* レスポンシブ（タブレット縦） */
-    @media screen and (max-width: 1024px) {
+    @media (max-width: 1024px) {
       #toc {
         width: 80%;
       }
     }
     /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       #toc {
         width: 90%;
         margin: 0 auto 20px;
@@ -1474,7 +1462,7 @@
         margin-left: 0;
       }
     }
-   @media screen and (max-width: 560px) {
+   @media (max-width: 560px) {
     #toc:before {
       font-size: 13px;
     }
@@ -1526,7 +1514,7 @@
     }
 
     /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       .breadcrumbs {
         top: -23px;
         max-width: 100vw;
@@ -1567,14 +1555,14 @@
     }
 
     /* レスポンシブ（タブレット大縦） */
-    @media screen and (max-width: 1024px) {
+    @media (max-width: 1024px) {
       .error-panel {
         padding: 13vmax 2vmax;
         margin: -15px auto 10px; 
       }
     }
     /* レスポンシブ（タブレット小縦） */
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       .error-url {
         font-size: 12px;
       }
@@ -1598,7 +1586,7 @@
     }
 
     /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       .sidebar {
         height: auto;
         width: 100%;
@@ -1635,7 +1623,7 @@
     }
 
     /* レスポンシブ（タブレット小縦） */
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       .sidebar h3 {
         font-size: 16px;
       }
@@ -1672,14 +1660,14 @@
     }
 
     /* レスポンシブ（タブレット小縦） */
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
       .BlogSearch input {
         width: 15vw;
       }
     }
 
     /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       .BlogSearch input {
         width: 65vw;
       }
@@ -2239,7 +2227,7 @@
     }
 
    /* レスポンシブ（タブレット大縦） */
-   @media screen and (max-width: 1024px) {
+   @media (max-width: 1024px) {
      .pp-items {
         flex-direction: column;
       }
@@ -2255,7 +2243,7 @@
     }
 
     /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       .pp-items {
         flex-direction: row;
       }
@@ -2318,7 +2306,7 @@
     }
 
     /* レスポンシブ（タブレット大縦） */
-    @media screen and (max-width: 1024px) {
+    @media (max-width: 1024px) {
       .latest-articles li {
         flex-direction: column;
       }
@@ -2336,7 +2324,7 @@
     }
 
   /* レスポンシブ（スマホ縦） */
-  @media screen and (max-width: 560px) {
+  @media (max-width: 560px) {
     .latest-articles li {
       flex-direction: row;
     }
@@ -2422,7 +2410,7 @@
     }
 
     /* スマホ用 */
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       footer {
         padding: 10px 0;
       }
@@ -2553,7 +2541,7 @@
 
     /* レスポンシブ設定 */
 
-    @media screen and (max-width: 560px) {
+    @media (max-width: 560px) {
       .page-top-button {
         top: 60%;
         right: -8px;
@@ -2638,7 +2626,7 @@
     }
 
     /* ビデオレスポンシブ */
-    @media only screen and (max-width:560px) {
+    @media (max-width:560px) {
       .video-small iframe, .video-medium iframe, .video-large iframe {
         width: 95%;
         height: auto;
@@ -2705,7 +2693,7 @@
       color: #333;
     }
 
-     @media only screen and (max-width:1024px) {
+     @media (max-width:1024px) {
       .img-box {
         width: 25vw;
       }
@@ -2714,7 +2702,7 @@
       }
      }
 
-    @media only screen and (max-width:768px) {
+    @media (max-width:768px) {
       .link-box {
         margin: 20px;
       }
@@ -2733,7 +2721,7 @@
       }
     }
 
-    @media only screen and (max-width:560px) {
+    @media (max-width:560px) {
       .link-box {
         margin: 10px;
       }
@@ -2758,8 +2746,8 @@
       }
     }
 
-    
-  ]]></b:skin>
+    ]]>
+  </b:skin>
 
   <!-- 関連記事を表示させるコードはじめ -->
   <b:if cond='data:blog.pageType == &quot;item&quot;'>
@@ -2785,9 +2773,9 @@
   <!-- schema -->
   <b:if cond='data:blog.pageType == &quot;index&quot;'>
     <div itemscope='itemscope' itemtype='http://schema.org/Blog' style='display: none;'>
-      <meta expr:content='data:blog.title' itemprop='name'/>
+      <meta expr:content='data:blog.title' itemprop='name' />
       <b:if cond='data:blog.metaDescription'>
-        <meta expr:content='data:blog.metaDescription' itemprop='description'/>
+        <meta expr:content='data:blog.metaDescription' itemprop='description' />
       </b:if>
     </div>
   </b:if>
@@ -2796,28 +2784,26 @@
   <header>
 
     <!-- ヘッダーガジェット -->
-    <b:section class='page-header' id='ヘッダー'>
-      <b:widget id='Header1' locked='false' title='Hello, world! (Header)' type='Header' version='2' visible='true'>
-        <b:widget-settings>
-          <b:widget-setting name='displayUrl'/>
-          <b:widget-setting name='displayHeight'>0</b:widget-setting>
-          <b:widget-setting name='sectionWidth'>-1</b:widget-setting>
-          <b:widget-setting name='useImage'>false</b:widget-setting>
-          <b:widget-setting name='shrinkToFit'>false</b:widget-setting>
-          <b:widget-setting name='imagePlacement'>BEHIND</b:widget-setting>
-          <b:widget-setting name='displayWidth'>0</b:widget-setting>
-        </b:widget-settings>
+    <b:section id='ヘッダー' class='page-header'>
+      <b:widget id='Header1' locked='false' title='Hello, world! (Header)' type='Header' visible='true'>
+
+        <!-- ヘッダーの条件分岐 -->
         <b:includable id='main' var='this'>
           <div class='header-widget'>
-            <b:include cond='data:imagePlacement in {&quot;REPLACE&quot;, &quot;BEFORE_DESCRIPTION&quot;}' name='image'/>
-            <b:include cond='data:imagePlacement not in {&quot;REPLACE&quot;, &quot;BEFORE_DESCRIPTION&quot;}' name='title'/>
-            <b:include cond='data:imagePlacement != &quot;REPLACE&quot;' name='description'/>
+            <b:include cond='data:imagePlacement in {&quot;REPLACE&quot;, &quot;BEFORE_DESCRIPTION&quot;}'
+              name='image' />
+            <b:include cond='data:imagePlacement not in {&quot;REPLACE&quot;, &quot;BEFORE_DESCRIPTION&quot;}'
+              name='title' />
+            <b:include cond='data:imagePlacement != &quot;REPLACE&quot;' name='description' />
           </div>
-          <b:include cond='data:imagePlacement == &quot;BEHIND&quot;' name='behindImageStyle'/>
+          <b:include cond='data:imagePlacement == &quot;BEHIND&quot;' name='behindImageStyle' />
         </b:includable>
+
+        <!-- イメージを背景に -->
         <b:includable id='behindImageStyle'>
           <b:if cond='data:sourceUrl'>
-            <b:include cond='data:this.image' data='{image: data:this.image,               selector: &quot;.header-widget&quot;}' name='responsiveImageStyle'/>
+            <b:include cond='data:this.image' data='{image: data:this.image,
+              selector: &quot;.header-widget&quot;}' name='responsiveImageStyle' />
             <style type='text/css'>
               .header-widget {
                 background-position: <data:blog.locale.languageAlignment/>;
@@ -2827,23 +2813,33 @@
             </style>
           </b:if>
         </b:includable>
-        <b:includable id='description'>
-          <p>
-            <data:this.description/>
-          </p>
-        </b:includable>
+
+        <!-- タイトルをイメージに -->
         <b:includable id='image'>
           <a class='header-image-wrapper' expr:href='data:blog.homepageUrl'>
-            <b:include data='{image: data:image,                 altText: data:blog.title.escaped,                 originalWidth: data:width,                 originalHeight: data:height}' name='responsiveImage'/>
+            <b:include data='{image: data:image,
+                altText: data:blog.title.escaped,
+                originalWidth: data:width,
+                originalHeight: data:height}' name='responsiveImage' />
           </a>
         </b:includable>
+
+        <!-- ブログタイトル -->
         <b:includable id='title'>
           <h1>
             <a expr:href='data:blog.homepageUrl'>
-              <data:title/>
+              <data:title />
             </a>
           </h1>
         </b:includable>
+
+        <!-- サブタイトル -->
+        <b:includable id='description'>
+          <p>
+            <data:this.description />
+          </p>
+        </b:includable>
+
       </b:widget>
     </b:section>
 
@@ -2851,20 +2847,16 @@
     <nav>
 
       <b:section class='menu' id='ヘッダーナビ' showaddelement='no'>
-        <b:widget id='PageList1' locked='true' title='メニュー' type='PageList' version='2' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='pageListJson'><![CDATA[{'home': {'href': 'https://blogger-rab-demo3.blogspot.com/', 'title': 'ホーム', 'position': 0}, '186845084161374376': {'href': 'https://blogger-rab-demo3.blogspot.com/p/blog-page.html', 'title': '固定ページ', 'position': 1}, '7025602724594745140': {'href': 'https://blogger-rab-demo3.blogspot.com/p/blog-page_23.html', 'title': 'コメント可能', 'position': 2}}]]></b:widget-setting>
-            <b:widget-setting name='homeTitle'>ホーム</b:widget-setting>
-          </b:widget-settings>
+        <b:widget id='PageList1' locked='true' title='メニュー' type='PageList' visible='true'>
           <b:includable id='main'>
 
             <!-- PC用ヘッダーナビ  -->
-            <div class='navbar'>
+            <div class="navbar">
               <ul>
                 <b:loop values='data:links' var='link'>
                   <li>
                     <a expr:href='data:link.href'>
-                      <data:link.title/>
+                      <data:link.title />
                     </a>
                   </li>
                 </b:loop>
@@ -2872,74 +2864,34 @@
             </div>
 
             <!-- スマホ用ヘッダーナビ -->
-            <div class='navbar-res'>
-              <div class='menu-area'>
-                <input class='toggle-button' id='menu-open' type='checkbox'/>
-                <label class='menu-button' for='menu-open'>
-                  <div class='button-text'><i class='fas fa-bars' id='menu-icon'/>MENU</div>
+            <div class="navbar-res">
+              <div class="menu-area">
+                <input type="checkbox" id="menu-open" class="toggle-button"/>
+                <label for="menu-open" class="menu-button">
+                  <div class="button-text"><i id="menu-icon" class="fas fa-bars" />MENU</div>
                 </label>
-                <label class='menu-back' for='menu-open'/>
-                <div class='nav-menu'>
+                <label for="menu-open" class="menu-back"></label>
+                <div class="nav-menu">
                   <ul>
                     <b:loop values='data:links' var='link'>
                       <li>
                         <a expr:href='data:link.href'>
-                          <data:link.title/>
+                          <data:link.title />
                         </a>
                       </li>
                     </b:loop>
                   </ul>
                 </div>
               </div>
-              <div class='side-area'>
-                <input class='toggle-button' id='side-jump' onclick='location.href=&apos;#aside&apos;' type='button'/>
-                <label class='side-button' for='side-jump'>
-                  <div class='button-text'>SIDE<i class='fa fa-angle-double-down' id='side-icon'/></div>
+              <div class="side-area">
+                <input type="button" onclick="location.href='#aside'" id="side-jump" class="toggle-button"/>
+                <label for="side-jump" class="side-button">
+                  <div class="button-text">SIDE<i id="side-icon" class="fa fa-angle-double-down" /></div>
                 </label>
               </div>
             </div>
 
           </b:includable>
-          <b:includable id='content'>
-  <div class='widget-content'>
-    <b:include name='pageList'/>
-  </div>
-</b:includable>
-          <b:includable id='overflowButton'>
-  <b:include name='verticalMoreIcon'/>
-</b:includable>
-          <b:includable id='overflowablePageList'>
-  <div class='overflowable-container'>
-    <div class='overflowable-contents'>
-      <div class='container'>
-        <b:with value='true' var='overflow'>
-        <b:with value='&quot;tabs&quot;' var='pageListClass'>
-          <b:include name='pageList'/>
-        </b:with>
-        </b:with>
-      </div>
-    </div>
-    <div class='overflow-button hidden'>
-      <b:include name='overflowButton'/>
-    </div>
-  </div>
-</b:includable>
-          <b:includable id='pageLink'>
-  <li>
-    <b:class cond='data:overflow' name='overflowable-item'/>
-    <b:class cond='data:link.isCurrentPage' name='selected'/>
-
-    <a expr:href='data:link.href'><data:link.title/></a>
-  </li>
-</b:includable>
-          <b:includable id='pageList'>
-  <ul>
-    <b:class cond='data:pageListClass' expr:name='data:pageListClass'/>
-    <b:loop values='data:links' var='link'>
-      <b:include name='pageLink'/>
-    </b:loop>
-  </ul>
-</b:includable>
         </b:widget>
       </b:section>
 
@@ -2948,39 +2900,15 @@
   </header>
 
   <!-- ラッパー -->
-  <div class='main-wrapper'>
+  <div class="main-wrapper">
 
     <!-- コンテナ -->
-    <div class='container'>
+    <div class="container">
 
       <!-- メインコンテンツ -->
       <main>
-        <b:section class='main' id='メイン'>
-          <b:widget id='Blog1' locked='true' title='ブログの投稿' type='Blog' version='1'>
-            <b:widget-settings>
-              <b:widget-setting name='showDateHeader'>false</b:widget-setting>
-              <b:widget-setting name='style.textcolor'>#444444</b:widget-setting>
-              <b:widget-setting name='showShareButtons'>true</b:widget-setting>
-              <b:widget-setting name='authorLabel'>By</b:widget-setting>
-              <b:widget-setting name='showCommentLink'>true</b:widget-setting>
-              <b:widget-setting name='style.urlcolor'>#555555</b:widget-setting>
-              <b:widget-setting name='showAuthor'>false</b:widget-setting>
-              <b:widget-setting name='disableGooglePlusShare'>true</b:widget-setting>
-              <b:widget-setting name='style.linkcolor'>#333333</b:widget-setting>
-              <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
-              <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
-              <b:widget-setting name='timestampLabel'>-</b:widget-setting>
-              <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
-              <b:widget-setting name='style.layout'>1x1</b:widget-setting>
-              <b:widget-setting name='showLabels'>false</b:widget-setting>
-              <b:widget-setting name='showLocation'>false</b:widget-setting>
-              <b:widget-setting name='showTimestamp'>false</b:widget-setting>
-              <b:widget-setting name='postsPerAd'>1</b:widget-setting>
-              <b:widget-setting name='showBacklinks'>false</b:widget-setting>
-              <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
-              <b:widget-setting name='showInlineAds'>false</b:widget-setting>
-              <b:widget-setting name='showReactions'>false</b:widget-setting>
-            </b:widget-settings>
+        <b:section id='メイン' class='main'>
+          <b:widget id='Blog1' locked='true' title='ブログの投稿' type='Blog' visible='true' version='1'>
             <b:includable id='main'>
 
               <!-- パンくずリストの読み込み -->
@@ -2989,34 +2917,129 @@
               <!-- ページタイプの条件分岐 -->
               <b:switch var='data:blog.pageType'>
                 <!-- 個別記事の時 -->
-                <b:case value='item'/>
-                <b:loop values='data:posts' var='post'>
-                  <b:include name='single-post'/>
+                <b:case value="item" />
+                <b:loop var='post' values='data:posts'>
+                  <b:include name='single-post' />
                 </b:loop>
                 <!-- 固定ページの時 -->
-                <b:case value='static_page'/>
-                <b:loop values='data:posts' var='post'>
-                  <b:include name='static'/>
+                <b:case value="static_page" />
+                <b:loop var='post' values='data:posts'>
+                  <b:include name='static' />
                 </b:loop>
                 <!-- 404ページの時 -->
-                <b:case value='error_page'/>
-                 <b:include name='404'/>
+                <b:case value="error_page" />
+                 <b:include name='404' />
                 <!-- それ以外 -->
-                <b:default/>
-                  <b:loop values='data:posts' var='post'>
-                    <b:include name='articles'/>
+                <b:default />
+                  <b:loop var='post' values='data:posts'>
+                    <b:include name='articles' />
                   </b:loop>
-                  <b:include name='articles-pager'/>
+                  <b:include name='articles-pager' />
               </b:switch>
             </b:includable>
+
+            <!-- パンくずリスト -->
+            <b:includable id='breadcrumb' var='posts'>
+              <!-- 固定ページのパンくずリスト -->
+              <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
+                <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'><span
+                    itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a
+                      expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                    <meta content='1' itemprop='position' /></span> <i class="fa fa-chevron-right pause-icon" /> <span
+                    itemprop='name'>
+                    <data:blog.pageName /></span></div>
+                <b:else />
+                <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                  <!-- 個別記事ページのパンくずリスト -->
+                  <b:loop values='data:posts' var='post'>
+                    <b:if cond='data:post.labels'>
+                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
+                        <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a
+                            expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                          <meta content='1' itemprop='position' /></span>
+                        <b:loop values='data:post.labels' var='label'>
+                          <i class="fa fa-chevron-right pause-icon" /> <span itemprop='itemListElement' itemscope='itemscope'
+                            itemtype='http://schema.org/ListItem'><a expr:href='data:label.url + &quot;?&amp;max-results=10&quot;' itemprop='item'>
+                              <span itemprop='name'>
+                                <data:label.name /></span></a>
+                            <meta content='2' itemprop='position' /></span>
+                        </b:loop>
+                        <i class="fa fa-chevron-right pause-icon" /> <span itemprop='name'>
+                          <data:post.title /></span>
+                      </div>
+                      <b:else />
+                      <!-- タグがない場合のパンくずリスト -->
+                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'><span
+                          itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a
+                            expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                          <meta content='1' itemprop='position' /></span> <i class="fa fa-chevron-right pause-icon" />
+                        <span itemprop='name'>未分類</span> <i class="fa fa-chevron-right pause-icon" /> <span itemprop='name'>
+                          <data:post.title /></span></div>
+                    </b:if>
+                  </b:loop>
+                  <b:else />
+                  <b:if cond='data:blog.pageType == &quot;archive&quot;'>
+                    <!-- アーカイブページのパンくずリスト -->
+                    <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
+                      <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a
+                          expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                        <meta content='1' itemprop='position' /></span> <i class="fa fa-chevron-right pause-icon" /> アーカイブ: <span
+                        itemprop='name'>
+                        <data:blog.pageName /></span>
+                    </div>
+                    <b:else />
+                    <!-- インデックスページ（ホーム・ラベル・検索）のパンくずリスト -->
+                    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
+                        <!-- 記事リストページのパンくずリスト -->
+                        <b:if cond='data:blog.pageName == &quot;&quot;'>
+                          <div class="article-breadcrumbs">
+                            <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a
+                                expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                              <meta content='1' itemprop='position' /></span> <i class="fa fa-chevron-right pause-icon" /> <span
+                              itemprop='name'>投稿一覧</span>
+                          </div>
+                          <b:else />
+                          <!-- その他場合のパンくずリスト -->
+                          <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a
+                              expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
+                            <meta content='1' itemprop='position' /></span> <i class="fa fa-chevron-right pause-icon" /> <span
+                            itemprop='name'>
+                            <data:blog.pageName /></span>
+                        </b:if>
+                      </div>
+                    </b:if>
+                  </b:if>
+                </b:if>
+              </b:if>
+            </b:includable>
+
+            <!-- 固定ページ -->
+            <b:includable id='static'>
+              <div class="post-area">
+                <h1>
+                  <data:post.title />
+                </h1>
+                <div class="post-content">
+                  <data:post.body />
+                  <!-- 記事下アドセンス -->
+                  <div class="ad2">
+                  </div>
+                </div>
+              </div>
+              <!-- コメントを読み込む -->
+              <b:include name='post-comments' />
+            </b:includable>
+
+            <!-- 404ページ -->
             <b:includable id='404'>
-              <div class='post-area'>
-                <h1>404 Not Found&#65288;ページが見つかりませんでした&#65289;</h1>
-                <div class='post-content'>
-                  <div class='error-panel'>404</div>
-                  <p class='error-url'><data:blog.url/></p>
-                  <p class='error-message'>こちらのURLのページは存在しないか&#12289;移動した可能性があります&#12290;</p>
-                  <p class='error-message'>5秒後にTOPページへ移動します&#12290;</p>
+              <div class="post-area">
+                <h1>404 Not Found（ページが見つかりませんでした）</h1>
+                <div class="post-content">
+                  <div class="error-panel">404</div>
+                  <p class="error-url"><data:blog.url/></p>
+                  <p class="error-message">こちらのURLのページは存在しないか、移動した可能性があります。</p>
+                  <p class="error-message">5秒後にTOPページへ移動します。</p>
                   <script>
                     //<![CDATA[
                     BSPNF_redirect = setTimeout(function () {
@@ -3027,9 +3050,11 @@
                 </div>
               </div>
             </b:includable>
+
+            <!-- 記事リスト -->
             <b:includable id='articles'>
               <!-- schema -->
-              <div class='articles-area' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+              <div class="articles-area" itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
                 <b:if cond='data:post.thumbnailUrl'>
                   <meta expr:content='data:post.thumbnailUrl' itemprop='image_url'/>
                 </b:if>
@@ -3037,122 +3062,235 @@
                 <meta expr:content='data:post.id' itemprop='postId'/>
                 <h2 itemprop='name'>
                   <a expr:href='data:post.url'>
-                    <data:post.title/></a>
+                    <data:post.title /></a>
                 </h2>
-                <div class='article-post-wrap'>
+                <div class="article-post-wrap">
                   <!-- サムネイル -->
                   <div class='article-thumbnail'>
                     <!-- 記事に画像がある場合 -->
                     <b:if cond='data:post.firstImageUrl'>
-                      <a expr:href='data:post.url'><img expr:src='data:post.firstImageUrl'/></a>
+                      <a expr:href='data:post.url'><img expr:src='data:post.firstImageUrl' /></a>
                       <!-- 記事に画像が無い場合 -->
-                      <b:else/>
+                      <b:else />
                       <a expr:href='data:post.url'>
                       <!-- 自分の画像URLに変更する -->
-                      <img src='https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png'/></a>
+                      <img
+                          src="https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png" /></a>
                     </b:if>
                   </div>
-                  <div class='article-post-area'>
-                    <div class='article-info-area'>
-                      <i aria-hidden='true' class='fa fa-calendar fa-fw'/>
-                      <div class='article-post-date'>
-                        <data:post.date/>
+                  <div class="article-post-area">
+                    <div class="article-info-area">
+                      <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                      <div class="article-post-date">
+                        <data:post.date />
                       </div>
-                      <div class='article-post-tag'>
+                      <div class="article-post-tag">
                         <!-- タグがあるがどうか -->
                         <b:if cond='data:post.labels'>
-                          <i aria-hidden='true' class='fa fa-tag fa-fw'/>
+                          <i class="fa fa-tag fa-fw" aria-hidden="true"></i>
                           <b:loop values='data:post.labels' var='label'>
                             <a expr:href='data:label.url + &quot;?&amp;max-results=10&quot;' property='v:title' rel='v:url'>
-                              <data:label.name/></a>
+                              <data:label.name /></a>
                           </b:loop>
                           <!-- タグが無い場合は非表示 -->
-                          <b:else/>
+                          <b:else />
                         </b:if>
                       </div>
                     </div>
                     <!-- 記事の要約 -->
                     <div class='post-snippet'>
-                      <b:eval expr='data:post.snippet snippet {length: 110, links: false, linebreaks: false, ellipsis: true}'/>
+                      <b:eval
+                        expr='data:post.snippet snippet {length: 110, links: false, linebreaks: false, ellipsis: true}' />
                     </div>
-                    <div class='read-more'>
+                    <div class="read-more">
                       <a expr:href='data:post.url'>続きを読む</a>
                     </div>
                   </div>
                 </div>
               </div>
             </b:includable>
+
+            <!-- 記事リスト用のページャ -->
             <b:includable id='articles-pager'>
-              <div class='pager-wrap'>
+              <div class="pager-wrap">
                 <div class='blog-pager' id='blog-pager'>
-                  <b:include name='nextprev'/>
+                  <b:include name='nextprev' />
                 </div>
               </div>
             </b:includable>
-            <b:includable id='backlinkDeleteIcon' var='backlink'/>
-            <b:includable id='backlinks' var='post'/>
-            <b:includable id='breadcrumb' var='posts'>
-              <!-- 固定ページのパンくずリスト -->
-              <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
-                <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'><span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
-                    <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>
-                    <data:blog.pageName/></span></div>
-                <b:else/>
-                <b:if cond='data:blog.pageType == &quot;item&quot;'>
-                  <!-- 個別記事ページのパンくずリスト -->
-                  <b:loop values='data:posts' var='post'>
+
+            <!-- 個別記事ページ -->
+            <b:includable id='single-post'>
+              <!-- schema -->
+              <div class="post-area" itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+                <b:if cond='data:post.firstImageUrl'>
+                  <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
+                </b:if>
+                <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+                <meta expr:content='data:post.id' itemprop='postId'/>
+                <h1 itemprop='name'>
+                  <data:post.title />
+                </h1>
+                <div class="single-info-area">
+                  <div class="single-release-date">
+                    <i class="fa fa-edit fa-fw post-icon"></i>
+                    <data:post.date />
+                  </div>
+                  <div class='updated single-modified-date' id="last-modified" itemprop='dateModified'
+                    expr:title='"Post was updated on " + data:post.lastUpdatedISO8601'>
+                    <data:post.lastupdatedISO8601 />
+                  </div>
+                  <script type='text/javascript'>
+                    // 投稿日
+                    var published = new Date("<data:post.timestampISO8601/>");
+                    // 最終更新日  
+                    var updated = new Date("<data:post.lastUpdatedISO8601/>");
+                  </script>
+                  <script type='text/javascript'>
+                    /* <![CDATA[ */
+                    // 投稿日
+                    var pp_Y = "" + published.getFullYear();
+                    var pp_M = ("0" + (published.getMonth() + 1)).slice(-2);
+                    var pp_D = ("0" + published.getDate()).slice(-2);
+                    // 最終更新日 
+                    var dd_Y = "" + updated.getFullYear();
+                    var dd_M = ("0" + (updated.getMonth() + 1)).slice(-2);
+                    var dd_D = ("0" + updated.getDate()).slice(-2);
+                    //日付が同じときは出力しない
+                    if (dd_Y == pp_Y && dd_M == pp_M && dd_D == pp_D) {
+                    } else {
+                      var updated_dd = '<div class="last-modified"><i aria-hidden="true" class="fas fa-sync-alt fa-fw post-icon"></i>' + dd_Y + "/" + dd_M + "/" + dd_D + '</div>';
+                      document.getElementById("last-modified").innerHTML = updated_dd;
+                    }
+                    /* ]]> */
+                  </script>
+                  <div class="single-post-tag">
                     <b:if cond='data:post.labels'>
-                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
-                        <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
-                          <meta content='1' itemprop='position'/></span>
-                        <b:loop values='data:post.labels' var='label'>
-                          <i class='fa fa-chevron-right pause-icon'/> <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:label.url + &quot;?&amp;max-results=10&quot;' itemprop='item'>
-                              <span itemprop='name'>
-                                <data:label.name/></span></a>
-                            <meta content='2' itemprop='position'/></span>
-                        </b:loop>
-                        <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>
-                          <data:post.title/></span>
+                      <i class="fa fa-tag" aria-hidden="true"></i>
+                      <b:loop values='data:post.labels' var='label'>
+                        <a expr:href='data:label.url + &quot;?&amp;max-results=10&quot;' property='v:title' rel='v:url'>
+                          <data:label.name /></a>
+                      </b:loop>
+                      <b:else />
+                    </b:if>
+                  </div>
+                </div>
+                <div class="post-content">
+                  <data:post.body />
+                    <!-- 目次 -->
+                    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                      <div id='Table-of-Content'>
+                        <div id="toc"></div>
                       </div>
-                      <b:else/>
-                      <!-- タグがない場合のパンくずリスト -->
-                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'><span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
-                          <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/>
-                        <span itemprop='name'>未分類</span> <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>
-                          <data:post.title/></span></div>
+                    </b:if>
+                  <!-- 記事中アドセンス -->
+                  <div id="ad1" class="ad1">
+                  </div>
+                </div>
+                <!-- SNSボタンを読み込む -->
+                <b:include name='sns' />
+                  <!-- 記事下アドセンス -->
+                  <div class="ad2">
+                  </div>
+              </div>
+              <!-- ページャを読み込む -->
+              <b:include name='single-pager' />
+              <!-- 関連記事を読み込む -->
+                <b:if cond='data:post.labels'> <!-- タグがあるがどうか -->
+                  <b:include name='single-related-posts' />
+                <b:else/>
+                  <!-- タグがなければ非表示 -->
+                </b:if>
+              <!-- コメントを読み込む -->
+              <b:include name='post-comments' />
+            </b:includable>
+
+            <!-- SNSボタン -->
+            <b:includable id='sns'>
+              <div class="share-area">
+                <ul>
+                  <!-- Facebook -->
+                  <li class="facebook">
+                    <a expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url'
+                      expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;'
+                      expr:title='data:top.shareToFacebookMsg' rel='nofollow' target='_blank'><i
+                        class="fab fa-facebook-f"></i></a>
+                  </li>
+                  <!-- Twitter -->
+                  <li class="twitter">
+                    <a expr:href='&quot;http://twitter.com/share?url=&quot; + data:post.url'
+                      expr:title='data:top.shareToTwitterMsg' rel='nofollow' target='_blank'><i
+                        class="fab fa-twitter"></i></a>
+                  </li>
+                  <!-- はてな -->
+                  <li class="hatena">
+                    <a expr:href='&quot;https://b.hatena.ne.jp/add?mode=confirm&amp;url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title'
+                      rel='nofollow' target='_blank' title='Hatena で共有する'>B!</a>
+                  </li>
+                  <!-- Pocket -->
+                  <li class="pocket">
+                    <a expr:href='&quot;https://getpocket.com/edit?url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title'
+                      rel='nofollow' target='blank' title='Pocket で共有する'><i class="fab fa-get-pocket"></i></a>
+                  </li>
+                  <!-- LINE -->
+                  <li class="line">
+                    <a expr:href="&quot;http://line.me/R/msg/text/?&quot; + data:post.url" rel='nofollow'
+                      target='_blank' title='LINE で共有する'><i class="fa fa-comment"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </b:includable>
+
+            <!-- 個別記事用のページャ -->
+            <b:includable id='single-pager'>
+            <div class="single-pager">
+              <ul>
+                <li class="prev-post-link">
+                  <a expr:href='data:olderPageUrl'><i class="fa fa-angle-double-left" aria-hidden="true"></i> PREV</a>
+                </li>
+                <li class="next-post-link">
+                  <a expr:href='data:newerPageUrl'>NEXT <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+            </div>
+            </b:includable>
+
+            <!-- 関連記事 -->
+            <b:includable id='single-related-posts'>
+              <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                <div id='related-posts'>
+                  <b:loop values='data:post.labels' var='label'>
+                    <b:if cond='data:label.isLast != &quot;true&quot;'>
+                    </b:if>
+                    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                      <script expr:src='&quot;/feeds/posts/default/-/&quot; + data:label.name + &quot;?alt=json-in-script&amp;callback=related_results_labels_thumbs&amp;max-results=99&quot;' type='text/javascript'/>
                     </b:if>
                   </b:loop>
-                  <b:else/>
-                  <b:if cond='data:blog.pageType == &quot;archive&quot;'>
-                    <!-- アーカイブページのパンくずリスト -->
-                    <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
-                      <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
-                        <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/> アーカイブ: <span itemprop='name'>
-                        <data:blog.pageName/></span>
-                    </div>
-                    <b:else/>
-                    <!-- インデックスページ&#65288;ホーム&#12539;ラベル&#12539;検索&#65289;のパンくずリスト -->
-                    <b:if cond='data:blog.pageType == &quot;index&quot;'>
-                      <div class='breadcrumbs' itemscope='itemscope' itemtype='http://schema.org/BreadcrumbList'>
-                        <!-- 記事リストページのパンくずリスト -->
-                        <b:if cond='data:blog.pageName == &quot;&quot;'>
-                          <div class='article-breadcrumbs'>
-                            <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
-                              <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>投稿一覧</span>
-                          </div>
-                          <b:else/>
-                          <!-- その他場合のパンくずリスト -->
-                          <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
-                            <meta content='1' itemprop='position'/></span> <i class='fa fa-chevron-right pause-icon'/> <span itemprop='name'>
-                            <data:blog.pageName/></span>
-                        </b:if>
-                      </div>
-                    </b:if>
-                  </b:if>
-                </b:if>
+                  <script type='text/javascript'>
+                    var currentposturl=&quot;<data:post.url/>&quot;;
+                    var maxresults=8; // 最大表示件数
+                    var relatedpoststitle=&quot;関連記事&quot;; // 見出しに表示される文字列
+                    removeRelatedDuplicates_thumbs();
+                    printRelatedLabels_thumbs();
+                  </script>
+                </div>
               </b:if>
             </b:includable>
-            <b:includable id='comment-form' var='post'>
+
+            <!-- コメントピッカー -->
+            <b:includable id='post-comments'>
+              <b:if cond='data:post.allowComments'>
+                <div class="comment-wrap">
+                  <h3>コメント</h3>
+                  <div class='comment-area'>
+                    <b:include data='post' name='comment_picker'/>
+                  </div>
+                </div>
+               </b:if>
+            </b:includable>
+
+           <!-- コメントの構成コードはじめ -->
+           <b:includable id='comment-form' var='post'>
                 <div class='comment-form'>
                   <a name='comment-form'/>
                   <b:if cond='data:mobile'>
@@ -3185,9 +3323,9 @@
                   </script>
                 </div>
               </b:includable>
-            <b:includable id='commentDeleteIcon' var='comment'>
+              <b:includable id='commentDeleteIcon' var='comment'>
               </b:includable>
-            <b:includable id='comment_count_picker' var='post'>
+              <b:includable id='comment_count_picker' var='post'>
                 <b:if cond='data:post.commentSource == 1'>
                   <span class='cmt_count_iframe_holder' expr:data-count='data:post.numComments' expr:data-onclick='data:post.addCommentOnclick' expr:data-post-url='data:post.url' expr:data-url='data:post.canonicalUrl'>
                   </span>
@@ -3198,7 +3336,7 @@
                   </a>
                 </b:if>
               </b:includable>
-            <b:includable id='comment_picker' var='post'>
+              <b:includable id='comment_picker' var='post'>
                 <b:if cond='data:post.commentSource == 1'>
                   <b:include data='post' name='iframe_comments'/>
                   <b:else/>
@@ -3209,7 +3347,7 @@
                   </b:if>
                 </b:if>
               </b:includable>
-            <b:includable id='comments' var='post'>
+              <b:includable id='comments' var='post'>
                 <div class='comments' id='comments'>
                   <a name='comments'/>
                   <b:if cond='data:post.allowComments'>
@@ -3306,561 +3444,8 @@
                   </div>
                 </div>
               </b:includable>
-            <b:includable id='feedLinks'>
-  <b:if cond='data:blog.pageType != &quot;item&quot;'> <!-- Blog feed links -->
-    <b:if cond='data:feedLinks'>
-      <div class='blog-feeds'>
-        <b:include data='feedLinks' name='feedLinksBody'/>
-      </div>
-    </b:if>
 
-  <b:else/> <!--Post feed links -->
-    <div class='post-feeds'>
-      <b:loop values='data:posts' var='post'>
-        <b:include cond='data:post.allowComments and data:post.feedLinks' data='post.feedLinks' name='feedLinksBody'/>
-      </b:loop>
-    </div>
-  </b:if>
-</b:includable>
-            <b:includable id='feedLinksBody' var='links'>
-  <div class='feed-links'>
-  <data:feedLinksMsg/>
-  <b:loop values='data:links' var='f'>
-     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
-  </b:loop>
-  </div>
-</b:includable>
-            <b:includable id='iframe_comments' var='post'>
-  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
-</b:includable>
-            <b:includable id='mobile-index-post' var='post'>
-  <div class='mobile-date-outer date-outer'>
-    <b:if cond='data:post.dateHeader'>
-      <div class='date-header'>
-        <span><data:post.dateHeader/></span>
-      </div>
-    </b:if>
-
-    <div class='mobile-post-outer'>
-      <a expr:href='data:post.url'>
-        <h3 class='mobile-index-title entry-title' itemprop='name'>
-          <data:post.title/>
-        </h3>
-
-        <div class='mobile-index-arrow'>&amp;rsaquo;</div>
-
-        <div class='mobile-index-contents'>
-          <b:if cond='data:post.thumbnailUrl'>
-            <div class='mobile-index-thumbnail'>
-              <div class='Image'>
-                <img expr:src='data:post.thumbnailUrl'/>
-              </div>
-            </div>
-          </b:if>
-
-          <div class='post-body'>
-            <b:if cond='data:post.snippet'><data:post.snippet/></b:if>
-          </div>
-        </div>
-
-        <div style='clear: both;'/>
-      </a>
-
-      <div class='mobile-index-comment'>
-        <b:include cond='data:blog.pageType != &quot;static_page&quot;                          and data:post.allowComments                          and data:post.numComments != 0' data='post' name='comment_count_picker'/>
-      </div>
-    </div>
-  </div>
-</b:includable>
-            <b:includable id='mobile-main' var='top'>
-    <!-- posts -->
-    <div class='blog-posts hfeed'>
-
-      <b:include data='top' name='status-message'/>
-
-      <b:if cond='data:blog.pageType == &quot;index&quot;'>
-        <b:loop values='data:posts' var='post'>
-          <b:include data='post' name='mobile-index-post'/>
-        </b:loop>
-      <b:else/>
-        <b:loop values='data:posts' var='post'>
-          <b:include data='post' name='mobile-post'/>
-        </b:loop>
-      </b:if>
-    </div>
-
-   <b:include name='mobile-nextprev'/>
-</b:includable>
-            <b:includable id='mobile-nextprev'>
-  <div class='blog-pager' id='blog-pager'>
-    <b:if cond='data:newerPageUrl'>
-      <div class='mobile-link-button' id='blog-pager-newer-link'>
-      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'>&amp;lsaquo;</a>
-      </div>
-    </b:if>
-
-    <b:if cond='data:olderPageUrl'>
-      <div class='mobile-link-button' id='blog-pager-older-link'>
-      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'>&amp;rsaquo;</a>
-      </div>
-    </b:if>
-
-    <div class='mobile-link-button' id='blog-pager-home-link'>
-    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
-    </div>
-
-    <div class='mobile-desktop-link'>
-      <a class='home-link' expr:href='data:desktopLinkUrl'><data:desktopLinkMsg/></a>
-    </div>
-
-  </div>
-  <div class='clear'/>
-</b:includable>
-            <b:includable id='mobile-post' var='post'>
-  <div class='date-outer'>
-    <b:if cond='data:post.dateHeader'>
-      <h2 class='date-header'><span><data:post.dateHeader/></span></h2>
-    </b:if>
-    <div class='date-posts'>
-      <div class='post-outer'>
-
-        <div class='post hentry uncustomized-post-template' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
-          <b:if cond='data:post.thumbnailUrl'>
-            <meta expr:content='data:post.thumbnailUrl' itemprop='image_url'/>
-          </b:if>
-          <meta expr:content='data:blog.blogId' itemprop='blogId'/>
-          <meta expr:content='data:post.id' itemprop='postId'/>
-
-          <a expr:name='data:post.id'/>
-          <b:if cond='data:post.title'>
-            <h3 class='post-title entry-title' itemprop='name'>
-              <b:if cond='data:post.link'>
-                <a expr:href='data:post.link'><data:post.title/></a>
-              <b:elseif cond='data:post.url and data:blog.url != data:post.url'/>
-                <a expr:href='data:post.url'><data:post.title/></a>
-              <b:else/>
-                <data:post.title/>
-              </b:if>
-            </h3>
-          </b:if>
-
-          <div class='post-header'>
-            <div class='post-header-line-1'/>
-          </div>
-
-          <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
-            <data:post.body/>
-            <div style='clear: both;'/> <!-- clear for photos floats -->
-          </div>
-
-          <div class='post-footer'>
-            <div class='post-footer-line post-footer-line-1'>
-              <span class='post-author vcard'>
-                <b:if cond='data:top.showAuthor'>
-                  <b:if cond='data:post.authorProfileUrl'>
-                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
-                      <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
-                      <a expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
-                        <span itemprop='name'><data:post.author/></span>
-                      </a>
-                    </span>
-                  <b:else/>
-                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
-                      <span itemprop='name'><data:post.author/></span>
-                    </span>
-                  </b:if>
-                </b:if>
-              </span>
-
-              <span class='post-timestamp'>
-                <b:if cond='data:top.showTimestamp'>
-                  <data:top.timestampLabel/>
-                  <b:if cond='data:post.url'>
-                    <meta expr:content='data:post.url.canonical' itemprop='url'/>
-                    <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
-                  </b:if>
-                </b:if>
-              </span>
-
-              <span class='post-comment-link'>
-                <b:include cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;}                                  and data:post.allowComments' data='post' name='comment_count_picker'/>
-              </span>
-            </div>
-
-            <div class='post-footer-line post-footer-line-2'>
-              <b:if cond='data:top.showMobileShare'>
-                <div class='mobile-link-button goog-inline-block' id='mobile-share-button'>
-                  <a href='javascript:void(0);'><data:shareMsg/></a>
-                </div>
-              </b:if>
-              <b:if cond='data:top.showDummy'>
-                <div class='goog-inline-block dummy-container'><data:post.dummyTag/></div>
-              </b:if>
-            </div>
-
-          </div>
-        </div>
-
-        <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
-      </div>
-    </div>
-  </div>
-</b:includable>
-            <b:includable id='nextprev'>
-  <div class='blog-pager' id='blog-pager'>
-    <b:if cond='data:newerPageUrl'>
-      <span id='blog-pager-newer-link'>
-      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'><data:newerPageTitle/></a>
-      </span>
-    </b:if>
-
-    <b:if cond='data:olderPageUrl'>
-      <span id='blog-pager-older-link'>
-      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'><data:olderPageTitle/></a>
-      </span>
-    </b:if>
-
-    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
-
-    <b:if cond='data:mobileLinkUrl'>
-      <div class='blog-mobile-link'>
-        <a expr:href='data:mobileLinkUrl'><data:mobileLinkMsg/></a>
-      </div>
-    </b:if>
-
-  </div>
-  <div class='clear'/>
-</b:includable>
-            <b:includable id='post' var='post'>
-  <div class='post hentry uncustomized-post-template' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
-    <b:if cond='data:post.firstImageUrl'>
-      <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
-    </b:if>
-    <meta expr:content='data:blog.blogId' itemprop='blogId'/>
-    <meta expr:content='data:post.id' itemprop='postId'/>
-
-    <a expr:name='data:post.id'/>
-    <b:if cond='data:post.title'>
-      <h3 class='post-title entry-title' itemprop='name'>
-      <b:if cond='data:post.link or (data:post.url and data:blog.url != data:post.url)'>
-        <a expr:href='data:post.link ? data:post.link : data:post.url'><data:post.title/></a>
-      <b:else/>
-        <data:post.title/>
-      </b:if>
-      </h3>
-    </b:if>
-
-    <div class='post-header'>
-    <div class='post-header-line-1'/>
-    </div>
-
-    <!-- Then use the post body as the schema.org description, for good G+/FB snippeting. -->
-    <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' expr:itemprop='(data:blog.metaDescription ? &quot;&quot; : &quot;description &quot;) + &quot;articleBody&quot;'>
-      <data:post.body/>
-      <div style='clear: both;'/> <!-- clear for photos floats -->
-    </div>
-
-    <b:if cond='data:post.hasJumpLink'>
-      <div class='jump-link'>
-        <a expr:href='data:post.url + &quot;#more&quot;' expr:title='data:post.title'><data:post.jumpText/></a>
-      </div>
-    </b:if>
-
-    <div class='post-footer'>
-    <div class='post-footer-line post-footer-line-1'>
-      <span class='post-author vcard'>
-        <b:if cond='data:top.showAuthor'>
-          <data:top.authorLabel/>
-            <b:if cond='data:post.authorProfileUrl'>
-              <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
-                <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
-                <a class='g-profile' expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
-                  <span itemprop='name'><data:post.author/></span>
-                </a>
-              </span>
-            <b:else/>
-              <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
-                <span itemprop='name'><data:post.author/></span>
-              </span>
-            </b:if>
-        </b:if>
-      </span>
-
-      <span class='post-timestamp'>
-        <b:if cond='data:top.showTimestamp'>
-          <data:top.timestampLabel/>
-          <b:if cond='data:post.url'>
-            <meta expr:content='data:post.url.canonical' itemprop='url'/>
-            <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
-          </b:if>
-        </b:if>
-      </span>
-
-      <span class='reaction-buttons'>
-        <b:if cond='data:top.showReactions'>
-          <table border='0' cellpadding='0' cellspacing='0' width='100%'><tr>
-            <td class='reactions-label-cell' nowrap='nowrap' valign='top' width='1%'>
-              <span class='reactions-label'>
-              <data:top.reactionsLabel/></span>&#160;</td>
-            <td><iframe allowtransparency='true' class='reactions-iframe' expr:src='data:post.reactionsUrl' frameborder='0' name='reactions' scrolling='no'/></td>
-           </tr></table>
-        </b:if>
-      </span>
-
-      <span class='post-comment-link'>
-        <b:include cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;}                          and data:post.allowComments' data='post' name='comment_count_picker'/>
-      </span>
-
-      <span class='post-icons'>
-        <!-- email post links -->
-        <b:if cond='data:post.emailPostUrl'>
-          <span class='item-action'>
-          <a expr:href='data:post.emailPostUrl' expr:title='data:top.emailPostMsg'>
-            <img alt='' class='icon-action' height='13' src='https://resources.blogblog.com/img/icon18_email.gif' width='18'/>
-          </a>
-          </span>
-        </b:if>
-
-        <!-- quickedit pencil -->
-        <b:include data='post' name='postQuickEdit'/>
-      </span>
-
-      <!-- share buttons -->
-      <div class='post-share-buttons goog-inline-block'>
-        <b:include cond='data:post.sharePostUrl' data='post' name='shareButtons'/>
-      </div>
-
-      </div>
-
-      <div class='post-footer-line post-footer-line-2'>
-      <span class='post-labels'>
-        <b:if cond='data:top.showPostLabels and data:post.labels'>
-          <data:postLabelsLabel/>
-          <b:loop values='data:post.labels' var='label'>
-            <a expr:href='data:label.url' rel='tag'><data:label.name/></a><b:if cond='not data:label.isLast'>,</b:if>
-          </b:loop>
-        </b:if>
-      </span>
-      </div>
-
-      <div class='post-footer-line post-footer-line-3'>
-      <span class='post-location'>
-        <b:if cond='data:top.showLocation and data:post.location'>
-          <data:postLocationLabel/>
-          <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
-        </b:if>
-      </span>
-      </div>
-      <b:if cond='data:post.authorAboutMe'>
-        <div class='author-profile' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
-          <b:if cond='data:post.authorPhoto.url'>
-            <img expr:src='data:post.authorPhoto.url' itemprop='image' width='50px'/>
-          </b:if>
-          <div>
-            <a class='g-profile' expr:href='data:post.authorProfileUrl' itemprop='url' rel='author' title='author profile'>
-              <span itemprop='name'><data:post.author/></span>
-            </a>
-          </div>
-          <span itemprop='description'><data:post.authorAboutMe/></span>
-        </div>
-      </b:if>
-    </div>
-  </div>
-</b:includable>
-            <b:includable id='post-comments'>
-              <b:if cond='data:post.allowComments'>
-                <div class='comment-wrap'>
-                  <h3>コメント</h3>
-                  <div class='comment-area'>
-                    <b:include data='post' name='comment_picker'/>
-                  </div>
-                </div>
-               </b:if>
-            </b:includable>
-            <b:includable id='postQuickEdit' var='post'>
-  <b:if cond='data:post.editUrl'>
-    <span expr:class='&quot;item-control &quot; + data:post.adminClass'>
-      <a expr:href='data:post.editUrl' expr:title='data:top.editPostMsg'>
-        <img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
-      </a>
-    </span>
-  </b:if>
-</b:includable>
-            <b:includable id='shareButtons' var='post'>
-  <b:if cond='data:top.showEmailButton'><a class='goog-inline-block share-button sb-email' expr:href='data:post.sharePostUrl + &quot;&amp;target=email&quot;' expr:title='data:top.emailThisMsg' target='_blank'><span class='share-button-link-text'><data:top.emailThisMsg/></span></a></b:if><b:if cond='data:top.showBlogThisButton'><a class='goog-inline-block share-button sb-blog' expr:href='data:post.sharePostUrl + &quot;&amp;target=blog&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' expr:title='data:top.blogThisMsg' target='_blank'><span class='share-button-link-text'><data:top.blogThisMsg/></span></a></b:if><b:if cond='data:top.showTwitterButton'><a class='goog-inline-block share-button sb-twitter' expr:href='data:post.sharePostUrl + &quot;&amp;target=twitter&quot;' expr:title='data:top.shareToTwitterMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToTwitterMsg/></span></a></b:if><b:if cond='data:top.showFacebookButton'><a class='goog-inline-block share-button sb-facebook' expr:href='data:post.sharePostUrl + &quot;&amp;target=facebook&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' expr:title='data:top.shareToFacebookMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToFacebookMsg/></span></a></b:if><b:if cond='data:top.showPinterestButton'><a class='goog-inline-block share-button sb-pinterest' expr:href='data:post.sharePostUrl + &quot;&amp;target=pinterest&quot;' expr:title='data:top.shareToPinterestMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToPinterestMsg/></span></a></b:if><b:if cond='data:top.showPlusOne'><div class='goog-inline-block google-plus-share-container'><data:post.googlePlusShareTag/></div></b:if>
-</b:includable>
-            <b:includable id='single-pager'>
-            <div class='single-pager'>
-              <ul>
-                <li class='prev-post-link'>
-                  <a expr:href='data:olderPageUrl'><i aria-hidden='true' class='fa fa-angle-double-left'/> PREV</a>
-                </li>
-                <li class='next-post-link'>
-                  <a expr:href='data:newerPageUrl'>NEXT <i aria-hidden='true' class='fa fa-angle-double-right'/></a>
-                </li>
-              </ul>
-            </div>
-            </b:includable>
-            <b:includable id='single-post'>
-              <!-- schema -->
-              <div class='post-area' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
-                <b:if cond='data:post.firstImageUrl'>
-                  <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
-                </b:if>
-                <meta expr:content='data:blog.blogId' itemprop='blogId'/>
-                <meta expr:content='data:post.id' itemprop='postId'/>
-                <h1 itemprop='name'>
-                  <data:post.title/>
-                </h1>
-                <div class='single-info-area'>
-                  <div class='single-release-date'>
-                    <i class='fa fa-edit fa-fw post-icon'/>
-                    <data:post.date/>
-                  </div>
-                  <div class='updated single-modified-date' expr:title='&quot;Post was updated on &quot; + data:post.lastUpdatedISO8601' id='last-modified' itemprop='dateModified'>
-                    <data:post.lastupdatedISO8601/>
-                  </div>
-                  <script type='text/javascript'>
-                    // 投稿日
-                    var published = new Date(&quot;<data:post.timestampISO8601/>&quot;);
-                    // 最終更新日  
-                    var updated = new Date(&quot;<data:post.lastUpdatedISO8601/>&quot;);
-                  </script>
-                  <script type='text/javascript'>
-                    /* <![CDATA[ */
-                    // 投稿日
-                    var pp_Y = "" + published.getFullYear();
-                    var pp_M = ("0" + (published.getMonth() + 1)).slice(-2);
-                    var pp_D = ("0" + published.getDate()).slice(-2);
-                    // 最終更新日 
-                    var dd_Y = "" + updated.getFullYear();
-                    var dd_M = ("0" + (updated.getMonth() + 1)).slice(-2);
-                    var dd_D = ("0" + updated.getDate()).slice(-2);
-                    //日付が同じときは出力しない
-                    if (dd_Y == pp_Y && dd_M == pp_M && dd_D == pp_D) {
-                    } else {
-                      var updated_dd = '<div class="last-modified"><i aria-hidden="true" class="fas fa-sync-alt fa-fw post-icon"></i>' + dd_Y + "/" + dd_M + "/" + dd_D + '</div>';
-                      document.getElementById("last-modified").innerHTML = updated_dd;
-                    }
-                    /* ]]> */
-                  </script>
-                  <div class='single-post-tag'>
-                    <b:if cond='data:post.labels'>
-                      <i aria-hidden='true' class='fa fa-tag'/>
-                      <b:loop values='data:post.labels' var='label'>
-                        <a expr:href='data:label.url + &quot;?&amp;max-results=10&quot;' property='v:title' rel='v:url'>
-                          <data:label.name/></a>
-                      </b:loop>
-                      <b:else/>
-                    </b:if>
-                  </div>
-                </div>
-                <div class='post-content'>
-                  <data:post.body/>
-                    <!-- 目次 -->
-                    <b:if cond='data:blog.pageType == &quot;item&quot;'>
-                      <div id='Table-of-Content'>
-                        <div id='toc'/>
-                      </div>
-                    </b:if>
-                  <!-- 記事中アドセンス -->
-                  <div class='ad1' id='ad1'>
-                  </div>
-                </div>
-                <!-- SNSボタンを読み込む -->
-                <b:include name='sns'/>
-                  <!-- 記事下アドセンス -->
-                  <div class='ad2'>
-                  </div>
-              </div>
-              <!-- ページャを読み込む -->
-              <b:include name='single-pager'/>
-              <!-- 関連記事を読み込む -->
-                <b:if cond='data:post.labels'> <!-- タグがあるがどうか -->
-                  <b:include name='single-related-posts'/>
-                <b:else/>
-                  <!-- タグがなければ非表示 -->
-                </b:if>
-              <!-- コメントを読み込む -->
-              <b:include name='post-comments'/>
-            </b:includable>
-            <b:includable id='single-related-posts'>
-              <b:if cond='data:blog.pageType == &quot;item&quot;'>
-                <div id='related-posts'>
-                  <b:loop values='data:post.labels' var='label'>
-                    <b:if cond='data:label.isLast != &quot;true&quot;'>
-                    </b:if>
-                    <b:if cond='data:blog.pageType == &quot;item&quot;'>
-                      <script expr:src='&quot;/feeds/posts/default/-/&quot; + data:label.name + &quot;?alt=json-in-script&amp;callback=related_results_labels_thumbs&amp;max-results=99&quot;' type='text/javascript'/>
-                    </b:if>
-                  </b:loop>
-                  <script type='text/javascript'>
-                    var currentposturl=&quot;<data:post.url/>&quot;;
-                    var maxresults=8; // 最大表示件数
-                    var relatedpoststitle=&quot;関連記事&quot;; // 見出しに表示される文字列
-                    removeRelatedDuplicates_thumbs();
-                    printRelatedLabels_thumbs();
-                  </script>
-                </div>
-              </b:if>
-            </b:includable>
-            <b:includable id='sns'>
-              <div class='share-area'>
-                <ul>
-                  <!-- Facebook -->
-                  <li class='facebook'>
-                    <a expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' expr:title='data:top.shareToFacebookMsg' rel='nofollow' target='_blank'><i class='fab fa-facebook-f'/></a>
-                  </li>
-                  <!-- Twitter -->
-                  <li class='twitter'>
-                    <a expr:href='&quot;http://twitter.com/share?url=&quot; + data:post.url' expr:title='data:top.shareToTwitterMsg' rel='nofollow' target='_blank'><i class='fab fa-twitter'/></a>
-                  </li>
-                  <!-- はてな -->
-                  <li class='hatena'>
-                    <a expr:href='&quot;https://b.hatena.ne.jp/add?mode=confirm&amp;url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' rel='nofollow' target='_blank' title='Hatena で共有する'>B!</a>
-                  </li>
-                  <!-- Pocket -->
-                  <li class='pocket'>
-                    <a expr:href='&quot;https://getpocket.com/edit?url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' rel='nofollow' target='blank' title='Pocket で共有する'><i class='fab fa-get-pocket'/></a>
-                  </li>
-                  <!-- LINE -->
-                  <li class='line'>
-                    <a expr:href='&quot;http://line.me/R/msg/text/?&quot; + data:post.url' rel='nofollow' target='_blank' title='LINE で共有する'><i class='fa fa-comment'/></a>
-                  </li>
-                </ul>
-              </div>
-            </b:includable>
-            <b:includable id='static'>
-              <div class='post-area'>
-                <h1>
-                  <data:post.title/>
-                </h1>
-                <div class='post-content'>
-                  <data:post.body/>
-                  <!-- 記事下アドセンス -->
-                  <div class='ad2'>
-                  </div>
-                </div>
-              </div>
-              <!-- コメントを読み込む -->
-              <b:include name='post-comments'/>
-            </b:includable>
-            <b:includable id='status-message'>
-  <b:if cond='data:navMessage'>
-  <div class='status-msg-wrap'>
-    <div class='status-msg-body'>
-      <data:navMessage/>
-    </div>
-    <div class='status-msg-border'>
-      <div class='status-msg-bg'>
-        <div class='status-msg-hidden'><data:navMessage/></div>
-      </div>
-    </div>
-  </div>
-  <div style='clear: both;'/>
-  </b:if>
-</b:includable>
-            <b:includable id='threaded-comment-form' var='post'>
+              <b:includable id='threaded-comment-form' var='post'>
                 <div class='comment-form'>
                   <a name='comment-form'/>
                   <b:if cond='data:mobile'>
@@ -3885,7 +3470,7 @@
                   </script>
                 </div>
               </b:includable>
-            <b:includable id='threaded_comment_js' var='post'>
+              <b:includable id='threaded_comment_js' var='post'>
                 <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
                 <script type='text/javascript'>
                   (function() {
@@ -4055,7 +3640,7 @@
                   // ]]>
                 </script>
               </b:includable>
-            <b:includable id='threaded_comments' var='post'>
+              <b:includable id='threaded_comments' var='post'>
                 <div class='comments' id='comments'>
                   <a name='comments'/>
                   <h4>
@@ -4092,49 +3677,26 @@
                   </div>
                 </div>
               </b:includable>
+              <!-- コメントの構成コード終わり -->
+
           </b:widget>
         </b:section>
       </main>
 
       <!-- サイドバー -->
-      <aside id='aside'>
-        <b:section class='sidebar' id='サイドバー'>
-          <b:widget id='BlogSearch1' locked='false' title='検索' type='BlogSearch' visible='true'>
-            <b:includable id='main'>
-  <b:include name='widget-title'/>
-  <b:include name='content'/>
-</b:includable>
-            <b:includable id='content'>
-  <div class='widget-content' role='search'>
-    <b:include name='searchForm'/>
-  </div>
-</b:includable>
-            <b:includable id='searchForm'>
-  <form expr:action='data:blog.searchUrl'>
-    <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
-    <b:include name='urlParamsAsFormInput'/>
-    <div class='search-input'>
-      <input autocomplete='off' expr:aria-label='data:messages.searchThisBlog' expr:placeholder='data:messages.searchThisBlog' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q'/>
-    </div>
-    <b:include name='searchSubmit'/>
-  </form>
-</b:includable>
-            <b:includable id='searchSubmit'>
-  <input class='search-action' expr:value='data:messages.search.escaped' type='submit'/>
-</b:includable>
-          </b:widget>
-          <b:widget id='HTML1' locked='false' title='最新記事' type='HTML' version='2' visible='true'>
-            <b:widget-settings>
-              <b:widget-setting name='content'/>
-            </b:widget-settings>
+      <aside id="aside">
+        <b:section id='サイドバー' class='sidebar'>
+
+          <!-- 最新記事 -->
+          <b:widget id='HTML1' locked='false' title='最新記事' type='HTML'>
             <b:includable id='main'>
               <b:if cond='data:title'>
                 <h3>
-                  <data:title/>
+                  <data:title />
                 </h3>
               </b:if>
               <div class='widget-content latest-articles'>
-                <script type='text/javascript'>
+                <script type="text/javascript">
                   //<![CDATA[
                     /*
                     Blogger Random - Recent - Specific Label Posts Widget - All in One Post Feed Widget
@@ -4183,17 +3745,13 @@
               </div>
             </b:includable>
           </b:widget>
-          <b:widget id='PopularPosts1' locked='false' title='カスタム人気記事' type='PopularPosts' version='1'>
-            <b:widget-settings>
-              <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
-              <b:widget-setting name='showThumbnails'>true</b:widget-setting>
-              <b:widget-setting name='showSnippets'>true</b:widget-setting>
-              <b:widget-setting name='timeRange'>LAST_YEAR</b:widget-setting>
-            </b:widget-settings>
+
+          <!-- カスタム人気記事 -->
+          <b:widget id='PopularPosts1' locked='false' title='カスタム人気記事' type='PopularPosts' version='1' visible='true'>
             <b:includable id='main'>
               <b:if cond='data:title'>
                 <h3>
-                  <data:title/>
+                  <data:title />
                 </h3>
               </b:if>
               <div class='popular-post widget-content custom-pp'>
@@ -4204,68 +3762,68 @@
                         <b:if cond='data:showSnippets == &quot;false&quot;'>
                           <!-- タイトルのみ -->
                           <a expr:href='data:post.href'>
-                              <div class='pp-items-title'>
-                                <div class='pp-title-only'>
-                                  <data:post.title/>
+                              <div class="pp-items-title">
+                                <div class="pp-title-only">
+                                  <data:post.title />
                                 </div>
                               </div>
                             </a>
-                          <b:else/>
-                          <!-- タイトル&#65291;抜粋 -->
+                          <b:else />
+                          <!-- タイトル＋抜粋 -->
                           <a expr:href='data:post.href'>
-                              <div class='pp-items'>
-                                <div class='pp-info'>
-                                  <div class='pp-title'>
-                                    <data:post.title/>
+                              <div class="pp-items">
+                                <div class="pp-info">
+                                  <div class="pp-title">
+                                    <data:post.title />
                                   </div>
                                   <div class='pp-snippet'>
-                                    <b:eval expr='data:post.snippet snippet {length: 60, links: false, linebreaks: false, ellipsis: true}'/>
+                                    <b:eval expr='data:post.snippet snippet {length: 60, links: false, linebreaks: false, ellipsis: true}' />
                                   </div>
                                 </div>
                               </div>
                             </a>
                         </b:if>
-                        <b:else/>
+                        <b:else />
                         <b:if cond='data:showSnippets == &quot;false&quot;'>
-                          <!-- タイトル&#65291;サムネイル -->
+                          <!-- タイトル＋サムネイル -->
                           <a expr:href='data:post.href'>
-                              <div class='pp-items'>
+                              <div class="pp-items">
                                 <div class='pp-thumb'>
                                 <!-- サムネイル有 -->
                                   <b:if cond='data:post.thumbnail'>
-                                    <img expr:src='resizeImage(data:post.thumbnail,320)'/>
+                                    <img expr:src='resizeImage(data:post.thumbnail,320)' />
                                 <!-- サムネイル無 -->
-                                  <b:else/>
-                                    <img src='https://1.bp.blogspot.com/-g0cXjfIKSlQ/Xzz86y6RL8I/AAAAAAAAbwg/KGBW30hjNS4tAI1BOFfYtSwGoydYpXXjACLcBGAsYHQ/s320/noimage_bk.png'/>
+                                  <b:else />
+                                    <img src="https://1.bp.blogspot.com/-g0cXjfIKSlQ/Xzz86y6RL8I/AAAAAAAAbwg/KGBW30hjNS4tAI1BOFfYtSwGoydYpXXjACLcBGAsYHQ/s320/noimage_bk.png" />
                                   </b:if>
                                 </div>
-                                <div class='pp-info'>
-                                  <div class='pp-title'>
-                                    <data:post.title/>
+                                <div class="pp-info">
+                                  <div class="pp-title">
+                                    <data:post.title />
                                   </div>
                                 </div>
                               </div>
                             </a>
-                          <b:else/>
-                          <!-- タイトル&#65291;サムネイル&#65291;抜粋 -->
+                          <b:else />
+                          <!-- タイトル＋サムネイル＋抜粋 -->
                           <a expr:href='data:post.href'>
-                              <div class='pp-items'>
+                              <div class="pp-items">
                                 <div class='pp-thumb'>
                                 <!-- サムネイル有 -->
                                   <b:if cond='data:post.thumbnail'>
-                                    <img expr:src='resizeImage(data:post.thumbnail,320)'/>
+                                    <img expr:src='resizeImage(data:post.thumbnail,320)' />
                                 <!-- サムネイル無 -->
-                                  <b:else/>
+                                  <b:else />
                                     <!-- 自分の画像URLに変更する -->
-                                    <img src='https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png'/>
+                                    <img src="https://1.bp.blogspot.com/-nQquvvKDQoU/X0nMMIiLCaI/AAAAAAAAb8Q/TnklS9zI_csPLpcqKipm10DNPIWzJSGtQCLcBGAsYHQ/s1600/noimage.png" />
                                   </b:if>
                                 </div>
-                                <div class='pp-info'>
-                                  <div class='pp-title'>
-                                    <data:post.title/>
+                                <div class="pp-info">
+                                  <div class="pp-title">
+                                    <data:post.title />
                                   </div>
                                   <div class='pp-snippet'>
-                                    <b:eval expr='data:post.snippet snippet {length: 60, links: false, linebreaks: false, ellipsis: true}'/>
+                                    <b:eval expr='data:post.snippet snippet {length: 60, links: false, linebreaks: false, ellipsis: true}' />
                                   </div>
                                 </div>
                               </div>
@@ -4278,97 +3836,95 @@
               </div>
             </b:includable>
           </b:widget>
+
+          <!-- カスタムブログアーカイブ -->
           <b:widget id='BlogArchive1' locked='false' title='カスタムアーカイブ' type='BlogArchive' version='1'>
-            <b:widget-settings>
-              <b:widget-setting name='showStyle'>HIERARCHY</b:widget-setting>
-              <b:widget-setting name='yearPattern'>yyyy</b:widget-setting>
-              <b:widget-setting name='showWeekEnd'>true</b:widget-setting>
-              <b:widget-setting name='monthPattern'>MMMM</b:widget-setting>
-              <b:widget-setting name='dayPattern'>MMM dd</b:widget-setting>
-              <b:widget-setting name='weekPattern'>MM/dd</b:widget-setting>
-              <b:widget-setting name='chronological'>false</b:widget-setting>
-              <b:widget-setting name='showPosts'>true</b:widget-setting>
-              <b:widget-setting name='frequency'>MONTHLY</b:widget-setting>
-            </b:widget-settings>
             <b:includable id='main'>
               <b:if cond='data:title != &quot;&quot;'>
                 <h3>
-                  <data:title/>
+                  <data:title />
                 </h3>
               </b:if>
               <div class='widget-content'>
                 <div class='archive-list' id='ArchiveList'>
                   <div expr:id='data:widget.instanceId + &quot;_ArchiveList&quot;'>
-                    <!-- 条件分岐&#65306;階層 -->
-                    <b:include cond='data:style == &quot;HIERARCHY&quot;' data='data' name='interval'/>
-                    <!-- 条件分岐&#65306;フラット -->
-                    <b:include cond='data:style == &quot;FLAT&quot;' data='data' name='flat'/>
-                    <!-- 条件分岐&#65306;プルダウン -->
-                    <b:include cond='data:style == &quot;MENU&quot;' data='data' name='menu'/>
+                    <!-- 条件分岐：階層 -->
+                    <b:include cond='data:style == &quot;HIERARCHY&quot;' data='data' name='interval' />
+                    <!-- 条件分岐：フラット -->
+                    <b:include cond='data:style == &quot;FLAT&quot;' data='data' name='flat' />
+                    <!-- 条件分岐：プルダウン -->
+                    <b:include cond='data:style == &quot;MENU&quot;' data='data' name='menu' />
                   </div>
                 </div>
               </div>
             </b:includable>
+            <!-- フラットの時 -->
             <b:includable id='flat' var='data'>
               <ul class='flat'>
                 <b:loop values='data:data' var='i'>
                   <li class='archivedate flat-archive-list'>
                     <a expr:href='data:i.url'>
-                      <data:i.name/></a>
-                      <span class='post-count' dir='ltr'><data:i.post-count/></span>
+                      <data:i.name /></a>
+                      <span class='post-count' dir='ltr'><data:i.post-count /></span>
                   </li>
                 </b:loop>
               </ul>
             </b:includable>
+            <!-- 階層の時 -->
             <b:includable id='interval' var='intervalData'>
               <b:loop values='data:intervalData' var='interval'>
                 <ul class='hierarchy'>
                   <li expr:class='&quot;archivedate &quot; + &quot;collapsed&quot;'>
-                    <b:include cond='data:interval.toggleId' data='interval' name='toggle'/>
+                    <b:include cond='data:interval.toggleId' data='interval' name='toggle' />
                     <a class='post-count-link' expr:href='data:interval.url'>
-                      <data:interval.name/>
+                      <data:interval.name />
                     </a>
-                    <span class='post-count' dir='ltr'><data:interval.post-count/></span>
-                    <b:include cond='data:interval.data' data='interval.data' name='interval'/>
-                    <b:include cond='data:interval.posts' data='interval.posts' name='posts'/>
+                    <span class='post-count' dir='ltr'><data:interval.post-count /></span>
+                    <b:include cond='data:interval.data' data='interval.data' name='interval' />
+                    <b:include cond='data:interval.posts' data='interval.posts' name='posts' />
                   </li>
                 </ul>
               </b:loop>
             </b:includable>
+            <!-- プルダウンの時 -->
             <b:includable id='menu' var='data'>
-              <select class='select-archive-list' expr:id='data:widget.instanceId + &quot;_ArchiveMenu&quot;'>
+              <select expr:id='data:widget.instanceId + &quot;_ArchiveMenu&quot;' class="select-archive-list">
                 <option value=''>
-                  <data:title/>
+                  <data:title />
                 </option>
                 <b:loop values='data:data' var='i'>
                   <option expr:value='data:i.url'>
-                    <data:i.name/>(<data:i.post-count/>)</option>
+                    <data:i.name />(<data:i.post-count />)</option>
                 </b:loop>
               </select>
             </b:includable>
+            <!-- 投稿リスト -->
             <b:includable id='posts' var='posts'>
               <ul class='posts'>
                 <b:loop values='data:posts' var='post'>
                   <li><a expr:href='data:post.url'>
-                      <data:post.title/></a></li>
+                      <data:post.title /></a></li>
                 </b:loop>
               </ul>
             </b:includable>
+            <!-- 階層展開ボタン -->
             <b:includable id='toggle' var='interval'>
               <a class='toggle' href='javascript:void(0)'>
-                <span expr:class='&quot;zippy&quot; + (data:interval.expclass == &quot;expanded&quot; ? &quot; toggle-open&quot; : &quot;&quot;)'>
+                <span
+                  expr:class='&quot;zippy&quot; + (data:interval.expclass == &quot;expanded&quot; ? &quot; toggle-open&quot; : &quot;&quot;)'>
                   <b:if cond='data:interval.expclass == &quot;expanded&quot;'>
                     <!-- &#9660; -->
                     &#9658;
-                    <b:elseif cond='data:blog.languageDirection == &quot;rtl&quot;'/>
+                    <b:elseif cond='data:blog.languageDirection == &quot;rtl&quot;' />
                     &#9668;
-                    <b:else/>
+                    <b:else />
                     &#9658;
                   </b:if>
                 </span>
               </a>
             </b:includable>
           </b:widget>
+
         </b:section>
       </aside>
 
@@ -4380,35 +3936,38 @@
   <footer>
 
     <!-- フッターガジェット -->
-    <div class='footer-area'>
-      <b:section class='page-footer' id='フッター1'/>
-      <b:section class='page-footer' id='フッター2'/>
-      <b:section class='page-footer' id='フッター3'/>
+    <div class="footer-area">
+      <b:section id='フッター1' class='page-footer'>
+      </b:section>
+      <b:section id='フッター2' class='page-footer'>
+      </b:section>
+      <b:section id='フッター3' class='page-footer'>
+      </b:section>
     </div>
 
     <!-- コピーライト -->
-    <p class='copy-right'>
-      &#169;
-      <data:blog.title/> All Rights Reserved.
+    <p class="copy-right">
+      ©
+      <data:blog.title /> All Rights Reserved.
     </p>
 
-    <p class='designed-by'>
-      designed by <a class='designed-by' href='https://blogger-learning-rab.blogspot.com/' target='_blank'>Blogger Labo</a>
+    <p class="designed-by">
+      designed by <a class="designed-by" href='https://blogger-learning-rab.blogspot.com/' target='_blank'>Blogger Labo</a>
     </p>
 
   </footer>
 
   <!-- ページトップボタン -->
-  <div class='page-top-button'>
-    <a href='#'><i class='fa fa-angle-double-up'/></a>
+  <div class="page-top-button">
+    <a href="#"><i class="fa fa-angle-double-up" /></a>
   </div>
 
 <!-- ===========================================================================
-JavaScript&#65288;jQuery&#65289;
+JavaScript（jQuery）
 =========================================================================== -->
 
 <!-- jQuery CDN -->
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" />
 
 <script>
   //<![CDATA[
@@ -4445,7 +4004,7 @@ JavaScript&#65288;jQuery&#65289;
     //]]>
 </script>
 
-<!-- 記事中に目次&#12539;アドセンスを配置する -->
+<!-- 記事中に目次・アドセンスを配置する -->
 <b:if cond='data:blog.pageType == &quot;item&quot;'>
   <script>
     //<![CDATA[
