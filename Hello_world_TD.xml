@@ -345,7 +345,7 @@
       left: -50vw;
     }
 
-    @media screen and (max-width: 560px) {
+    @media screen and (max-width: 768px) {
         
       /* スマホではPC用のヘッダーナビを消す */
         .navbar {
@@ -490,11 +490,15 @@
     /* メイン */
     main {
       width: 75vw;
+      max-width: 800px;
       margin-right: 30px;
     }
 
-    /* レスポンシブ（タブレット縦） */
-    @media screen and (max-width: 960px) {
+    /* レスポンシブ（タブレット大縦） */
+    @media screen and (max-width: 1024px) {
+      main {
+        max-width: 650px;
+      }
       .main-wrapper {
         padding: 40px 5%;
       }
@@ -510,8 +514,9 @@
         margin: 0 10px 10px;
       }
       main {
-      width: 100%;
-      margin-right: 0;
+        width: 100%;
+        max-width: 100%;
+        margin-right: 0;
       }
     }
 
@@ -639,8 +644,28 @@
       background: $(article.button.hover.color);
     }
 
-    /* レスポンシブ（タブレット縦） */
-    @media screen and (max-width: 960px) {
+    /* レスポンシブ（タブレット小縦） */
+    @media screen and (max-width: 768px) {
+      .article-post-wrap {
+        height: auto;
+      }
+      .articles-area h2 {
+        font-size: 16px;
+      }
+      .article-thumbnail img {
+        height: 150px;
+      }
+      .article-info-area {
+        font-size: 12px;
+      }
+      .post-snippet {
+        font-size: 13px;
+        height:60px;
+      }
+    }
+
+    /* レスポンシブ（スマホ縦） */
+    @media screen and (max-width: 560px) {
       .article-post-wrap {
         flex-direction: column;
         height: auto;
@@ -654,29 +679,13 @@
       }
       .article-thumbnail img {
         width: 100%;
-        height: 300px;
-      }
-      .article-info-area {
-        height: auto;
-      }
-      .post-snippet {
-        height: auto;
-      }
-    }
-
-    /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
-      .articles-area h2 {
-        font-size: 16px;
-      }
-      .article-thumbnail img {
         height: 200px;
       }
       .article-info-area {
-        font-size: 12px;
+        height: auto;
       }
       .post-snippet {
-        font-size: 12px;
+        height: auto;
       }
     }
 
@@ -871,7 +880,7 @@
       color: $(post.body.font.color);
       letter-spacing: 2px;
       line-height: 1.8em;
-      padding: 10px 20px;
+      padding: 10px 20px 0;
       overflow: hidden;
     }
 
@@ -973,10 +982,10 @@
 
     ---------------------------------------------------------------------------- */
     
-    /* レスポンシブ（タブレット縦） */
-    @media screen and (max-width: 960px) {
+    /* レスポンシブ（タブレット大縦） */
+    @media screen and (max-width: 1024px) {
       .post-content {
-        padding: 30px 15px 0;
+        padding: 10px 15px 0;
       }
       .post-area img {
         height: auto;
@@ -987,8 +996,8 @@
         max-width: 95%;
       }
     }
-    /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    /* レスポンシブ（タブレット小縦） */
+    @media screen and (max-width: 768px) {
       .post-area h1 {
         font-size: 18px;
         padding: 10px 15px;
@@ -1074,8 +1083,8 @@
       margin-right: 5px;
     }
 
-    /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    /* レスポンシブ（タブレット小縦） */
+    @media screen and (max-width: 768px) {
     .single-info-area {
         padding: 10px 10px 8px 10px;
         margin-bottom: 0;
@@ -1246,7 +1255,7 @@
     .related-title {
       font-size: 90%;
       margin-top: 10px;
-      font-weight: bold;
+      font-weight: 600;
     }
 
     /* 関連記事のレスポンシブ設定 */
@@ -1261,16 +1270,17 @@
         align-items: top;
         width: 94%;
         color: $(RP.item.color);
-        padding: 0.8em;
+        padding: 10px 0;
         margin: 0;
         border-bottom: 1px solid #eee;
       }
       .related-img {
-        width: 100px;
-        height: 100px;
+        width: 40%;
+        height: 80px;
         margin-right: 15px;
       }
       .related-title {
+        width: 60%;
         font-size: 14px;
         margin-top: 0;
       }
@@ -1386,8 +1396,8 @@
     padding: 10px 0;
     }
 
-    /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    /* レスポンシブ（タブレット小縦） */
+    @media screen and (max-width: 768px) {
       .comment-area {
         padding: 10px;
       }
@@ -1416,33 +1426,24 @@
     /* 目次全体 */
     #toc {
       display: block;
-      width: 60%;
+      width: 75%;
       background: $(toc.background.color);
       padding: 10px 10px 20px;
-      font-size: 14px;
+      font-size: 13px;
       margin: 0 auto 30px;
       border: 1px solid $(toc.border.color);
     }
 
-    #toc ol li {
-      margin-left: 8%;
+    #toc ul li {
+      margin-left: 4%;
     }
 
-    #toc ol {
+    #toc ul {
       margin: 2px 0 2px 15px;
-      counter-reset: section;
-      list-style-type: none;
     }
 
     #toc li {
       color: $(toc.link.color);
-      font-size: 13px;
-    }
-
-    #toc li:before {
-      color: $(toc.link.color);
-      counter-increment: section;
-      content: counters(section, ".") ".";
     }
 
     #toc a {
@@ -1454,21 +1455,29 @@
     }
 
      /* レスポンシブ（タブレット縦） */
-    @media screen and (max-width: 960px) {
+    @media screen and (max-width: 1024px) {
       #toc {
         width: 80%;
       }
     }
     /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    @media screen and (max-width: 768px) {
       #toc {
         width: 90%;
         margin: 0 auto 20px;
       }
-      #toc ol li {
+      #toc ul li {
         margin-left: 0;
       }
     }
+   @media screen and (max-width: 560px) {
+    #toc:before {
+      font-size: 13px;
+    }
+    #toc {
+      font-size: 11px;
+    }
+   }
 
     /* ----------------------------------------------------------------------------
     アドセンス
@@ -1553,15 +1562,15 @@
       text-align: center;
     }
 
-    /* レスポンシブ（タブレット縦） */
-    @media screen and (max-width: 960px) {
+    /* レスポンシブ（タブレット大縦） */
+    @media screen and (max-width: 1024px) {
       .error-panel {
         padding: 13vmax 2vmax;
         margin: -15px auto 10px; 
       }
     }
-    /* レスポンシブ（スマホ縦） */
-    @media screen and (max-width: 560px) {
+    /* レスポンシブ（タブレット小縦） */
+    @media screen and (max-width: 768px) {
       .error-url {
         font-size: 12px;
       }
@@ -1620,6 +1629,13 @@
       padding: 15px 10px;
     }
 
+    /* レスポンシブ（タブレット小縦） */
+    @media screen and (max-width: 768px) {
+      .sidebar h3 {
+        font-size: 16px;
+      }
+    }
+
     /* 検索フォーム
     ---------------------------------------------------------------------------- */
 
@@ -1648,6 +1664,13 @@
 
     .BlogSearch .search-action:hover {
       opacity: 0.6;
+    }
+
+    /* レスポンシブ（タブレット小縦） */
+    @media screen and (max-width: 768px) {
+      .BlogSearch input {
+        width: 15vw;
+      }
     }
 
     /* レスポンシブ（スマホ縦） */
@@ -2003,7 +2026,7 @@
 
     .BlogArchive .widget-content {
       padding-bottom: -10px;
-      margin-left: 10px;
+      padding-left: 20px;
     }
 
     .BlogArchive #ArchiveList ul li {
@@ -2210,8 +2233,8 @@
       object-fit: cover;
     }
 
-   /* レスポンシブ（タブレット縦） */
-   @media screen and (max-width: 960px) {
+   /* レスポンシブ（タブレット大縦） */
+   @media screen and (max-width: 1024px) {
      .pp-items {
         flex-direction: column;
       }
@@ -2289,8 +2312,8 @@
       object-fit: cover;
     }
 
-    /* レスポンシブ（タブレット縦） */
-    @media screen and (max-width: 960px) {
+    /* レスポンシブ（タブレット大縦） */
+    @media screen and (max-width: 1024px) {
       .latest-articles li {
         flex-direction: column;
       }
@@ -2621,6 +2644,7 @@
     ---------------------------------------------------------------------------- */
 
     .link-box {
+      background: #fff;
       border: 1px solid #e1e1e1;
       padding: 10px;
       display: flex;
@@ -2634,18 +2658,20 @@
     }
 
     .img-box {
-      width: 40%;
+      width: 20vw;
       float: left
     }
 
     .img-box div {
-      min-height: 150px;
+      width: 225px;
+      height: 150px;
       background-size: cover;
-      background-position: center center
+      background-position: center;
+      border: solid 1px #ddd;
     }
 
     .text-box {
-      width: 60%;
+      width: 85%;
       float: left;
       padding-left: 20px;
       line-height: 1.7;
@@ -2674,18 +2700,47 @@
       color: #333;
     }
 
+     @media only screen and (max-width:1024px) {
+      .img-box {
+        width: 25vw;
+      }
+      .text-box {
+        width: 60%;
+      }
+     }
+
+    @media only screen and (max-width:768px) {
+      .link-box {
+        margin: 20px;
+      }
+      .img-box {
+        width: 20vw;
+      }
+      .img-box div {
+        width: 140px;
+        height: 93px;
+      }
+      .text-box {
+        width: 65%;
+      }
+      .text-box .description {
+        display: none;
+      }
+    }
+
     @media only screen and (max-width:560px) {
       .link-box {
         margin: 10px;
       }
       .img-box {
-        width: 25%;
+        width: 30vw;
       }
       .img-box div {
-        min-height: 80px;
+        width: 100px;
+        height: 100px;
       }
       .text-box {
-        width: 75%;
+        width: 50%;
         padding-left: 10px;
         line-height: 1.5
       }
@@ -3046,7 +3101,7 @@
                         <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:blog.homepageUrl' itemprop='item'><span itemprop='name'>ホーム</span></a>
                           <meta content='1' itemprop='position'/></span>
                         <b:loop values='data:post.labels' var='label'>
-                          <i class='fa fa-chevron-right pause-icon'/> <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:label.url' itemprop='item'>
+                          <i class='fa fa-chevron-right pause-icon'/> <span itemprop='itemListElement' itemscope='itemscope' itemtype='http://schema.org/ListItem'><a expr:href='data:label.url + &quot;?&amp;max-results=10&quot;' itemprop='item'>
                               <span itemprop='name'>
                                 <data:label.name/></span></a>
                             <meta content='2' itemprop='position'/></span>
@@ -4424,14 +4479,14 @@ JavaScript&#65288;jQuery&#65289;
       } else if (this.nodeName.toLowerCase() == "h4") {
         level = 3;
       }
-      while (currentlevel < level) { toc += '<ol class="chapter">'; currentlevel++; } while (currentlevel > level) {
-        toc += "</ol>";
+      while (currentlevel < level) { toc += '<ul class="chapter">'; currentlevel++; } while (currentlevel > level) {
+        toc += "</ul>";
         currentlevel--;
       }
       toc += '<li><a href="#' + this.id + '">' + $(this).html() + "</a></li>\n";
     });
     while (currentlevel > 0) {
-      toc += "</ol>";
+      toc += "</ul>";
       currentlevel--;
     }
     if ($(".post-content h2")[0]) {
