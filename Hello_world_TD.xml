@@ -3791,7 +3791,7 @@
                     <b:if cond='data:label.isLast != &quot;true&quot;'>
                     </b:if>
                     <b:if cond='data:blog.pageType == &quot;item&quot;'>
-                      <script expr:src='&quot;/feeds/posts/default/-/&quot; + data:label.name + &quot;?alt=json-in-script&amp;callback=related_results_labels_thumbs&amp;max-results=8&quot;' type='text/javascript'/>
+                      <script expr:src='&quot;/feeds/posts/default/-/&quot; + data:label.name + &quot;?alt=json-in-script&amp;callback=related_results_labels_thumbs&amp;max-results=99&quot;' type='text/javascript'/>
                     </b:if>
                   </b:loop>
                   <script type='text/javascript'>
