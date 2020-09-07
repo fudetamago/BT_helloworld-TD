@@ -812,6 +812,8 @@
     .post-area img {
       border: solid 1px #ddd;
       object-fit: cover;
+      max-width:100%;
+      vertical-align: bottom;
     }
 
     .separator {
