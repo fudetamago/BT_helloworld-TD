@@ -3013,7 +3013,7 @@
               </b:switch>
             </b:includable>
             <b:includable id='404'>
-              <div class='post-area'>
+              <div class='post-area post-body'>
                 <h1>404 Not Found&#65288;ページが見つかりませんでした&#65289;</h1>
                 <div class='post-content'>
                   <div class='error-panel'>404</div>
@@ -3706,7 +3706,7 @@
             </b:includable>
             <b:includable id='single-post'>
               <!-- schema -->
-              <div class='post-area' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+              <div class='post-area post-body' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
                 <b:if cond='data:post.firstImageUrl'>
                   <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
                 </b:if>
@@ -3836,7 +3836,7 @@
               </div>
             </b:includable>
             <b:includable id='static'>
-              <div class='post-area'>
+              <div class='post-area post-body'>
                 <h1>
                   <data:post.title/>
                 </h1>
