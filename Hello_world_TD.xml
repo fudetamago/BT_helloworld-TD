@@ -45,25 +45,17 @@
 
   <!-- Twitterカード -->
   <meta content='summary_large_image' name='twitter:card'/>
-  <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
-
-  <b:if cond='data:blog.pageType == &quot;item&quot;'>
-    <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
-    <meta expr:content='data:blog.pageName' name='twitter:title'/>
-    <meta expr:content='data:blog.postImageUrl' name='twitter:image:src'/>
-  <b:if cond='data:blog.pageType == &quot;index&quot;'>
-    <meta expr:content='data:blog.title' name='twitter:title'/>
-    <!-- 自分の画像URLに変更する -->
-    <meta content='https://1.bp.blogspot.com/-rkhmAb2Zph8/X0nJOvitpZI/AAAAAAAAb78/IAednQHMKRU1l-4o1mMtsSg-HnsOBEiagCLcBGAsYHQ/s1600/blogger.png'/>
+  <b:if cond='data:blog.postImageUrl'>
+    <!-- 記事に画像がある時 -->
+    <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
   <b:else/>
-    <meta expr:content='data:blog.homepageUrl' name='twitter:url'/>
-    <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-    <meta content='Image URL' name='twitter:image:src'/>
+    <!-- 記事に画像がない時（自分の画像URLに変更する） -->
+    <meta content='https://1.bp.blogspot.com/-rkhmAb2Zph8/X0nJOvitpZI/AAAAAAAAb78/IAednQHMKRU1l-4o1mMtsSg-HnsOBEiagCLcBGAsYHQ/s1600/blogger.png' name='twitter:image:src' property='og:image'/>
   </b:if>
-  </b:if>
-
-  <b:if cond='data:blog.metaDescription'>
-    <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+  <!-- インデックスか固定ページの時 -->
+  <b:if cond='data:blog.pageType == &quot;index&quot; or data:blog.pageType == &quot;static_page&quot;'>
+    <!-- 自分の画像URLに変更する -->
+    <meta content='https://1.bp.blogspot.com/-rkhmAb2Zph8/X0nJOvitpZI/AAAAAAAAb78/IAednQHMKRU1l-4o1mMtsSg-HnsOBEiagCLcBGAsYHQ/s1600/blogger.png' name='twitter:image:src' property='og:image'/>
   </b:if>
 
   <!-- font-awesome CDN -->
