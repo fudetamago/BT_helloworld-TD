@@ -1323,12 +1323,18 @@
       font-size: 15px;
       color: $(comment.subtitle.color);
       padding: 2px 0;
+      border-bottom: dashed 1px $(comment.subtitle.color);
       margin-left: 8px;
-      border-bottom: dashed 1px #555;
     }
 
+    .comments .comments-content .comment-thread {
+      margin: 15px 0 8px;
+    }
+    
     .comment-area p {
       font-size: 13px;
+      line-height: 1.5em;
+      letter-spacing: 1px;
     }
 
     /* 埋め込み時
@@ -1349,6 +1355,12 @@
 
    .comments .comments-content .user a {
       font-size: 14px;
+      color: $(comment.user.color);
+    }
+
+    .comments .comments-content .icon.blog-author {
+      width: 0;
+      margin: 0;
     }
 
     /* コメントの投稿日時 */
@@ -1356,11 +1368,28 @@
       color: $(comment.date.color);
     }
 
+    /* 返信ボタン・削除ボタンの位置 */
+    .secondary-text {
+      margin-left: 5px;
+    }
+
     /* コメントの内容 */
     .comments .comments-content {
-      color: $(comment.color);
       font-size: 13px;
+      color: $(comment.color);
       margin-bottom: 5px;
+    }
+
+    /* Bloggerユーザーアイコン */
+    .avatar-image-container img {
+      width: 40px;
+      height: 40px;
+      margin-top: -3px;
+    }
+
+    /* コメント内容 */
+    .comments .comments-content .comment-content {
+      margin: 0 0 8px 8px;
     }
 
     /* 返信の背景 */
@@ -1373,26 +1402,103 @@
       padding-right:5%;
      }
 
+    /* 返信・削除ボタン */
+    a.comment-reply{
+      font-size: 12px;
+      color: #0075c2;
+    }
+
+    span.blog-admin a {
+      font-size: 12px;
+      color: #0075c2;
+    }
+
     /* ポップアップ時
     ---------------------------------------------------------------------------- */
 
+    /* 投稿ユーザー名 */
     .comment-author {
     font-size: 13px;
     color: $(comment.number.color);
-    font-weight: normal;
+    font-weight: 600;
     }
+
+    /* 投稿ボタン */
 
     .comment-footer {
       margin: 10px;
     }
 
     .comment-footer a {
-    display: block;
-    color: $(comment.button.font.color);
-    background: $(comment.button.background.color);
-    font-weight: bold;
-    text-align: center;
-    padding: 10px 0;
+      display: block;
+      color: $(comment.button.font.color);
+      background: $(comment.button.background.color);
+      font-weight: bold;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    #comments-block.avatar-comment-indent {
+      margin-top: 30px;
+    }
+
+    /* Bloggerユーザーアイコン */
+    .avatar-hovercard img {
+      width: 38px;
+      height: 38px;
+      margin-top: -20px;
+    }
+
+    /* 匿名ユーザー */
+    .avatar-image-container {
+      border-radius: 50%;
+      width: 35px;
+      height:35px;
+      background-image: url(https://1.bp.blogspot.com/-gEZa-sN4Mo0/X2mCgCFs4kI/AAAAAAAAcIM/sb-zCn5u7-UVqAJK2i9DUJOO9KHRcK-1gCLcBGAsYHQ/s0/ba.png);
+      background-repeat:no-repeat;
+      background-size: contain;
+      border: 1px solid #eee;
+      margin-right: 10px;
+    }
+    
+    /* ユーザー名 */
+    #comments .avatar-comment-indent .comment-author {
+      padding-left: 50px;
+    }
+
+    /* コメント */
+    .comment-body p {
+      padding-left: 4px;
+      margin-bottom: -5px;
+    }
+
+    /* コメントパーマリンク */
+    .comment-timestamp a {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: normal;
+      color: $(comment.date.color);
+      background: #fff;
+      padding: 4px;
+    }
+    
+    .comment-timestamp a:hover {
+      opacity: 0.6;
+    }
+
+    /* 削除ボタン */
+    .comment-delete img {
+      width: 0;
+      height: 0;
+    }
+    .comment-delete::after {
+      content:"削除";
+      margin-left: -2px;
+    }
+
+    /* 削除コメント */
+    .deleted-comment {
+      font-size: 12px;
     }
 
     /* レスポンシブ（タブレット小縦） */
@@ -3181,6 +3287,17 @@
                 </div>
               </b:includable>
             <b:includable id='commentDeleteIcon' var='comment'>
+            <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+                 <b:if cond='data:showCmtPopup'>
+                   <div class='goog-toggle-button'>
+                     <div class='goog-inline-block comment-action-icon'/>
+                   </div>
+                 <b:else/>
+                   <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:top.deleteCommentMsg'>
+                     <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+                   </a>
+                 </b:if>
+               </span>
               </b:includable>
             <b:includable id='comment_count_picker' var='post'>
                 <b:if cond='data:post.commentSource == 1'>
@@ -3250,6 +3367,23 @@
                             <data:comment.author/>
                             <data:commentPostedByMsg/>
                           </dt>
+                          <dd class='comment-body' expr:id='data:widget.instanceId + data:comment.cmtBodyIdPostfix'>
+                           <b:if cond='data:comment.isDeleted'>
+                             <span class='deleted-comment'><data:comment.body/></span>
+                           <b:else/>
+                             <p>
+                               <data:comment.body/>
+                             </p>
+                           </b:if>
+                         </dd>
+                         <dd class='comment-footer'>
+                           <span class='comment-timestamp'>
+                             <a expr:href='data:comment.url' title='comment permalink'>
+                               <data:comment.timestamp/>
+                             </a>
+                             <b:include data='comment' name='commentDeleteIcon'/>
+                           </span>
+                         </dd>
                         </b:loop>
                       </dl>
                     </div>
