@@ -21,27 +21,7 @@
   </b:if>
 
   <!-- OGP設定 -->
-  <b:if cond='data:blog.pageType == &quot;item&quot; or data:blog.pageType == &quot;static_page&quot;'>
-    <meta expr:content='data:blog.pageName' property='og:title'/>
-    <meta content='article' property='og:type'/>
-  <b:else/>
-    <meta expr:content='data:blog.title' property='og:title'/>
-    <meta content='website' property='og:type'/>
-  </b:if>
-  
-  <b:if cond='data:blog.metaDescription != &quot;&quot;'>
-    <meta expr:content='data:blog.metaDescription' property='og:description'/>
-  </b:if>
-  
-  <meta expr:content='data:blog.url' property='og:url'/>
   <meta expr:content='data:blog.title' property='og:site_name'/>
-  <meta content='ja_JP' property='og:locale'/>
-  
-  <!-- og:image -->
-  <b:if cond='data:blog.pageType == &quot;item&quot; or data:blog.pageType == &quot;static_page&quot;'>
-    <meta expr:content='&quot;http://blogger-entry-image.appspot.com/?s=s900&amp;u=&quot; + data:blog.url' property='og:image'/>
-  <b:else/>
-  </b:if>
 
   <!-- Twitterカード -->
   <meta content='summary_large_image' name='twitter:card'/>
